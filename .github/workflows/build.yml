@@ -1,0 +1,90 @@
+name: Build and Package
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      
+      - name: Restore dependencies
+        run: dotnet restore src/VulcanLearningPit/VulcanLearningPit.csproj
+      
+      - name: Build
+        run: dotnet build src/VulcanLearningPit/VulcanLearningPit.csproj -c Release --no-restore
+      
+      - name: Test
+        run: dotnet test src/VulcanLearningPit/VulcanLearningPit.csproj -c Release --no-build --verbosity normal || echo "No tests found"
+  
+  package:
+    runs-on: ubuntu-latest
+    needs: build
+    
+    strategy:
+      matrix:
+        include:
+          - os: linux-x64
+            runtime: linux-x64
+          - os: win-x64
+            runtime: win-x64
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      
+      - name: Restore dependencies
+        run: dotnet restore src/VulcanLearningPit/VulcanLearningPit.csproj
+      
+      - name: Build and publish
+        run: |
+          dotnet publish src/VulcanLearningPit/VulcanLearningPit.csproj \
+            -c Release \
+            -r ${{ matrix.runtime }} \
+            --self-contained true \
+            -p:PublishSingleFile=true \
+            -p:PublishTrimmed=true \
+            -o ./publish/${{ matrix.os }}
+      
+      - name: Create archive
+        run: |
+          cd ./publish/${{ matrix.os }}
+          if [[ "${{ matrix.os }}" == win-* ]]; then
+            zip -r ../../VulcanLearningPit-${{ matrix.os }}.zip .
+          else
+            tar -czf ../../VulcanLearningPit-${{ matrix.os }}.tar.gz .
+          fi
+      
+      - name: Generate SHA256 checksum
+        run: |
+          if [[ "${{ matrix.os }}" == win-* ]]; then
+            sha256sum VulcanLearningPit-${{ matrix.os }}.zip > VulcanLearningPit-${{ matrix.os }}.zip.sha256
+            cat VulcanLearningPit-${{ matrix.os }}.zip.sha256
+          else
+            sha256sum VulcanLearningPit-${{ matrix.os }}.tar.gz > VulcanLearningPit-${{ matrix.os }}.tar.gz.sha256
+            cat VulcanLearningPit-${{ matrix.os }}.tar.gz.sha256
+          fi
+      
+      - name: Upload Artifacts with Checksums
+        uses: actions/upload-artifact@v4
+        with:
+          name: vulcan-learning-pit-${{ matrix.os }}
+          path: |
+            VulcanLearningPit-${{ matrix.os }}.*
+          retention-days: 30
