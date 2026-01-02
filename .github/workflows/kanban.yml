@@ -12,6 +12,10 @@ jobs:
   add-to-project:
     name: Add issue or PR to Kanban board
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: read
     steps:
       - name: Add to project
         uses: actions/add-to-project@v0.5.0
