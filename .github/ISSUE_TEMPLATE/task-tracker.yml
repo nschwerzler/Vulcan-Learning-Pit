@@ -1,0 +1,95 @@
+name: Task
+description: Create a general project task
+title: "[Task] "
+labels: ["task", "project-tracker"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Task Template
+        Use this for general work items in the project.
+        
+  - type: input
+    id: title
+    attributes:
+      label: Task Title
+      description: Brief description of the task
+    validations:
+      required: true
+      
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Detailed description of what needs to be done
+    validations:
+      required: true
+      
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How will we know this task is complete?
+      placeholder: |
+        - [ ] Criterion 1
+        - [ ] Criterion 2
+        - [ ] Criterion 3
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: size
+    attributes:
+      label: Size Estimate
+      description: Rough estimate of complexity
+      options:
+        - "XS - Extra small (< 2 hours)"
+        - "S - Small (half day)"
+        - "M - Medium (1-2 days)"
+        - "L - Large (3-5 days)"
+        - "XL - Extra large (1+ weeks)"
+        - "Not estimated yet"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: Task priority
+      options:
+        - "Critical"
+        - "High"
+        - "Medium"
+        - "Low"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Type of work
+      options:
+        - "Feature"
+        - "Improvement"
+        - "Bug Fix"
+        - "Documentation"
+        - "Infrastructure"
+        - "Other"
+        
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Dependencies or blockers
+      placeholder: |
+        - Depends on #123
+        - Waiting for external approval
+        
+  - type: input
+    id: assignee
+    attributes:
+      label: Preferred Assignee
+      description: Who should work on this? (optional)
+      placeholder: "@username"

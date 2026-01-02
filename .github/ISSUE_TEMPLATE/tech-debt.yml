@@ -1,0 +1,86 @@
+name: Technical Debt
+description: Track technical debt and refactoring work
+title: "[Tech Debt] "
+labels: ["tech-debt", "scrum"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Technical Debt Template
+        Use this to track technical debt, refactoring, or code quality improvements.
+        
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      description: Brief description of the technical debt
+    validations:
+      required: true
+      
+  - type: textarea
+    id: current-state
+    attributes:
+      label: Current State
+      description: Describe the current problematic state
+    validations:
+      required: true
+      
+  - type: textarea
+    id: desired-state
+    attributes:
+      label: Desired State
+      description: Describe how it should be after addressing the debt
+    validations:
+      required: true
+      
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: What is the impact of this technical debt?
+      placeholder: |
+        - Performance issues
+        - Maintainability problems
+        - Security concerns
+        - Developer productivity
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is this technical debt?
+      options:
+        - "Critical - Blocks development"
+        - "High - Significantly impacts work"
+        - "Medium - Noticeable impact"
+        - "Low - Minor inconvenience"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: story-points
+    attributes:
+      label: Story Points
+      description: Estimated effort to address
+      options:
+        - "1"
+        - "2"
+        - "3"
+        - "5"
+        - "8"
+        - "13"
+        - "Not estimated yet"
+        
+  - type: textarea
+    id: approach
+    attributes:
+      label: Proposed Approach
+      description: How would you recommend addressing this?
+      
+  - type: input
+    id: affected-areas
+    attributes:
+      label: Affected Code Areas
+      description: Which files or modules are affected?

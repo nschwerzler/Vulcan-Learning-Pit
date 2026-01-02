@@ -1,0 +1,89 @@
+name: Research
+description: Create a research or investigation task
+title: "[Research] "
+labels: ["research", "project-tracker"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Research Template
+        Use this for investigation, spikes, or exploratory work.
+        
+  - type: input
+    id: title
+    attributes:
+      label: Research Topic
+      description: What needs to be researched?
+    validations:
+      required: true
+      
+  - type: textarea
+    id: background
+    attributes:
+      label: Background
+      description: Context and why this research is needed
+    validations:
+      required: true
+      
+  - type: textarea
+    id: questions
+    attributes:
+      label: Key Questions
+      description: What questions need to be answered?
+      placeholder: |
+        - Question 1?
+        - Question 2?
+        - Question 3?
+    validations:
+      required: true
+      
+  - type: textarea
+    id: approach
+    attributes:
+      label: Research Approach
+      description: How will you conduct this research?
+      placeholder: |
+        - Literature review
+        - Proof of concept
+        - Performance testing
+        - User interviews
+        
+  - type: dropdown
+    id: size
+    attributes:
+      label: Time Box
+      description: How much time should be allocated?
+      options:
+        - "XS - Few hours"
+        - "S - Half day"
+        - "M - 1-2 days"
+        - "L - 3-5 days"
+        - "XL - 1+ weeks"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: deliverables
+    attributes:
+      label: Expected Deliverables
+      description: What will be the output of this research?
+      placeholder: |
+        - Written summary
+        - Proof of concept code
+        - Recommendation document
+        - Presentation
+    validations:
+      required: true
+      
+  - type: textarea
+    id: success-criteria
+    attributes:
+      label: Success Criteria
+      description: How will we know this research is complete?
+      
+  - type: input
+    id: deadline
+    attributes:
+      label: Target Completion
+      description: When should this research be completed?
+      placeholder: "2024-02-15"

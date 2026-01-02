@@ -1,0 +1,81 @@
+name: Milestone
+description: Create a project milestone
+title: "[Milestone] "
+labels: ["milestone", "project-tracker"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Milestone Template
+        Define a major project checkpoint or release.
+        
+  - type: input
+    id: title
+    attributes:
+      label: Milestone Name
+      description: Name of this milestone
+      placeholder: "Version 1.0 Release"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What does this milestone represent?
+    validations:
+      required: true
+      
+  - type: textarea
+    id: goals
+    attributes:
+      label: Goals
+      description: Key goals for this milestone
+      placeholder: |
+        - [ ] Goal 1
+        - [ ] Goal 2
+        - [ ] Goal 3
+    validations:
+      required: true
+      
+  - type: input
+    id: target-date
+    attributes:
+      label: Target Completion Date
+      description: When should this milestone be completed?
+      placeholder: "2024-03-31"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: deliverables
+    attributes:
+      label: Key Deliverables
+      description: What will be delivered in this milestone?
+      placeholder: |
+        - Deliverable 1
+        - Deliverable 2
+    validations:
+      required: true
+      
+  - type: textarea
+    id: success-metrics
+    attributes:
+      label: Success Metrics
+      description: How will success be measured?
+      placeholder: |
+        - Performance targets
+        - User adoption goals
+        - Quality metrics
+        
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: What needs to be completed before this milestone?
+      
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks and Mitigation
+      description: Potential risks and how to address them

@@ -1,0 +1,104 @@
+name: Initiative
+description: Create a large initiative or epic
+title: "[Initiative] "
+labels: ["initiative", "project-tracker"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Initiative Template
+        Use this for large bodies of work that contain multiple tasks.
+        
+  - type: input
+    id: title
+    attributes:
+      label: Initiative Title
+      description: Name of this initiative
+    validations:
+      required: true
+      
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: What is the goal of this initiative?
+    validations:
+      required: true
+      
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What is included and excluded from this initiative?
+      placeholder: |
+        **In Scope:**
+        - Feature A
+        - Feature B
+        
+        **Out of Scope:**
+        - Feature C
+    validations:
+      required: true
+      
+  - type: textarea
+    id: success-criteria
+    attributes:
+      label: Success Criteria
+      description: How will we measure success?
+      placeholder: |
+        - [ ] Metric 1 achieved
+        - [ ] User feedback positive
+        - [ ] Performance targets met
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: size
+    attributes:
+      label: Size Estimate
+      description: Rough size estimate
+      options:
+        - "S - Small (1-2 weeks)"
+        - "M - Medium (3-4 weeks)"
+        - "L - Large (1-2 months)"
+        - "XL - Extra Large (3+ months)"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: Business priority
+      options:
+        - "Critical"
+        - "High"
+        - "Medium"
+        - "Low"
+    validations:
+      required: true
+      
+  - type: input
+    id: milestone
+    attributes:
+      label: Target Milestone
+      description: Which milestone or release is this targeted for?
+      placeholder: "Q1 2024"
+      
+  - type: textarea
+    id: stakeholders
+    attributes:
+      label: Stakeholders
+      description: Who are the key stakeholders?
+      
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: External dependencies or requirements
+      
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks
+      description: Potential risks or concerns

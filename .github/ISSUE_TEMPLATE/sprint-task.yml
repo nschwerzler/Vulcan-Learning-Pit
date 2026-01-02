@@ -1,0 +1,72 @@
+name: Sprint Task
+description: Create a sprint task
+title: "[Sprint Task] "
+labels: ["sprint-task", "scrum"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Sprint Task Template
+        Create a specific task to be completed within a sprint.
+        
+  - type: input
+    id: title
+    attributes:
+      label: Task Title
+      description: Brief description of the task
+    validations:
+      required: true
+      
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Detailed description of what needs to be done
+    validations:
+      required: true
+      
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How will we know this task is complete?
+      placeholder: |
+        - [ ] Criterion 1
+        - [ ] Criterion 2
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: story-points
+    attributes:
+      label: Story Points
+      description: Estimated effort (Fibonacci scale)
+      options:
+        - "1"
+        - "2"
+        - "3"
+        - "5"
+        - "8"
+        - "Not estimated yet"
+    validations:
+      required: true
+      
+  - type: input
+    id: sprint
+    attributes:
+      label: Sprint Number
+      description: Which sprint is this task part of?
+      placeholder: "Sprint 1"
+      
+  - type: input
+    id: parent-story
+    attributes:
+      label: Parent User Story
+      description: Link to parent user story (if applicable)
+      placeholder: "#123"
+      
+  - type: textarea
+    id: technical-details
+    attributes:
+      label: Technical Details
+      description: Technical approach, considerations, or notes
