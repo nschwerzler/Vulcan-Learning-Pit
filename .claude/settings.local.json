@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp add:*)",
+      "Bash(claude settings set:*)",
+      "Bash(claude settings:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
