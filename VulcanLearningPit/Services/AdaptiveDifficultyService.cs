@@ -52,7 +52,7 @@ public class AdaptiveDifficultyService
         {
             // No data yet, return a random subject
             var subjects = Enum.GetValues(typeof(SubjectType)).Cast<SubjectType>().ToList();
-            return subjects[new Random().Next(subjects.Count)];
+            return subjects[Random.Shared.Next(subjects.Count)];
         }
 
         // Find subject with lowest success rate
@@ -66,8 +66,7 @@ public class AdaptiveDifficultyService
     public SubjectType SelectNextSubject(Dictionary<SubjectType, SubjectStats> subjectStats, SubjectType currentSubject)
     {
         // 70% chance to target weakness, 30% chance to switch for ADD support
-        var random = new Random();
-        if (random.NextDouble() < 0.7)
+        if (Random.Shared.NextDouble() < 0.7)
         {
             return IdentifyWeakestSubject(subjectStats);
         }
@@ -77,7 +76,7 @@ public class AdaptiveDifficultyService
             var subjects = Enum.GetValues(typeof(SubjectType)).Cast<SubjectType>()
                 .Where(s => s != currentSubject)
                 .ToList();
-            return subjects[random.Next(subjects.Count)];
+            return subjects[Random.Shared.Next(subjects.Count)];
         }
     }
 

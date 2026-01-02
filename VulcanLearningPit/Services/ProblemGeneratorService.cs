@@ -292,7 +292,15 @@ public class ProblemGeneratorService
             }
         }
 
-        return options.OrderBy(x => _random.Next()).Select(x => x.ToString()).ToList();
+        var shuffledOptions = options.ToArray();
+        // Fisher-Yates shuffle for better performance
+        for (int i = shuffledOptions.Length - 1; i > 0; i--)
+        {
+            int j = _random.Next(i + 1);
+            (shuffledOptions[i], shuffledOptions[j]) = (shuffledOptions[j], shuffledOptions[i]);
+        }
+        
+        return shuffledOptions.Select(x => x.ToString()).ToList();
     }
 
     private int GetMaxNumber(DifficultyLevel difficulty, GradeLevel grade)

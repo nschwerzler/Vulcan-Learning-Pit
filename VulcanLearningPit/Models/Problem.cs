@@ -12,8 +12,6 @@ public abstract class Problem
     public int TimeLimit { get; set; } // in seconds
     public string Explanation { get; set; } = string.Empty;
     public int PointValue { get; set; }
-
-    public abstract void Generate();
 }
 
 public class MathProblem : Problem
@@ -22,11 +20,6 @@ public class MathProblem : Problem
     {
         Subject = SubjectType.Math;
     }
-
-    public override void Generate()
-    {
-        // Math problem generation will be implemented by the problem generator service
-    }
 }
 
 public class LogicProblem : Problem
@@ -34,11 +27,6 @@ public class LogicProblem : Problem
     public LogicProblem()
     {
         Subject = SubjectType.Logic;
-    }
-
-    public override void Generate()
-    {
-        // Logic problem generation will be implemented by the problem generator service
     }
 }
 
@@ -50,11 +38,6 @@ public class ReadingProblem : Problem
     {
         Subject = SubjectType.Reading;
     }
-
-    public override void Generate()
-    {
-        // Reading problem generation will be implemented by the problem generator service
-    }
 }
 
 public class ScienceProblem : Problem
@@ -62,10 +45,5 @@ public class ScienceProblem : Problem
     public ScienceProblem()
     {
         Subject = SubjectType.Science;
-    }
-
-    public override void Generate()
-    {
-        // Science problem generation will be implemented by the problem generator service
     }
 }

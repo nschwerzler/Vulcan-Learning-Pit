@@ -243,7 +243,7 @@ public class MainViewModel : ViewModelBase
             "Remember: logic and reason will guide you to the truth.",
             "Consider all possibilities before choosing your answer."
         };
-        return messages[new Random().Next(messages.Length)];
+        return messages[Random.Shared.Next(messages.Length)];
     }
 
     private string GetPraiseMessage(int points)
@@ -265,7 +265,7 @@ public class MainViewModel : ViewModelBase
             "The greatest scholars were once students who failed many times.",
             "Difficulty is merely an opportunity to grow stronger."
         };
-        return messages[new Random().Next(messages.Length)];
+        return messages[Random.Shared.Next(messages.Length)];
     }
 
     private void ShowLeaderboard()
