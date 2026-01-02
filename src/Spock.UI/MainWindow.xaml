@@ -5,8 +5,187 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Spock.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Spock Learning" Height="700" Width="1000"
+        Background="#1A1A1A"
+        FontFamily="Segoe UI"
+        WindowStartupLocation="CenterScreen">
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
+        <!-- Header with Stats -->
+        <Border Grid.Row="0" Background="#2A2A2A" CornerRadius="8" Padding="20" Margin="0,0,0,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" 
+                          Text="SPOCK LEARNING SYSTEM" 
+                          FontSize="24" 
+                          FontWeight="Bold"
+                          Foreground="#4A9EFF"
+                          VerticalAlignment="Center"/>
+
+                <StackPanel Grid.Column="1" Margin="20,0">
+                    <TextBlock Text="STREAK" FontSize="10" Foreground="#888" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding CorrectStreak}" 
+                              FontSize="28" 
+                              FontWeight="Bold"
+                              Foreground="#4AFF88"
+                              HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Margin="20,0">
+                    <TextBlock Text="ACCURACY" FontSize="10" Foreground="#888" HorizontalAlignment="Center"/>
+                    <TextBlock FontSize="28" FontWeight="Bold" Foreground="#FFB84A" HorizontalAlignment="Center">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0:F0}%">
+                                <Binding Path="AccuracyPercentage"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Grid.Column="3" Margin="20,0,0,0">
+                    <TextBlock Text="PROBLEMS" FontSize="10" Foreground="#888" HorizontalAlignment="Center"/>
+                    <TextBlock FontSize="28" FontWeight="Bold" Foreground="#CCC" HorizontalAlignment="Center">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0}/{1}">
+                                <Binding Path="CorrectAnswers"/>
+                                <Binding Path="TotalAttempts"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Spock Message Area -->
+        <Border Grid.Row="1" Background="#2A4A2A" CornerRadius="8" Padding="20" Margin="0,0,0,20"
+                BorderBrush="#4AFF88" BorderThickness="1">
+            <StackPanel>
+                <TextBlock Text="◢ SPOCK" 
+                          FontSize="12" 
+                          Foreground="#4AFF88" 
+                          FontWeight="Bold"
+                          Margin="0,0,0,10"/>
+                <TextBlock Text="{Binding SpockMessage}" 
+                          FontSize="16" 
+                          Foreground="#E0E0E0"
+                          TextWrapping="Wrap"
+                          LineHeight="24"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Problem Area -->
+        <Border Grid.Row="2" Background="#2A2A2A" CornerRadius="8" Padding="30" Margin="0,0,0,20">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="CURRENT PROBLEM" 
+                              FontSize="12" 
+                              Foreground="#888"
+                              Margin="0,0,0,15"/>
+                    <TextBlock Text="{Binding CurrentQuestion}" 
+                              FontSize="18" 
+                              Foreground="#FFF"
+                              TextWrapping="Wrap"
+                              LineHeight="28"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Feedback Message -->
+        <Border Grid.Row="3" 
+                Background="#3A3A1A" 
+                CornerRadius="8" 
+                Padding="15" 
+                Margin="0,0,0,20"
+                Visibility="{Binding FeedbackMessage, Converter={StaticResource StringToVisibilityConverter}}">
+            <TextBlock Text="{Binding FeedbackMessage}" 
+                      FontSize="14" 
+                      Foreground="#FFD700"
+                      FontWeight="SemiBold"
+                      HorizontalAlignment="Center"/>
+        </Border>
+
+        <!-- Answer Input Area -->
+        <Border Grid.Row="4" Background="#2A2A2A" CornerRadius="8" Padding="20" Margin="0,0,0,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" 
+                          Text="YOUR ANSWER:" 
+                          FontSize="14" 
+                          Foreground="#888"
+                          VerticalAlignment="Center"
+                          Margin="0,0,15,0"/>
+                
+                <TextBox Grid.Column="1"
+                        Text="{Binding UserAnswer, UpdateSourceTrigger=PropertyChanged}"
+                        FontSize="16"
+                        Padding="10"
+                        Background="#1A1A1A"
+                        Foreground="#FFF"
+                        BorderBrush="#555"
+                        BorderThickness="2"
+                        IsEnabled="{Binding IsAnswerSubmitted, Converter={StaticResource InverseBoolConverter}}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding SubmitCommand}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+            </Grid>
+        </Border>
+
+        <!-- Submit Button -->
+        <Button Grid.Row="5" 
+                Content="{Binding SubmitButtonText}"
+                Command="{Binding SubmitCommand}"
+                FontSize="18"
+                FontWeight="Bold"
+                Padding="20"
+                Background="#4A9EFF"
+                Foreground="White"
+                BorderThickness="0"
+                Cursor="Hand">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}"
+                                       CornerRadius="8"
+                                       Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                     VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#5AAFFF"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="#555"/>
+                            <Setter Property="Foreground" Value="#888"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </Window>

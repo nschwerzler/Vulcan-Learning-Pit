@@ -1,11 +1,84 @@
 {
   "version": 3,
   "targets": {
-    "net9.0-windows7.0": {}
+    "net9.0-windows7.0": {
+      "Stateless/5.20.0": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/Stateless.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Stateless.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Spock.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/Spock.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Spock.Core.dll": {}
+        }
+      },
+      "Spock.Engine/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "Spock.Core": "1.0.0",
+          "Stateless": "5.20.0"
+        },
+        "compile": {
+          "bin/placeholder/Spock.Engine.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Spock.Engine.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Stateless/5.20.0": {
+      "sha512": "f3/9Bbr+NcepybGXy/CDY5rJRdpdjoixDQRK811VZXGtkoCCzMT4lCraRuur+cS17TZ7GdUNoY2qgA6uJV45eg==",
+      "type": "package",
+      "path": "stateless/5.20.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "Stateless.png",
+        "lib/net462/Stateless.dll",
+        "lib/net462/Stateless.xml",
+        "lib/net8.0/Stateless.dll",
+        "lib/net8.0/Stateless.xml",
+        "lib/net9.0/Stateless.dll",
+        "lib/net9.0/Stateless.xml",
+        "lib/netstandard2.0/Stateless.dll",
+        "lib/netstandard2.0/Stateless.xml",
+        "stateless.5.20.0.nupkg.sha512",
+        "stateless.nuspec"
+      ]
+    },
+    "Spock.Core/1.0.0": {
+      "type": "project",
+      "path": "../Spock.Core/Spock.Core.csproj",
+      "msbuildProject": "../Spock.Core/Spock.Core.csproj"
+    },
+    "Spock.Engine/1.0.0": {
+      "type": "project",
+      "path": "../Spock.Engine/Spock.Engine.csproj",
+      "msbuildProject": "../Spock.Engine/Spock.Engine.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net9.0-windows7.0": []
+    "net9.0-windows7.0": [
+      "Spock.Core >= 1.0.0",
+      "Spock.Engine >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\nschw\\.nuget\\packages\\": {}
@@ -31,7 +104,14 @@
       "frameworks": {
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Core\\Spock.Core.csproj": {
+              "projectPath": "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Core\\Spock.Core.csproj"
+            },
+            "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Engine\\Spock.Engine.csproj": {
+              "projectPath": "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Engine\\Spock.Engine.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

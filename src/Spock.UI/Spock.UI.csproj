@@ -8,4 +8,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Spock.Core\Spock.Core.csproj" />
+    <ProjectReference Include="..\Spock.Engine\Spock.Engine.csproj" />
+  </ItemGroup>
+
 </Project>

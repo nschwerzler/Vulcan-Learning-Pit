@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:Spock.UI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <local:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+        <local:InverseBoolConverter x:Key="InverseBoolConverter"/>
     </Application.Resources>
 </Application>
