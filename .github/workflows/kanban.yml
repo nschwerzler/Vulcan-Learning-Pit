@@ -16,6 +16,9 @@ jobs:
       - name: Add to project
         uses: actions/add-to-project@v0.5.0
         with:
-          # Project URL can be configured in repository settings
-          # This is a placeholder workflow that demonstrates the concept
+          # TODO: Configure your project URL after creating the GitHub Project
+          # Replace PROJECT_NUMBER with your actual project number
+          # Example: https://github.com/users/USERNAME/projects/1
+          # Or for organization: https://github.com/orgs/ORGNAME/projects/1
+          project-url: https://github.com/users/nschwerzler/projects/1
           github-token: ${{ secrets.GITHUB_TOKEN }}
