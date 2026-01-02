@@ -248,7 +248,7 @@ Based on your answers:
 
 ## Resources
 
-- [Kanban Guide](KANBAN.md)
+- Kanban Guide *(Available in PR #4)*
 - [Scrum Guide](SCRUM.md)
 - [Project Tracker Guide](PROJECT-TRACKER.md)
 - [Setup Instructions](.github/) - For each methodology

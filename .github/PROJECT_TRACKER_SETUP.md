@@ -284,7 +284,7 @@ Document these in your project documentation:
 ## Resources
 
 - [PROJECT-TRACKER.md](../PROJECT-TRACKER.md) - Full methodology guide
-- [Issue Templates](../ISSUE_TEMPLATE/) - Templates for creating issues
+- [Issue Templates](ISSUE_TEMPLATE/) - Templates for creating issues
 - [GitHub Projects Documentation](https://docs.github.com/en/issues/planning-and-tracking-with-projects)
 
 ## Support

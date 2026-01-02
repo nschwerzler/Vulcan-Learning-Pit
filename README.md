@@ -6,13 +6,13 @@ A learning repository with multiple project management methodologies to choose f
 
 This repository supports three different project management approaches. Choose the one that best fits your team's workflow:
 
-### 1. Kanban Board
+### 1. Kanban Board *(Available in separate PR)*
 **Best for:** Continuous flow, visualizing work, limiting work-in-progress
 
 Kanban is a visual workflow management method that emphasizes continuous delivery without overburdening the team.
 
-- 📖 [Kanban Guide](KANBAN.md) - Complete methodology guide
-- 🔧 [Setup Instructions](.github/PROJECT_SETUP.md) - Step-by-step setup
+- 📖 Kanban Guide - Complete methodology guide *(See PR #4)*
+- 🔧 Setup Instructions - Step-by-step setup *(See PR #4)*
 - 📝 Issue Templates: Task, Bug, Feature
 
 **Key Features:**
@@ -102,9 +102,10 @@ See each methodology's guide for migration tips.
 
 ## 📖 Documentation
 
-- [KANBAN.md](KANBAN.md) - Kanban methodology guide
+- Kanban methodology guide *(Available in PR #4)*
 - [SCRUM.md](SCRUM.md) - Scrum methodology guide
 - [PROJECT-TRACKER.md](PROJECT-TRACKER.md) - Project Tracker guide
+- [CHOOSING-A-METHODOLOGY.md](CHOOSING-A-METHODOLOGY.md) - Guide to selecting the right approach
 - [Issue Templates](.github/ISSUE_TEMPLATE/) - All issue templates
 - [Workflows](.github/workflows/) - GitHub Actions automations
 

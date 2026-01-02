@@ -192,7 +192,7 @@ Example:
 
 - [SCRUM.md](../SCRUM.md) - Full Scrum methodology guide
 - [Scrum Guide](https://scrumguides.org/)
-- [Issue Templates](../ISSUE_TEMPLATE/) - Templates for creating issues
+- [Issue Templates](ISSUE_TEMPLATE/) - Templates for creating issues
 
 ## Support
 
