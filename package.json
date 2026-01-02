@@ -11,8 +11,16 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
+    "@modelcontextprotocol/server-github": "^2025.4.8",
     "@upstash/context7-mcp": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.0.3",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3"
   }
 }

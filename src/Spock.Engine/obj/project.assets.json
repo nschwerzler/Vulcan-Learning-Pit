@@ -1,0 +1,136 @@
+{
+  "version": 3,
+  "targets": {
+    "net9.0": {
+      "Stateless/5.20.0": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/Stateless.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Stateless.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Spock.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/Spock.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Spock.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Stateless/5.20.0": {
+      "sha512": "f3/9Bbr+NcepybGXy/CDY5rJRdpdjoixDQRK811VZXGtkoCCzMT4lCraRuur+cS17TZ7GdUNoY2qgA6uJV45eg==",
+      "type": "package",
+      "path": "stateless/5.20.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "Stateless.png",
+        "lib/net462/Stateless.dll",
+        "lib/net462/Stateless.xml",
+        "lib/net8.0/Stateless.dll",
+        "lib/net8.0/Stateless.xml",
+        "lib/net9.0/Stateless.dll",
+        "lib/net9.0/Stateless.xml",
+        "lib/netstandard2.0/Stateless.dll",
+        "lib/netstandard2.0/Stateless.xml",
+        "stateless.5.20.0.nupkg.sha512",
+        "stateless.nuspec"
+      ]
+    },
+    "Spock.Core/1.0.0": {
+      "type": "project",
+      "path": "../Spock.Core/Spock.Core.csproj",
+      "msbuildProject": "../Spock.Core/Spock.Core.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net9.0": [
+      "Spock.Core >= 1.0.0",
+      "Stateless >= 5.20.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\nschw\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Engine\\Spock.Engine.csproj",
+      "projectName": "Spock.Engine",
+      "projectPath": "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Engine\\Spock.Engine.csproj",
+      "packagesPath": "C:\\Users\\nschw\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Engine\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\nschw\\AppData\\Roaming\\NuGet\\NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net9.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "projectReferences": {
+            "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Core\\Spock.Core.csproj": {
+              "projectPath": "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Core\\Spock.Core.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
+    },
+    "frameworks": {
+      "net9.0": {
+        "targetAlias": "net9.0",
+        "dependencies": {
+          "Stateless": {
+            "target": "Package",
+            "version": "[5.20.0, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

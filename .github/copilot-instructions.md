@@ -16,6 +16,8 @@ When the user says:
 
 **Spock Learning** is an adaptive learning platform for grades 4-college that uses a Spock mentor motif to provide motivation through earned approval rather than coercion. The system rapidly adapts difficulty based on student performance and can accelerate learners from elementary to college-level material when mastery is demonstrated.
 
+**Repository**: https://github.com/nschwerzler/Vulcan-Learning-Pit
+
 ## Core Philosophy
 
 - **Motivation via Competence Recognition**: Spock gives rare, data-based approval only when earned
@@ -26,11 +28,13 @@ When the user says:
 
 ## Architecture Principles
 
-1. **Stack Agnostic**: Implementation approach is intentionally flexible - adapt to constraints
+1. **.NET 10 C# WPF Only**: All implementation uses .NET 10 C# with WPF for desktop UI
 2. **Data-Driven**: All decisions based on performance metrics and mastery thresholds
 3. **Rapid Spiral Learning**: Master → Unlock → Advance cycle with automatic level progression
 4. **Weakness Tracking**: Persistent identification and targeted remediation of struggling concepts
 5. **Session State Management**: Track multi-problem sequences, approvals, and narrative echoes
+6. **MSTest with Timeouts**: All tests use MSTest framework with mandatory [Timeout] attributes
+7. **CancellationToken Pattern**: All async/wait operations must use CancellationToken with timeouts
 
 ## Code Generation Guidelines
 
@@ -42,6 +46,25 @@ When the user says:
 - **Implement state machines** for complex approval/progression logic
 - **Include data validation** for all student input and performance tracking
 - **Design for extensibility** - new subjects, problem types, and difficulty levels should be easy to add
+
+### Critical Coding Standards (ALWAYS ENFORCE)
+
+- **Every test method MUST have [Timeout(milliseconds)] attribute** - default 5000ms (5 seconds)
+- **All async operations MUST accept CancellationToken parameter**
+- **All waits/delays MUST use CancellationTokenSource with timeout**: `cts.CancelAfter(timeout)`
+- **Never create infinite loops or unbounded waits** - always have exit conditions
+- **Use MSTest framework** for all testing (not xUnit or NUnit)
+- **Test example pattern:**
+  ```csharp
+  [TestMethod]
+  [Timeout(5000)]
+  public async Task MethodName_Scenario_ExpectedResult()
+  {
+      using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
+      var result = await SomeMethodAsync(cts.Token);
+      result.Should().NotBeNull();
+  }
+  ```
 
 ### When Adding Features
 

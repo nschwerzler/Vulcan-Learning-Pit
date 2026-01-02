@@ -1,0 +1,12 @@
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\bin\Debug\net9.0\Spock.Data.deps.json
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\bin\Debug\net9.0\Spock.Data.dll
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\bin\Debug\net9.0\Spock.Data.pdb
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\Spock.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\Spock.Data.AssemblyInfoInputs.cache
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\Spock.Data.AssemblyInfo.cs
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\Spock.Data.csproj.CoreCompileInputs.cache
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\Spock.Data.sourcelink.json
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\Spock.Data.dll
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\refint\Spock.Data.dll
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\Spock.Data.pdb
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\ref\Spock.Data.dll

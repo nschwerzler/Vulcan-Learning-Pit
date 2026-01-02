@@ -1,0 +1,16 @@
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\bin\Debug\net9.0\Spock.Engine.deps.json
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\bin\Debug\net9.0\Spock.Engine.dll
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\bin\Debug\net9.0\Spock.Engine.pdb
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\obj\Debug\net9.0\Spock.Engine.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\obj\Debug\net9.0\Spock.Engine.AssemblyInfoInputs.cache
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\obj\Debug\net9.0\Spock.Engine.AssemblyInfo.cs
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\obj\Debug\net9.0\Spock.Engine.csproj.CoreCompileInputs.cache
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\obj\Debug\net9.0\Spock.Engine.sourcelink.json
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\obj\Debug\net9.0\Spock.Engine.dll
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\obj\Debug\net9.0\refint\Spock.Engine.dll
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\obj\Debug\net9.0\Spock.Engine.pdb
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\obj\Debug\net9.0\ref\Spock.Engine.dll
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\bin\Debug\net9.0\Spock.Core.dll
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\bin\Debug\net9.0\Spock.Core.pdb
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\obj\Debug\net9.0\Spock.Engine.csproj.AssemblyReference.cache
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Engine\obj\Debug\net9.0\Spock.En.0DBDA059.Up2Date

@@ -378,11 +378,713 @@ The system:
 
 ---
 
-## Next Additions (placeholder)
+## Adaptive Rules Table (Implementation Spec)
 
-When ready, we can add:
+### Mastery Thresholds
 
-- Exact adaptive rules table with rapid triggers and benchmarking algorithms
-- Parent dashboard UI mockups
-- Spock dialogue catalog for advanced levels
-- State machines and data models for implementation
+| Skill State | Accuracy | Time | Attempts | Action |
+|-------------|----------|------|----------|--------|
+| Struggling | <60% | >150% target | >3 on same concept | Spiral back; simplify; disguise in different domain |
+| Developing | 60-80% | 100-150% target | 2-4 | Maintain level; vary format |
+| Proficient | 80-90% | 80-120% target | 1-2 | Introduce edge cases; occasional spiral |
+| Mastered | >90% | <80% target | 1 | Unlock next level; add previews |
+| Rapid Mastery | >95% | <60% target | 1 | Auto-accelerate; skip intermediates |
+
+### Approval Trigger Algorithm
+
+```csharp
+public class ApprovalEngine
+{
+    private int _correctStreak = 0;
+    private int _approvalThreshold;
+    private bool _recentWeaknessConquered = false;
+    private readonly Random _random = new();
+
+    public ApprovalEngine()
+    {
+        _approvalThreshold = _random.Next(3, 8); // 3-7 inclusive
+    }
+
+    public void ProcessProblem(ProblemAttempt problem)
+    {
+        if (problem.IsCorrect)
+        {
+            _correctStreak++;
+            if (problem.WasWeakness && problem.NowMastered)
+            {
+                _recentWeaknessConquered = true;
+            }
+        }
+        else
+        {
+            _correctStreak = 0;
+            _approvalThreshold = _random.Next(3, 8); // Reset
+        }
+
+        // Approval conditions
+        if (_correctStreak >= _approvalThreshold)
+        {
+            TriggerApproval(ApprovalType.Streak, ApprovalIntensity.Subtle);
+            _correctStreak = 0;
+            _approvalThreshold = _random.Next(3, 8);
+        }
+
+        if (_recentWeaknessConquered)
+        {
+            TriggerApproval(ApprovalType.Mastery, ApprovalIntensity.Strong);
+            _recentWeaknessConquered = false;
+        }
+    }
+
+    private void TriggerApproval(ApprovalType type, ApprovalIntensity intensity)
+    {
+        // Implementation for displaying approval
+    }
+}
+
+public enum ApprovalType { Streak, Mastery }
+public enum ApprovalIntensity { Subtle, Strong }
+```
+
+### Topic Switch Engine (ADD-Optimized)
+
+```csharp
+public class SessionManager
+{
+    private const int MaxSameMicrotopic = 2;
+    private readonly Random _random = new();
+    
+    private int _sameTopicCount = 0;
+    private int _minutesInDomain = 0;
+    private int _domainSwitchThreshold;
+
+    public SessionManager()
+    {
+        _domainSwitchThreshold = _random.Next(3, 7); // 3-6 minutes
+    }
+
+    public Problem GetNextProblem()
+    {
+        // Rule 1: Never exceed 2 consecutive same micro-topics
+        if (_sameTopicCount >= MaxSameMicrotopic)
+        {
+            return GetDifferentDomain();
+        }
+
+        // Rule 2: Switch domains every 3-6 minutes
+        if (_minutesInDomain >= _domainSwitchThreshold)
+        {
+            _domainSwitchThreshold = _random.Next(3, 7);
+            return GetDifferentDomain();
+        }
+
+        // Rule 3: Disguise weakness targeting
+        if (HasUnaddressedWeakness())
+        {
+            return GetWeaknessInDifferentFormat();
+        }
+
+        // Default: balanced progression
+        return GetBalancedProblem();
+    }
+
+    private Problem GetDifferentDomain() { /* Implementation */ return null; }
+    private Problem GetWeaknessInDifferentFormat() { /* Implementation */ return null; }
+    private Problem GetBalancedProblem() { /* Implementation */ return null; }
+    private bool HasUnaddressedWeakness() { /* Implementation */ return false; }
+}
+```
+
+### Weakness Tracking Model
+
+```csharp
+public class WeaknessTracker
+{
+    private readonly Dictionary<string, WeaknessMetrics> _skills = new();
+    private readonly Random _random = new();
+
+    public class WeaknessMetrics
+    {
+        public double Accuracy { get; set; }
+        public double AvgTime { get; set; }
+        public double Confidence { get; set; }        // 1 - (answer_changes / attempts)
+        public string ErrorPattern { get; set; }      // "conceptual", "procedural", "speed"
+        public DateTime LastAttempt { get; set; }
+        public int DisguiseCount { get; set; }        // How many different contexts shown
+        public List<string> PresentedAs { get; set; } = new();
+    }
+
+    public bool IsWeakness(string skillId, double targetTime)
+    {
+        if (!_skills.TryGetValue(skillId, out var metrics))
+            return false;
+
+        return metrics.Accuracy < 0.75 ||
+               metrics.AvgTime > 1.3 * targetTime ||
+               metrics.Confidence < 0.7;
+    }
+
+    public string GetDisguiseContext(string skillId, List<string> allContexts)
+    {
+        if (!_skills.TryGetValue(skillId, out var baseSkill))
+            return null;
+
+        var usedContexts = baseSkill.PresentedAs;
+        var available = allContexts.Except(usedContexts).ToList();
+        
+        return available.Count > 0 
+            ? available[_random.Next(available.Count)] 
+            : null;
+    }
+
+    public void UpdateMetrics(string skillId, WeaknessMetrics metrics)
+    {
+        _skills[skillId] = metrics;
+    }
+}
+```
+
+---
+
+## Spock Dialogue System (Categorized by Context)
+
+### Neutral State (90% of time)
+
+- *(Silent observation)*
+- "Proceed."
+- "Next problem."
+- "Continue."
+
+### Subtle Approval (Streak-Based, Variable-Ratio)
+
+**After 3-7 correct sequence:**
+
+- "Your accuracy has improved."
+- "You are maintaining efficiency."
+- "Logical consistency noted."
+- "Pattern recognition is strengthening."
+
+### Strong Approval (Weakness Conquered)
+
+**When a tracked weakness crosses mastery threshold:**
+
+- "This skill was inefficient. It is no longer so."
+- "You have eliminated a recurring error pattern."
+- "Your performance in [concept] now meets standards."
+- "Weakness identified [X sessions ago]. Weakness resolved."
+
+### Corrective Feedback (Calm, Precise)
+
+**On error:**
+
+- "Incorrect. Review the relationship between [X] and [Y]."
+- "Your assumption about [concept] is flawed. Consider [alternative]."
+- "This error recurs. Focus on [specific step]."
+- "Time inefficiency detected. Optimize your approach."
+
+### Narrative Echoes (Rare, After Approval)
+
+**Linking current success to prior breakthroughs:**
+
+- "Your mastery of fractions [2 weeks ago] enabled this probability work."
+- "This builds upon your logic breakthrough from session 47."
+- "The discipline you demonstrated in [prior topic] is evident here."
+
+### Advanced Level Approvals
+
+**High school/college concepts:**
+
+- "Your proof structure is now rigorous."
+- "You have generalized beyond initial parameters."
+- "This synthesis integrates multiple domains effectively."
+- "Your model predicts unobserved outcomes."
+
+### Vulcan Insight Fragments (Rarest)
+
+**After major breakthrough or rapid mastery:**
+
+- "*The capacity to learn is not intelligence. The capacity to act on learning is.*" — Collectible wisdom
+- "*Mastery is achieved when efficiency becomes instinct.*"
+- "*Pattern recognition accelerates all subsequent learning.*"
+
+---
+
+## State Machine Specification
+
+### Student Session State
+
+```
+states:
+  - INITIALIZING: Loading student profile, recent history
+  - PROBLEM_PRESENTATION: Showing current problem
+  - AWAITING_INPUT: Student working (timer running)
+  - EVALUATING: Checking answer, updating metrics
+  - FEEDBACK: Showing Spock response
+  - SWITCHING_TOPIC: Transitioning domains
+  - APPROVAL_MOMENT: Rare approval sequence
+  - SESSION_COMPLETE: Wrap-up, save state
+  - FORCED_BREAK: Parent-set limit reached
+
+transitions:
+  PROBLEM_PRESENTATION -> AWAITING_INPUT (automatic)
+  AWAITING_INPUT -> EVALUATING (on submission)
+  EVALUATING -> FEEDBACK (always)
+  FEEDBACK -> APPROVAL_MOMENT (if approval triggered)
+  FEEDBACK -> SWITCHING_TOPIC (if domain switch needed)
+  FEEDBACK -> PROBLEM_PRESENTATION (default continue)
+  * -> FORCED_BREAK (on time/count limits)
+  * -> SESSION_COMPLETE (on student exit or break)
+```
+
+### Approval State Machine
+
+```
+states:
+  - NO_APPROVAL: Neutral Spock
+  - BUILDING: Correct streak accumulating
+  - APPROVAL_READY: Threshold reached
+  - DISPLAYING_APPROVAL: Showing response
+  - COOLDOWN: Post-approval period
+
+transitions:
+  NO_APPROVAL -> BUILDING (on first correct)
+  BUILDING -> APPROVAL_READY (streak >= threshold)
+  BUILDING -> NO_APPROVAL (on incorrect, reset)
+  APPROVAL_READY -> DISPLAYING_APPROVAL (immediate)
+  DISPLAYING_APPROVAL -> COOLDOWN (after 2-4 seconds)
+  COOLDOWN -> NO_APPROVAL (after 1-2 problems)
+
+special_triggers:
+  - WEAKNESS_CONQUERED: bypass all states -> DISPLAYING_APPROVAL (strong)
+  - RAPID_MASTERY: trigger Vulcan Insight fragment
+```
+
+---
+
+## Data Models (Core Entities)
+
+### Student Profile
+
+```csharp
+public class StudentProfile
+{
+    public string Id { get; set; }
+    public int Age { get; set; }
+    public CurrentLevel Level { get; set; }
+    public List<WeaknessRecord> Weaknesses { get; set; }
+    public List<ApprovalEvent> ApprovalHistory { get; set; }
+    public List<Session> SessionHistory { get; set; }
+    public StudentPreferences Preferences { get; set; }
+    public ParentSettings ParentSettings { get; set; }
+}
+
+public class CurrentLevel
+{
+    public string Math { get; set; }        // "Grade 5" or "High School Algebra"
+    public int Logic { get; set; }          // 1-10 adaptive scale
+    public string Reading { get; set; }
+    public string Science { get; set; }
+}
+
+public class StudentPreferences
+{
+    public List<string> ReadingGenres { get; set; }  // Sci-fi, mystery, tactical
+    public int FocusDuration { get; set; }           // Typical sustained attention (minutes)
+}
+
+public class ParentSettings
+{
+    public int SessionLengthCap { get; set; }        // minutes
+    public int MaxSessionsPerDay { get; set; }
+    public bool AccelerationAllowed { get; set; }
+    public bool DashboardNotifications { get; set; }
+}
+```
+
+### Problem Instance
+
+```csharp
+public enum Domain { Math, Logic, Reading, Science, Executive }
+public enum ProblemFormat { MultipleChoice, FreeResponse, Visual, Interactive }
+
+public class Problem
+{
+    public string Id { get; set; }
+    public Domain Domain { get; set; }
+    public string MicroTopic { get; set; }       // "fractions-addition", "deductive-chains"
+    public int Difficulty { get; set; }          // 1-10
+    public int TargetTime { get; set; }          // seconds
+    public ProblemContent Content { get; set; }
+    public ProblemMetadata Metadata { get; set; }
+}
+
+public class ProblemContent
+{
+    public string Question { get; set; }
+    public ProblemFormat Format { get; set; }
+    public List<string> Options { get; set; }    // For multiple choice
+    public List<string> CorrectAnswers { get; set; }
+}
+
+public class ProblemMetadata
+{
+    public string DisguisedWeakness { get; set; }     // If targeting weakness in different context
+    public bool IsPreview { get; set; }               // Testing readiness for next level
+    public List<string> ConceptualPrereqs { get; set; }
+}
+```
+
+### Session Record
+
+```csharp
+public enum SessionEndReason { StudentExit, TimeLimit, ForcedBreak, ParentEnd }
+
+public class Session
+{
+    public string Id { get; set; }
+    public string StudentId { get; set; }
+    public DateTime StartTime { get; set; }
+    public DateTime EndTime { get; set; }
+    public List<ProblemAttempt> Problems { get; set; }
+    public List<ApprovalEvent> Approvals { get; set; }
+    public SessionMetrics Metrics { get; set; }
+    public SessionEndReason EndReason { get; set; }
+}
+
+public class SessionMetrics
+{
+    public int TotalCorrect { get; set; }
+    public double AverageTime { get; set; }
+    public double FocusScore { get; set; }            // 0-1, derived from consistency
+    public List<string> DomainsVisited { get; set; }
+    public List<string> WeaknessesAddressed { get; set; }
+    public List<string> WeaknessesResolved { get; set; }
+}
+```
+
+### Parent Dashboard View
+
+```csharp
+public class DashboardData
+{
+    public string StudentId { get; set; }
+    public DateTime GeneratedAt { get; set; }
+    public PerformanceSummary CurrentPerformance { get; set; }
+    public TrendsSummary Trends { get; set; }
+    public BenchmarkData Benchmarks { get; set; }
+    public WeaknessReport WeaknessReport { get; set; }
+    public EngagementMetrics EngagementMetrics { get; set; }
+}
+
+public class PerformanceSummary
+{
+    public SkillSummary Math { get; set; }
+    public SkillSummary Logic { get; set; }
+    public SkillSummary Reading { get; set; }
+    public SkillSummary Science { get; set; }
+}
+
+public class TrendsSummary
+{
+    public TrendData Last7Days { get; set; }
+    public TrendData Last30Days { get; set; }
+    public TrendData AllTime { get; set; }
+}
+
+public class BenchmarkData
+{
+    public string GradeLevel { get; set; }             // "Performing at 6th grade"
+    public int AgePercentile { get; set; }             // 0-100
+    public int? EducationalIQEstimate { get; set; }    // Optional
+    public PeerStats PeerComparison { get; set; }
+}
+
+public class WeaknessReport
+{
+    public List<WeaknessRecord> ActiveWeaknesses { get; set; }
+    public List<WeaknessRecord> RecentConquests { get; set; }
+    public List<string> TargetedNextSession { get; set; }
+}
+
+public class EngagementMetrics
+{
+    public int SessionsThisWeek { get; set; }
+    public double AverageSessionLength { get; set; }
+    public int VoluntaryReturns { get; set; }          // Sessions initiated by student
+    public double ApprovalFrequency { get; set; }      // Approvals per session
+}
+```
+
+---
+
+## Technical Architecture (.NET 10 WPF)
+
+### Core Components
+
+1. **Adaptive Engine** (C# .NET 10)
+   - Bayesian Knowledge Tracing (BKT) for skill estimation
+   - Topic switch scheduler
+   - Weakness tracker with disguise engine
+   - Mastery threshold evaluator
+   - ML.NET integration for predictive modeling
+
+2. **Spock Mentor Agent** (C# with optional LLM integration)
+   - Dialogue selector based on state
+   - Approval trigger logic
+   - Narrative echo generator
+   - Context-aware feedback
+   - Azure OpenAI integration (optional)
+
+3. **Problem Generator/Selector** (C# Services)
+   - Domain-specific content libraries
+   - Difficulty adjuster
+   - Format variator for ADD-friendliness
+   - Prerequisite checker
+
+4. **Session Manager** (C# State Machine)
+   - State machine implementation
+   - Timer and break enforcement
+   - Data persistence (Entity Framework Core)
+   - Real-time metric calculation
+
+5. **Parent Dashboard** (WPF MVVM)
+   - Real-time session monitoring
+   - Historical analytics
+   - Benchmark calculation engine
+
+### Technology Stack (.NET 10 WPF Desktop)
+
+**Architecture:**
+- UI: WPF + Prism MVVM + Extended.Wpf.Toolkit + Microsoft.Xaml.Behaviors
+- Backend Services: .NET 10 C# class libraries
+- Database: Entity Framework Core with SQLite (local) + optional Azure Cosmos DB (cloud sync)
+- ML/AI: ML.NET for adaptive algorithms + Azure OpenAI SDK (optional for advanced dialogue)
+- State Management: Stateless library for state machine patterns
+- Testing: MSTest + Moq + FluentAssertions (all tests MUST have [Timeout] attributes)
+- Distribution: MSIX packaging for Windows Store or ClickOnce
+
+**Critical Testing Requirements:**
+- Every test method must have `[Timeout(5000)]` attribute (5 seconds default, adjust as needed)
+- Any code that waits (Task.Delay, async operations, I/O) must use CancellationToken with timeout
+- Use `CancellationTokenSource.CancelAfter(timeout)` pattern for all async operations
+- No infinite loops or unbounded waits allowed
+
+**Key NuGet Packages:**
+- Prism.Wpf (9.0+) - MVVM framework
+- Extended.Wpf.Toolkit (5.0+) - Rich UI controls
+- Microsoft.Xaml.Behaviors.Wpf (1.1+) - Interaction behaviors
+- Microsoft.EntityFrameworkCore.Sqlite (9.0+) - Data persistence
+- ML.NET (4.0+) - Machine learning models
+- Azure.AI.OpenAI (2.0+) - Optional LLM integration
+- Stateless (5.0+) - State machine implementation
+- CommunityToolkit.Mvvm (8.0+) - MVVM helpers
+- MSTest.TestFramework (3.0+) - Testing framework
+- MSTest.TestAdapter (3.0+) - Test runner
+- Moq (4.20+) - Mocking framework
+- FluentAssertions (6.0+) - Assertion library
+
+**Test Example with Timeouts:**
+```csharp
+[TestClass]
+public class ApprovalEngineTests
+{
+    [TestMethod]
+    [Timeout(5000)] // 5 second timeout - REQUIRED on every test
+    public async Task ProcessProblem_CorrectStreak_TriggersApproval()
+    {
+        // Arrange
+        var engine = new ApprovalEngine();
+        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
+        
+        // Act - all async operations must use CancellationToken
+        var result = await engine.ProcessAsync(problem, cts.Token);
+        
+        // Assert
+        result.Should().NotBeNull();
+    }
+}
+```
+
+### Integration Strategy
+
+**Adaptive Learning Algorithms:**
+- Port OATutor's BKT (Bayesian Knowledge Tracing) algorithms from JavaScript to C#
+- Implement in separate AdaptiveEngine class library
+- Use ML.NET for regression models predicting mastery thresholds
+
+**Content Management:**
+- Store problem banks in SQLite with full-text search
+- JSON serialization for complex problem content (visuals, interactions)
+- Lazy loading for performance with large content sets
+
+**Parent Dashboard:**
+- Separate WPF window with password protection
+- Real-time data binding using Prism EventAggregator
+- LiveCharts2 or OxyPlot for trend visualization
+
+**Spock Mentor Logic:**
+- Rule-based dialogue system (C# switch expressions)
+- Optional Azure OpenAI for dynamic responses
+- Local fallback ensures offline capability
+
+---
+
+## Implementation Roadmap
+
+### Phase 1: Foundation (Weeks 1-2)
+- [ ] Set up development environment
+- [ ] Choose technology stack (Web/WPF/Hybrid)
+- [ ] Fork and configure OATutor base
+- [ ] Design database schema
+- [ ] Implement basic state machines
+- [ ] Create student profile system
+
+### Phase 2: Core Adaptive Engine (Weeks 3-4)
+- [ ] Integrate BKT skill tracking
+- [ ] Build weakness detection system
+- [ ] Implement topic switch scheduler
+- [ ] Create mastery threshold evaluator
+- [ ] Add problem difficulty adjuster
+- [ ] Test adaptive algorithms
+
+### Phase 3: Spock Mentor System (Weeks 5-6)
+- [ ] Implement approval state machine
+- [ ] Build dialogue selection engine
+- [ ] Add variable-ratio reinforcement
+- [ ] Create narrative echo system
+- [ ] Test psychological triggers
+- [ ] Tune approval frequency
+
+### Phase 4: Content & Problem Bank (Weeks 7-8)
+- [ ] Import/create math problems (Grade 4-College)
+- [ ] Add logic puzzles (adaptive scale)
+- [ ] Curate reading passages (interests-aligned)
+- [ ] Design science reasoning scenarios
+- [ ] Implement format variation (visual/verbal/interactive)
+- [ ] Tag all content with metadata
+
+### Phase 5: Parent Dashboard (Weeks 9-10)
+- [ ] Design dashboard UI/UX
+- [ ] Implement authentication
+- [ ] Build real-time monitoring
+- [ ] Create trend visualization
+- [ ] Add benchmarking algorithms
+- [ ] Implement parental controls
+
+### Phase 6: Testing & Refinement (Weeks 11-12)
+- [ ] User testing with target demographic
+- [ ] Tune ADD-friendly elements
+- [ ] Adjust approval frequency
+- [ ] Optimize topic switching
+- [ ] Validate weakness tracking
+- [ ] Parent dashboard feedback
+
+### Phase 7: Safety & Polish (Weeks 13-14)
+- [ ] Implement session length caps
+- [ ] Add forced breaks
+- [ ] Test safeguards
+- [ ] Add data privacy controls
+- [ ] Create parent onboarding
+- [ ] Final UI polish
+
+### Phase 8: Launch Prep (Week 15+)
+- [ ] Documentation
+- [ ] Deployment setup
+- [ ] Beta testing
+- [ ] Feedback integration
+- [ ] Public release
+
+---
+
+## Success Metrics
+
+### Student Engagement (Primary)
+- Voluntary return rate (target: >60% sessions initiated by student)
+- Average session length (target: 10-15 min, increasing over time)
+- Completion rate (target: >85% of started sessions finished)
+- Focus score trend (target: improving over 4 weeks)
+
+### Learning Outcomes (Primary)
+- Weakness resolution rate (target: 70% of weaknesses mastered within 8 sessions)
+- Mastery acceleration (target: 1.5x faster progression than traditional)
+- Concept retention (target: >90% accuracy on mastered skills after 2 weeks)
+- Cross-domain transfer (target: measurable improvement in related concepts)
+
+### Motivational Health (Critical)
+- Approval-to-problem ratio (target: 1:15-20, maintaining rarity)
+- Student self-report (simple emoji check-in, target: positive >80%)
+- Parent-reported enthusiasm (qualitative feedback)
+- Stress indicators (time to answer should stabilize/decrease, not increase)
+
+### Parent Satisfaction (Secondary)
+- Dashboard usage frequency (indicates value)
+- Benchmark clarity ratings
+- Perceived value vs time investment
+- Referral likelihood (NPS-style)
+
+---
+
+## Ethical Considerations
+
+### Psychological Safety
+- **No addiction loops**: Variable-ratio rewards are calibrated for motivation, not compulsion
+- **No shaming**: All corrective feedback is factual and actionable
+- **No social pressure**: No leaderboards, peer comparisons visible to student
+- **Break enforcement**: Hard limits prevent overuse
+
+### Data Privacy
+- All student data encrypted at rest and in transit
+- No third-party sharing without explicit consent
+- Parent-controlled data retention policies
+- COPPA/FERPA compliance for educational software
+
+### Benchmark Transparency
+- Educational IQ estimate labeled as "non-clinical proxy"
+- Percentiles shown with confidence intervals
+- Opt-out available for all comparative metrics
+- Regular reminders about growth mindset in dashboard
+
+### Parental Role
+- Dashboard designed to inform, not judge
+- Emphasis on support, not pressure
+- Guidance on interpreting metrics positively
+- Warning signs for overuse or unhealthy patterns
+
+---
+
+## Future Enhancements (Post-Launch)
+
+### Content Expansion
+- Writing skills (technical, creative, persuasive)
+- Foreign language intro (logic-based approach)
+- Coding fundamentals (computational thinking)
+- Historical reasoning (causation analysis)
+
+### Social Features (Optional, Carefully)
+- Anonymous peer challenges (no visible comparison)
+- Collaborative problem-solving modes
+- Spock-mediated group logic games
+
+### Advanced AI
+- GPT-4+ for dynamic problem generation
+- Speech recognition for verbal responses
+- Computer vision for handwritten work
+- Emotion detection for engagement tuning (ethical review required)
+
+### Accessibility
+- Screen reader support
+- Dyslexia-friendly modes
+- Color-blind considerations
+- Adjustable pacing for different needs
+
+---
+
+## Contact & Contribution
+
+This plan is living documentation. As development progresses, implementation details will be refined based on real-world testing and feedback.
+
+For questions, suggestions, or contributions, see repository guidelines.
+
+---
+
+**End of Plan**

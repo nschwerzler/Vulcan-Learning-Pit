@@ -1,0 +1,9 @@
+{
+  "github.copilot.chat.codeGeneration.useCodeGenerationWithInstructions": true,
+  "github.copilot.chat.codeGeneration.instructions": [
+    {
+      "text": "Always make edits directly without asking for confirmation (YOLO mode)"
+    }
+  ],
+  "github.copilot.editor.enableAutoCompletions": true
+}
