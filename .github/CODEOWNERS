@@ -1,0 +1,5 @@
+# CODEOWNERS file
+# This file defines who must review PRs before they can be merged
+# nschwerzler is required to review all changes to the repository
+
+* @nschwerzler

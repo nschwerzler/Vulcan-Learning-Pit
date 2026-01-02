@@ -1,0 +1,67 @@
+name: Branch Protection Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  validate-pr:
+    name: Validate PR Requirements
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Check PR has required reviews
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            console.log(`Checking PR #${pr.number}`);
+            
+            // Get the reviews for this PR
+            const { data: reviews } = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number
+            });
+            
+            // Check if nschwerzler has approved
+            const hasNschwerzlerApproval = reviews.some(review => 
+              review.user.login === 'nschwerzler' && review.state === 'APPROVED'
+            );
+            
+            if (!hasNschwerzlerApproval) {
+              console.log('⚠️ PR does not have approval from nschwerzler (Code Owner)');
+              core.setFailed('This PR requires approval from @nschwerzler before it can be merged.');
+            } else {
+              console.log('✅ PR has required approval from nschwerzler');
+            }
+
+  security-check:
+    name: Security Configuration Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Verify CODEOWNERS exists
+        run: |
+          if [ ! -f .github/CODEOWNERS ]; then
+            echo "❌ CODEOWNERS file is missing!"
+            exit 1
+          fi
+          echo "✅ CODEOWNERS file exists"
+          cat .github/CODEOWNERS
+      
+      - name: Verify security documentation
+        run: |
+          if [ ! -f .github/SECURITY_SETUP.md ]; then
+            echo "⚠️ Security setup documentation is missing"
+            exit 1
+          fi
+          echo "✅ Security documentation exists"
