@@ -97,18 +97,24 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="VULCAN LEARNING PIT" 
                           FontSize="28" FontWeight="Bold" 
                           Foreground="#00d4ff" VerticalAlignment="Center"/>
 
-                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,20,0">
+                <Button Grid.Column="1" Content="🏆 Leaderboard" 
+                       Command="{Binding ShowLeaderboardCommand}"
+                       Margin="0,0,20,0"
+                       Padding="15,8"/>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,20,0">
                     <TextBlock Text="⭐ Tokens: " Foreground="#ffd700" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
                     <TextBlock Text="{Binding TotalTokens}" Foreground="#ffd700" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
                 </StackPanel>
 
-                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <StackPanel Grid.Column="3" Orientation="Horizontal">
                     <TextBlock Text="📊 Score: " Foreground="#00ff88" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
                     <TextBlock Text="{Binding TotalScore}" Foreground="#00ff88" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
                 </StackPanel>

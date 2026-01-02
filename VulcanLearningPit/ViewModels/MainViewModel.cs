@@ -35,6 +35,7 @@ public class MainViewModel : ViewModelBase
         NextProblemCommand = new RelayCommand(_ => LoadNextProblem());
         SwitchSubjectCommand = new RelayCommand(param => SwitchSubject(param as SubjectType?));
         EndSessionCommand = new RelayCommand(_ => EndSession());
+        ShowLeaderboardCommand = new RelayCommand(_ => ShowLeaderboard());
 
         AvailableGrades = new ObservableCollection<GradeLevel>
         {
@@ -53,6 +54,7 @@ public class MainViewModel : ViewModelBase
     public ICommand NextProblemCommand { get; }
     public ICommand SwitchSubjectCommand { get; }
     public ICommand EndSessionCommand { get; }
+    public ICommand ShowLeaderboardCommand { get; }
 
     public ObservableCollection<GradeLevel> AvailableGrades { get; }
     public ObservableCollection<SubjectType> AvailableSubjects { get; }
@@ -264,5 +266,11 @@ public class MainViewModel : ViewModelBase
             "Difficulty is merely an opportunity to grow stronger."
         };
         return messages[new Random().Next(messages.Length)];
+    }
+
+    private void ShowLeaderboard()
+    {
+        var leaderboardWindow = new Views.LeaderboardWindow();
+        leaderboardWindow.ShowDialog();
     }
 }
