@@ -1,6 +1,18 @@
 # GitHub Copilot Instructions for Spock Learning
 
-## Project Identity
+## Meta-Instructions (How to Update This File)
+
+When the user says:
+- **"put in instructions"** or **"add to brain"** → Add to existing instructions or create new sections
+- **"lazy instructions"** → Content that loads on-demand (detailed patterns/examples) - remove from always-load
+- **"always load instructions"** → Core context that should always be present
+- **"brain"** or **"instructions"** → Refers to this file (.github/copilot-instructions.md)
+
+**Goal**: Minimize context load by splitting always-load (core identity/principles) from on-demand (detailed patterns/examples).
+
+---
+
+## Project Identity (Always Load)
 
 **Spock Learning** is an adaptive learning platform for grades 4-college that uses a Spock mentor motif to provide motivation through earned approval rather than coercion. The system rapidly adapts difficulty based on student performance and can accelerate learners from elementary to college-level material when mastery is demonstrated.
 
@@ -66,44 +78,7 @@
 - Approval history and frequency metrics
 - Optional notifications for significant milestones
 
-## Testing & Validation
-
-- **Test approval logic** with various performance patterns
-- **Validate mastery detection** to prevent false progressions
-- **Verify weakness tracking** across multiple sessions
-- **Confirm ADD-friendly pacing** with realistic usage scenarios
-- **Check parent dashboard accuracy** against actual student data
-
-## Common Patterns
-
-### Approval Trigger
-```javascript
-// Pseudocode example
-if (consecutiveCorrect >= random(3, 7) && noRecentApproval) {
-  grantApproval("You corrected a recurring error.");
-  resetApprovalCounter();
-}
-```
-
-### Mastery Detection
-```javascript
-// Pseudocode example
-if (conceptAccuracy >= 0.90 && withinTimeLimit && consecutiveSessions >= 3) {
-  markAsMastered(concept);
-  unlockNextLevel(parentApprovalRequired);
-}
-```
-
-### Weakness Remediation
-```javascript
-// Pseudocode example
-if (conceptAccuracy < 0.70 && attempts >= 5) {
-  flagAsWeakness(concept);
-  scheduleSpiraledReview(nextSession);
-}
-```
-
-## What NOT to Do
+## What NOT to Do (Always Load)
 
 - ❌ Don't add gamification elements that create unhealthy pressure
 - ❌ Don't use emotionally manipulative language
