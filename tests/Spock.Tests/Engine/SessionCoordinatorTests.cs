@@ -208,7 +208,7 @@ public class SessionCoordinatorTests
         // Assert
         metrics.Should().NotBeNull();
         metrics.TotalCorrect.Should().Be(0);
-        metrics.FocusScore.Should().BeGreaterOrEqualTo(0);
+        metrics.FocusScore.Should().BeGreaterThanOrEqualTo(0);
     }
 
     [TestMethod]
@@ -234,7 +234,7 @@ public class SessionCoordinatorTests
         }
 
         // Assert - should visit multiple domains (ADD-aware switching)
-        domains.Count.Should().BeGreaterOrEqualTo(1);
+        domains.Count.Should().BeGreaterThanOrEqualTo(1);
     }
 
     [TestMethod]
@@ -263,6 +263,6 @@ public class SessionCoordinatorTests
         var metrics = coordinator.GetCurrentMetrics();
 
         // Assert
-        metrics.DomainsVisited.Should().HaveCountGreaterOrEqualTo(1);
+        metrics.DomainsVisited.Should().HaveCountGreaterThanOrEqualTo(1);
     }
 }

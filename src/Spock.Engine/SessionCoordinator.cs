@@ -67,12 +67,24 @@ public class SessionCoordinator
             if (shouldSwitch)
             {
                 // Get next domain with weakness prioritization
+                var weaknessDomains = _studentProfile.Weaknesses
+                    .Select(w => ParseDomain(w.SkillId))
+                    .Where(d => d.HasValue)
+                    .Select(d => d!.Value)
+                    .Distinct()
+                    .ToList();
+                
                 var nextDomainTask = _topicScheduler.SelectNextDomainAsync(
-                    _studentProfile,
                     _currentDomain,
+                    _studentProfile,
+                    weaknessDomains,
                     cancellationToken);
                 
-                _currentDomain = nextDomainTask.Result;
+                var nextDomain = nextDomainTask.Result;
+                if (nextDomain.HasValue)
+                {
+                    _currentDomain = nextDomain.Value;
+                }
                 _problemsInCurrentDomain = 0;
                 _lastProblemTime = DateTime.UtcNow;
             }
@@ -89,13 +101,14 @@ public class SessionCoordinator
             }
 
             // Get weaknesses and try to disguise them
-            var weaknesses = _weaknessTracker.GetActiveWeaknesses();
+            var targetTimes = domainProblems.ToDictionary(p => p.MicroTopic, p => (double)p.TargetTime);
+            var weaknessIds = _weaknessTracker.GetActiveWeaknesses(targetTimes);
             
-            if (weaknesses.Any())
+            if (weaknessIds.Any())
             {
-                var targetWeakness = weaknesses.First();
+                var targetWeaknessId = weaknessIds.First();
                 var disguise = _weaknessTracker.GetDisguiseContext(
-                    targetWeakness.SkillId,
+                    targetWeaknessId,
                     domainProblems.Select(p => p.MicroTopic).Distinct().ToList());
 
                 if (disguise != null)
@@ -105,15 +118,16 @@ public class SessionCoordinator
                     
                     if (disguisedProblem != null)
                     {
-                        disguisedProblem.Metadata.DisguisedWeakness = targetWeakness.SkillId;
+                        disguisedProblem.Metadata.DisguisedWeakness = targetWeaknessId;
                         return disguisedProblem;
                     }
                 }
             }
 
             // Use BKT to select appropriate difficulty
-            var skills = _knowledgeTracer.GetAllSkills();
-            var selectedProblem = SelectProblemByKnowledgeState(domainProblems, skills);
+            var masteryTask = _knowledgeTracer.GetAllMasteryEstimatesAsync(cancellationToken);
+            var masteryEstimates = masteryTask.Result;
+            var selectedProblem = SelectProblemByKnowledgeState(domainProblems, masteryEstimates);
             
             return selectedProblem ?? domainProblems.First();
         }
@@ -136,17 +150,14 @@ public class SessionCoordinator
             _currentSession.Problems.Add(attempt);
 
             // Update weakness tracker
-            var metrics = new WeaknessMetrics
-            {
-                Accuracy = attempt.IsCorrect ? 1.0 : 0.0,
-                AvgTime = attempt.TimeSpentSeconds,
-                Confidence = 1.0 - (attempt.AnswerChanges / Math.Max(1.0, attempt.AnswerChanges + 1)),
-                LastAttempt = DateTime.UtcNow
-            };
+            var allAttempts = _currentSession.Problems
+                .Where(p => p.ProblemId == problem.Id || true) // Get all attempts for this skill
+                .ToList();
             
             var updateTask = _weaknessTracker.UpdateMetricsAsync(
                 problem.MicroTopic,
-                metrics,
+                allAttempts,
+                problem.TargetTime,
                 cancellationToken);
             updateTask.Wait(cancellationToken);
 
@@ -162,6 +173,7 @@ public class SessionCoordinator
             {
                 var masteryTask = _knowledgeTracer.IsMasteredAsync(
                     problem.Metadata.DisguisedWeakness,
+                    0.90, // Mastery threshold (90%)
                     cancellationToken);
                 
                 if (masteryTask.Result)
@@ -193,7 +205,7 @@ public class SessionCoordinator
                 IsCorrect = attempt.IsCorrect,
                 Approvals = approvals,
                 Dialogue = dialogue,
-                CurrentStreak = _approvalEngine.GetCurrentStreak(),
+                CurrentStreak = _approvalEngine.CurrentStreak,
                 SessionMetrics = _currentSession.Metrics,
                 WeaknessConquered = attempt.NowMastered,
                 ShouldSwitchTopic = false // Determined by next GetNextProblem call
@@ -247,7 +259,7 @@ public class SessionCoordinator
             var latestApproval = approvals.Last();
             
             var response = await _dialogueEngine.GetSubtleApprovalAsync(
-                _approvalEngine.GetCurrentStreak(),
+                _approvalEngine.CurrentStreak,
                 problem.MicroTopic,
                 cancellationToken);
 
@@ -280,23 +292,39 @@ public class SessionCoordinator
         return await _dialogueEngine.GetNeutralDialogueAsync(cancellationToken);
     }
 
-    private Problem? SelectProblemByKnowledgeState(List<Problem> problems, List<BayesianKnowledgeTracer.SkillState> skills)
+    private Problem? SelectProblemByKnowledgeState(List<Problem> problems, Dictionary<string, double> masteryEstimates)
     {
         // Select problems near the edge of current knowledge (Zone of Proximal Development)
         // Target skills with P(L) between 0.4 and 0.8 for optimal challenge
         
         foreach (var problem in problems.OrderBy(_ => Guid.NewGuid())) // Shuffle
         {
-            var skill = skills.FirstOrDefault(s => s.SkillId == problem.MicroTopic);
-            
-            if (skill != null && skill.ProbabilityKnown >= 0.4 && skill.ProbabilityKnown <= 0.8)
+            if (masteryEstimates.TryGetValue(problem.MicroTopic, out var probability))
             {
-                return problem;
+                if (probability >= 0.4 && probability <= 0.8)
+                {
+                    return problem;
+                }
             }
         }
 
         // Fallback: return any problem
         return problems.FirstOrDefault();
+    }
+
+    private Domain? ParseDomain(string skillId)
+    {
+        // Extract domain from skill ID (e.g., "math-fractions" -> Math)
+        if (skillId.StartsWith("math", StringComparison.OrdinalIgnoreCase))
+            return Domain.Math;
+        if (skillId.StartsWith("logic", StringComparison.OrdinalIgnoreCase))
+            return Domain.Logic;
+        if (skillId.StartsWith("reading", StringComparison.OrdinalIgnoreCase))
+            return Domain.Reading;
+        if (skillId.StartsWith("science", StringComparison.OrdinalIgnoreCase))
+            return Domain.Science;
+        
+        return null;
     }
 
     private void UpdateSessionMetrics(ProblemAttempt attempt, Problem problem)
