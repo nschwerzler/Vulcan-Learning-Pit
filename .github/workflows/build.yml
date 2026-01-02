@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout code
@@ -31,6 +33,8 @@ jobs:
   package:
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      contents: read
 
     strategy:
       matrix:
