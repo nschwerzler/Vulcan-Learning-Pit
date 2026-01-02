@@ -32,6 +32,8 @@ The `.github/CODEOWNERS` file specifies that:
 
 To apply these settings to your GitHub repository:
 
+### Option 1: Using GitHub Web UI
+
 1. Go to **Settings** → **Branches** → **Branch protection rules**
 2. Click **Add rule** or **Add branch ruleset**
 3. For branch name pattern, enter: `main`
@@ -47,7 +49,20 @@ To apply these settings to your GitHub repository:
 5. Under "Allow specified actors to bypass required pull requests":
    - Add nschwerzler or repository administrators
 
-Alternatively, you can import the ruleset from `.github/branch-protection-ruleset.json` using GitHub's API or by creating a new ruleset in the repository settings.
+### Option 2: Using Rulesets (Recommended)
+
+1. Go to **Settings** → **Rules** → **Rulesets**
+2. Click **New ruleset** → **New branch ruleset**
+3. Name it "Main Branch Protection"
+4. Set target branches to `main`
+5. Add the following rules:
+   - Require a pull request before merging (1 approval required)
+   - Require code owner review
+   - Block force pushes
+   - Restrict deletions
+6. Under "Bypass list", add repository administrators or nschwerzler specifically
+
+**Note:** The `branch-protection-ruleset.json` file is provided as a template reference. The `actor_id` field (currently set to 1) is a placeholder and must be replaced with the actual GitHub user ID or role ID for nschwerzler when importing via API. When using the web UI, you can select users/roles directly without needing these IDs.
 
 ## Testing the Configuration
 

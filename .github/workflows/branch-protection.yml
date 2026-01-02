@@ -29,13 +29,17 @@ jobs:
               pull_number: pr.number
             });
             
-            // Check if nschwerzler has approved
-            const hasNschwerzlerApproval = reviews.some(review => 
-              review.user.login === 'nschwerzler' && review.state === 'APPROVED'
+            // Get the latest review from nschwerzler
+            const nschwerzlerReviews = reviews.filter(review => 
+              review.user.login === 'nschwerzler'
             );
             
-            if (!hasNschwerzlerApproval) {
-              console.log('⚠️ PR does not have approval from nschwerzler (Code Owner)');
+            const latestNschwerzlerReview = nschwerzlerReviews.length > 0 
+              ? nschwerzlerReviews[nschwerzlerReviews.length - 1] 
+              : null;
+            
+            if (!latestNschwerzlerReview || latestNschwerzlerReview.state !== 'APPROVED') {
+              console.log('❌ PR does not have approval from nschwerzler (Code Owner)');
               core.setFailed('This PR requires approval from @nschwerzler before it can be merged.');
             } else {
               console.log('✅ PR has required approval from nschwerzler');
@@ -61,7 +65,7 @@ jobs:
       - name: Verify security documentation
         run: |
           if [ ! -f .github/SECURITY_SETUP.md ]; then
-            echo "⚠️ Security setup documentation is missing"
+            echo "❌ Security setup documentation is missing"
             exit 1
           fi
           echo "✅ Security documentation exists"
