@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Spock.Core.Models;
+using Spock.Data;
 using Spock.Engine;
 
 namespace Spock.UI.ViewModels;
@@ -16,9 +17,9 @@ public class MainViewModel : INotifyPropertyChanged
     private readonly WeaknessTracker _weaknessTracker;
     private readonly Random _random = new();
     
-    // Sample problems for demo
+    // Comprehensive problem bank - 150+ problems across all domains
     private readonly List<Problem> _problemBank;
-    private int _currentProblemIndex = 0;
+    private int _currentProblemIndex = -1; // Start at -1 so first LoadNextProblem goes to 0
     
     private string _currentQuestion = "";
     private string _userAnswer = "";
@@ -36,8 +37,11 @@ public class MainViewModel : INotifyPropertyChanged
         _dialogueEngine = new SpockDialogueEngine();
         _weaknessTracker = new WeaknessTracker();
         
-        // Initialize sample problems (expanded bank in development)
-        _problemBank = CreateSampleProblems();
+        // Load comprehensive problem bank from ProblemBank class
+        _problemBank = ProblemBank.GetAllProblems();
+        
+        // Shuffle for variety - ADD-friendly randomization
+        _problemBank = _problemBank.OrderBy(_ => _random.Next()).ToList();
         
         // Commands
         SubmitCommand = new RelayCommand(async () => await SubmitAnswerAsync(), () => !string.IsNullOrWhiteSpace(UserAnswer));
@@ -253,111 +257,6 @@ public class MainViewModel : INotifyPropertyChanged
         }
         
         return false;
-    }
-
-    private List<Problem> CreateSampleProblems()
-    {
-        return new List<Problem>
-        {
-            new Problem
-            {
-                Id = Guid.NewGuid().ToString(),
-                Domain = Domain.Math,
-                MicroTopic = "fractions-addition",
-                Difficulty = 3,
-                TargetTime = 30,
-                Content = new ProblemContent
-                {
-                    Question = "What is 1/4 + 1/4?",
-                    Format = ProblemFormat.FreeResponse,
-                    CorrectAnswers = new List<string> { "1/2", "0.5", "2/4" }
-                }
-            },
-            new Problem
-            {
-                Id = Guid.NewGuid().ToString(),
-                Domain = Domain.Logic,
-                MicroTopic = "deductive-reasoning",
-                Difficulty = 4,
-                TargetTime = 45,
-                Content = new ProblemContent
-                {
-                    Question = "If all Vulcans are logical, and Spock is a Vulcan, what can we conclude?",
-                    Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string>
-                    {
-                        "Spock is logical",
-                        "Spock is not logical",
-                        "We cannot conclude anything",
-                        "All logical beings are Vulcans"
-                    },
-                    CorrectAnswers = new List<string> { "A", "Spock is logical" }
-                }
-            },
-            new Problem
-            {
-                Id = Guid.NewGuid().ToString(),
-                Domain = Domain.Math,
-                MicroTopic = "multiplication",
-                Difficulty = 2,
-                TargetTime = 20,
-                Content = new ProblemContent
-                {
-                    Question = "What is 7 × 8?",
-                    Format = ProblemFormat.FreeResponse,
-                    CorrectAnswers = new List<string> { "56" }
-                }
-            },
-            new Problem
-            {
-                Id = Guid.NewGuid().ToString(),
-                Domain = Domain.Logic,
-                MicroTopic = "pattern-recognition",
-                Difficulty = 3,
-                TargetTime = 40,
-                Content = new ProblemContent
-                {
-                    Question = "Complete the sequence: 2, 4, 8, 16, ?",
-                    Format = ProblemFormat.FreeResponse,
-                    CorrectAnswers = new List<string> { "32" }
-                }
-            },
-            new Problem
-            {
-                Id = Guid.NewGuid().ToString(),
-                Domain = Domain.Math,
-                MicroTopic = "percentages",
-                Difficulty = 4,
-                TargetTime = 35,
-                Content = new ProblemContent
-                {
-                    Question = "What is 25% of 80?",
-                    Format = ProblemFormat.FreeResponse,
-                    CorrectAnswers = new List<string> { "20" }
-                }
-            },
-            new Problem
-            {
-                Id = Guid.NewGuid().ToString(),
-                Domain = Domain.Science,
-                MicroTopic = "scientific-method",
-                Difficulty = 5,
-                TargetTime = 60,
-                Content = new ProblemContent
-                {
-                    Question = "A scientist observes that plants grow faster in sunlight. To test if sunlight causes growth, what should they control?",
-                    Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string>
-                    {
-                        "Water, soil, temperature",
-                        "Only the amount of sunlight",
-                        "Nothing - just observe",
-                        "The color of the plants"
-                    },
-                    CorrectAnswers = new List<string> { "A", "Water, soil, temperature" }
-                }
-            }
-        };
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
