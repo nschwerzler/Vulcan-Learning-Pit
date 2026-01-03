@@ -646,10 +646,10 @@ public static class ProblemBank
                 TargetTime = 90,
                 Content = new ProblemContent
                 {
-                    Question = "Passage: 'The spaceship's warning lights flashed red. Captain Lee grabbed her helmet and ran to the airlock.' What can we infer?\n\nA) There's an emergency\nB) The captain likes red lights\nC) The ship is landing\nD) It's lunchtime",
+                    Question = "Passage: 'The spaceship's warning lights flashed red. Captain Lee grabbed her helmet and ran to the airlock.' What can we infer?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "A" }
+                    Options = new List<string> { "There's an emergency", "The captain likes red lights", "The ship is landing", "It's lunchtime" },
+                    CorrectAnswers = new List<string> { "There's an emergency" }
                 }
             },
             new Problem
@@ -660,10 +660,10 @@ public static class ProblemBank
                 TargetTime = 100,
                 Content = new ProblemContent
                 {
-                    Question = "Passage: 'Detective Mora examined the broken window. Glass covered the ground outside the house.' Which is STATED (not inferred)?\n\nA) Someone broke in\nB) Glass is on the ground outside\nC) The window was broken from inside\nD) It was nighttime",
+                    Question = "Passage: 'Detective Mora examined the broken window. Glass covered the ground outside the house.' Which is STATED (not inferred)?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "B" }
+                    Options = new List<string> { "Someone broke in", "Glass is on the ground outside", "The window was broken from inside", "It was nighttime" },
+                    CorrectAnswers = new List<string> { "Glass is on the ground outside" }
                 }
             },
 
@@ -676,10 +676,10 @@ public static class ProblemBank
                 TargetTime = 120,
                 Content = new ProblemContent
                 {
-                    Question = "Passage: 'Studies show that exercise improves memory. Researchers recommend 30 minutes daily for optimal brain function.' What is the author's main purpose?\n\nA) Entertain\nB) Inform/Persuade about exercise benefits\nC) Describe a memory technique\nD) Tell a story",
+                    Question = "Passage: 'Studies show that exercise improves memory. Researchers recommend 30 minutes daily for optimal brain function.' What is the author's main purpose?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "B" }
+                    Options = new List<string> { "Entertain", "Inform/Persuade about exercise benefits", "Describe a memory technique", "Tell a story" },
+                    CorrectAnswers = new List<string> { "Inform/Persuade about exercise benefits" }
                 }
             },
 
@@ -692,10 +692,10 @@ public static class ProblemBank
                 TargetTime = 150,
                 Content = new ProblemContent
                 {
-                    Question = "Advertisement: 'Up to 90% of users saw results!' What's misleading about this claim?\n\nA) It doesn't say what kind of results\nB) 'Up to 90%' could mean much less\nC) Both A and B\nD) Nothing is misleading",
+                    Question = "Advertisement: 'Up to 90% of users saw results!' What's misleading about this claim?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "C" }
+                    Options = new List<string> { "It doesn't say what kind of results", "'Up to 90%' could mean much less", "Both A and B", "Nothing is misleading" },
+                    CorrectAnswers = new List<string> { "Both A and B" }
                 }
             },
             new Problem
@@ -706,10 +706,10 @@ public static class ProblemBank
                 TargetTime = 140,
                 Content = new ProblemContent
                 {
-                    Question = "Compare: 'The protesters gathered' vs 'The mob gathered.' Which shows negative bias?\n\nA) First version\nB) Second version\nC) Both are neutral\nD) Neither shows bias",
+                    Question = "Compare: 'The protesters gathered' vs 'The mob gathered.' Which shows negative bias?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "B" }
+                    Options = new List<string> { "First version", "Second version", "Both are neutral", "Neither shows bias" },
+                    CorrectAnswers = new List<string> { "Second version" }
                 }
             },
 
@@ -722,10 +722,10 @@ public static class ProblemBank
                 TargetTime = 180,
                 Content = new ProblemContent
                 {
-                    Question = "Argument: 'All great leaders are decisive. Maria is decisive. Therefore, Maria is a great leader.' What's the logical flaw?\n\nA) Assumes decisive = great leader (converse error)\nB) Maria might not be decisive\nC) Great leaders don't need to be decisive\nD) No flaw exists",
+                    Question = "Argument: 'All great leaders are decisive. Maria is decisive. Therefore, Maria is a great leader.' What's the logical flaw?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "A" }
+                    Options = new List<string> { "Assumes decisive = great leader (converse error)", "Maria might not be decisive", "Great leaders don't need to be decisive", "No flaw exists" },
+                    CorrectAnswers = new List<string> { "Assumes decisive = great leader (converse error)" }
                 }
             },
             new Problem
@@ -736,10 +736,10 @@ public static class ProblemBank
                 TargetTime = 160,
                 Content = new ProblemContent
                 {
-                    Question = "Claim: 'Screens cause nearsightedness.' Evidence: 'Children who use screens 4+ hours daily have higher rates of nearsightedness.' Does this prove causation?\n\nA) Yes, the data is clear\nB) No, correlation ≠ causation\nC) Yes, if the study was large\nD) No, screens help eyesight",
+                    Question = "Claim: 'Screens cause nearsightedness.' Evidence: 'Children who use screens 4+ hours daily have higher rates of nearsightedness.' Does this prove causation?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "B" }
+                    Options = new List<string> { "Yes, the data is clear", "No, correlation ≠ causation", "Yes, if the study was large", "No, screens help eyesight" },
+                    CorrectAnswers = new List<string> { "No, correlation ≠ causation" }
                 }
             },
 
@@ -752,10 +752,10 @@ public static class ProblemBank
                 TargetTime = 240,
                 Content = new ProblemContent
                 {
-                    Question = "Source 1: 'Urban density increases efficiency.' Source 2: 'High density causes stress.' Synthesis that acknowledges both?\n\nA) Density is always good\nB) Density is always bad\nC) Density has efficiency benefits but psychological costs\nD) The sources contradict completely",
+                    Question = "Source 1: 'Urban density increases efficiency.' Source 2: 'High density causes stress.' Synthesis that acknowledges both?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "C" }
+                    Options = new List<string> { "Density is always good", "Density is always bad", "Density has efficiency benefits but psychological costs", "The sources contradict completely" },
+                    CorrectAnswers = new List<string> { "Density has efficiency benefits but psychological costs" }
                 }
             }
         };
@@ -778,10 +778,10 @@ public static class ProblemBank
                 TargetTime = 60,
                 Content = new ProblemContent
                 {
-                    Question = "Observation: 'Plants near the window are taller.' Which is a testable hypothesis?\n\nA) Plants like windows\nB) Sunlight increases plant growth\nC) Windows are good\nD) Tall plants are better",
+                    Question = "Observation: 'Plants near the window are taller.' Which is a testable hypothesis?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "B" }
+                    Options = new List<string> { "Plants like windows", "Sunlight increases plant growth", "Windows are good", "Tall plants are better" },
+                    CorrectAnswers = new List<string> { "Sunlight increases plant growth" }
                 }
             },
             new Problem
@@ -792,10 +792,10 @@ public static class ProblemBank
                 TargetTime = 70,
                 Content = new ProblemContent
                 {
-                    Question = "You see wet ground under a tree. Which is an OBSERVATION (not inference)?\n\nA) It rained\nB) Someone watered the tree\nC) The ground is wet\nD) The tree needs water",
+                    Question = "You see wet ground under a tree. Which is an OBSERVATION (not inference)?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "C" }
+                    Options = new List<string> { "It rained", "Someone watered the tree", "The ground is wet", "The tree needs water" },
+                    CorrectAnswers = new List<string> { "The ground is wet" }
                 }
             },
 
@@ -808,10 +808,10 @@ public static class ProblemBank
                 TargetTime = 90,
                 Content = new ProblemContent
                 {
-                    Question = "Experiment: Testing if fertilizer helps plants grow. You use 3 plants with fertilizer and 3 without. What should be the SAME for all plants?\n\nA) Amount of water and sunlight\nB) Size of pot only\nC) Type of fertilizer\nD) Nothing needs to be the same",
+                    Question = "Experiment: Testing if fertilizer helps plants grow. You use 3 plants with fertilizer and 3 without. What should be the SAME for all plants?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "A" }
+                    Options = new List<string> { "Amount of water and sunlight", "Size of pot only", "Type of fertilizer", "Nothing needs to be the same" },
+                    CorrectAnswers = new List<string> { "Amount of water and sunlight" }
                 }
             },
             new Problem
@@ -822,10 +822,10 @@ public static class ProblemBank
                 TargetTime = 80,
                 Content = new ProblemContent
                 {
-                    Question = "Experiment: 'How does temperature affect ice melting speed?' What is the INDEPENDENT variable (what you change)?\n\nA) Melting speed\nB) Temperature\nC) Amount of ice\nD) Time",
+                    Question = "Experiment: 'How does temperature affect ice melting speed?' What is the INDEPENDENT variable (what you change)?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "B" }
+                    Options = new List<string> { "Melting speed", "Temperature", "Amount of ice", "Time" },
+                    CorrectAnswers = new List<string> { "Temperature" }
                 }
             },
 
@@ -838,10 +838,10 @@ public static class ProblemBank
                 TargetTime = 100,
                 Content = new ProblemContent
                 {
-                    Question = "Data: 'Ice cream sales and drowning deaths both increase in summer.' Does ice cream cause drowning?\n\nA) Yes, clearly related\nB) No, both caused by hot weather (correlation, not causation)\nC) Yes, if data is reliable\nD) Cannot determine from this",
+                    Question = "Data: 'Ice cream sales and drowning deaths both increase in summer.' Does ice cream cause drowning?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "B" }
+                    Options = new List<string> { "Yes, clearly related", "No, both caused by hot weather (correlation, not causation)", "Yes, if data is reliable", "Cannot determine from this" },
+                    CorrectAnswers = new List<string> { "No, both caused by hot weather (correlation, not causation)" }
                 }
             },
             new Problem
@@ -852,10 +852,10 @@ public static class ProblemBank
                 TargetTime = 120,
                 Content = new ProblemContent
                 {
-                    Question = "Study: 'Coffee drinkers live longer.' But coffee drinkers also exercise more. What is 'exercise' in this scenario?\n\nA) Independent variable\nB) Dependent variable\nC) Confounding variable\nD) Control variable",
+                    Question = "Study: 'Coffee drinkers live longer.' But coffee drinkers also exercise more. What is 'exercise' in this scenario?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "C" }
+                    Options = new List<string> { "Independent variable", "Dependent variable", "Confounding variable", "Control variable" },
+                    CorrectAnswers = new List<string> { "Confounding variable" }
                 }
             },
 
@@ -868,10 +868,10 @@ public static class ProblemBank
                 TargetTime = 90,
                 Content = new ProblemContent
                 {
-                    Question = "Graph shows: 'As altitude increases, air pressure decreases steadily.' What type of relationship?\n\nA) Positive correlation\nB) Negative correlation\nC) No correlation\nD) Causal relationship proven",
+                    Question = "Graph shows: 'As altitude increases, air pressure decreases steadily.' What type of relationship?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "B" }
+                    Options = new List<string> { "Positive correlation", "Negative correlation", "No correlation", "Causal relationship proven" },
+                    CorrectAnswers = new List<string> { "Negative correlation" }
                 }
             },
             new Problem
@@ -882,10 +882,10 @@ public static class ProblemBank
                 TargetTime = 110,
                 Content = new ProblemContent
                 {
-                    Question = "Pattern: At 0°C, reaction takes 60s. At 10°C, 40s. At 20°C, 25s. Predict time at 30°C:\n\nA) 10 seconds\nB) 15 seconds\nC) 0 seconds\nD) 50 seconds",
+                    Question = "Pattern: At 0°C, reaction takes 60s. At 10°C, 40s. At 20°C, 25s. Predict time at 30°C:",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "B" }
+                    Options = new List<string> { "10 seconds", "15 seconds", "0 seconds", "50 seconds" },
+                    CorrectAnswers = new List<string> { "15 seconds" }
                 }
             },
 
@@ -898,10 +898,10 @@ public static class ProblemBank
                 TargetTime = 180,
                 Content = new ProblemContent
                 {
-                    Question = "Hypothesis: 'Magnetic fields affect plant growth.' Design the BEST experiment:\n\nA) Put one plant near magnet, observe\nB) 10 plants near magnets, 10 without magnets (control), same conditions\nC) Ask people if magnets help plants\nD) Look up if others tried this",
+                    Question = "Hypothesis: 'Magnetic fields affect plant growth.' Design the BEST experiment:",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "B" }
+                    Options = new List<string> { "Put one plant near magnet, observe", "10 plants near magnets, 10 without magnets (control), same conditions", "Ask people if magnets help plants", "Look up if others tried this" },
+                    CorrectAnswers = new List<string> { "10 plants near magnets, 10 without magnets (control), same conditions" }
                 }
             },
             new Problem
@@ -912,10 +912,10 @@ public static class ProblemBank
                 TargetTime = 150,
                 Content = new ProblemContent
                 {
-                    Question = "Theory: 'All swans are white.' Which observation would FALSIFY this theory?\n\nA) Finding 100 more white swans\nB) Finding one black swan\nC) Not finding any swans\nD) Proving swans exist",
+                    Question = "Theory: 'All swans are white.' Which observation would FALSIFY this theory?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A", "B", "C", "D" },
-                    CorrectAnswers = new List<string> { "B" }
+                    Options = new List<string> { "Finding 100 more white swans", "Finding one black swan", "Not finding any swans", "Proving swans exist" },
+                    CorrectAnswers = new List<string> { "Finding one black swan" }
                 }
             }
         };

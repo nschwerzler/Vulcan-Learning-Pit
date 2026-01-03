@@ -4,7 +4,19 @@ Adaptive learning platform for grades 4-college with a Spock mentor motif. Deskt
 
 ✅ **Core Engine Complete** - All adaptive engines integrated  
 🎨 **UI Functional** - Full MVVM interface with session coordination  
-✅ **135 Tests Passing** - All integration tests successful
+✅ **135 Tests Passing** - All integration tests successful  
+🐛 **Debug Server Active** - HTTP API for real-time state inspection
+
+## Quick Start
+
+```powershell
+# Build and run
+dotnet run --project src/Spock.UI/Spock.UI.csproj
+
+# Debug server automatically starts at http://localhost:5555
+# Test it:
+Invoke-RestMethod http://localhost:5555/health
+```
 
 ## Current Status
 
@@ -168,6 +180,32 @@ dotnet test --list-tests
 - ✅ Strong approval for conquered weaknesses
 - ✅ Narrative echoes (20% chance after approvals)
 - ✅ Vulcan insight fragments for major breakthroughs
+
+## Debug Server 🐛
+
+The application includes an embedded HTTP debug server for development:
+
+```powershell
+# Start the app (debug server auto-starts on port 5555)
+dotnet run --project src/Spock.UI/Spock.UI.csproj
+
+# Test endpoints
+Invoke-RestMethod http://localhost:5555/health
+Invoke-RestMethod http://localhost:5555/session
+Invoke-RestMethod http://localhost:5555/approval
+
+# Or run the test script
+.\test-debug-server.ps1
+```
+
+**Available Endpoints:**
+- `/health` - Server status
+- `/session` - Current session state (streak, accuracy, problem info)
+- `/approval` - Approval engine state (threshold, history)
+- `/state` - All debug state
+- `/weaknesses` - Tracked weakness data
+
+See [src/Spock.UI/DEBUG_SERVER.md](src/Spock.UI/DEBUG_SERVER.md) for full documentation.
 
 ## Next Steps
 

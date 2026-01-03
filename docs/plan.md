@@ -392,6 +392,33 @@ The system:
 
 ### Approval Trigger Algorithm
 
+**Game Token Reward System**
+
+To provide an additional layer of motivation beyond Spock's approval, students earn **Game Time** for sustained engagement:
+
+- **Base Earning Rate**: 1 second per correct answer × difficulty level (e.g., difficulty 8 problem = 8 seconds earned)
+- **Penalty for Incorrect**: -1 second per incorrect answer (minimum balance: 1 second, never goes below 1 to avoid being too punishing)
+- **Difficulty Scaling**: Natural progression as problems get harder
+  - **Elementary (Difficulty 1-3)**: 1-3 seconds per correct answer
+  - **Middle School (Difficulty 4-6)**: 4-6 seconds per correct answer
+  - **High School (Difficulty 7-8)**: 7-8 seconds per correct answer
+  - **College/Advanced (Difficulty 9-10)**: 9-10 seconds per correct answer
+  - Scales directly with problem difficulty rating
+- **Conversion Examples**: 
+  - 60 seconds = 1 minute displayed
+  - 3600 seconds (60 minutes) = 1 hour displayed
+  - Example: 20 middle-school problems (difficulty 5) = 100 seconds = 1 min 40 sec
+- **Display**: Large, prominent time display without emoji (e.g., "2m 15s" or "1h 3m") in header with increased font size
+- **Purpose**: Tangible reward that encourages accuracy while naturally rewarding advancement to harder material through difficulty-based earning
+- **Parental Control**: Parents can set redemption rules and maximum daily token earning in dashboard
+- **Data Tracking**: Tokens stored in `StudentProfile.GameTokenSeconds` and session-level in `SessionMetrics.TokensEarned`
+
+This creates a dual-motivation system:
+1. **Intrinsic**: Earning Spock's rare, data-based approval (unpredictable, competence-driven)
+2. **Extrinsic**: Accumulating game time (predictable, engagement-driven)
+
+The token system complements (not replaces) Spock's approval by providing immediate feedback while maintaining the psychological power of variable-ratio approval for genuine learning milestones.
+
 ```csharp
 public class ApprovalEngine
 {
@@ -405,11 +432,16 @@ public class ApprovalEngine
         _approvalThreshold = _random.Next(3, 8); // 3-7 inclusive
     }
 
-    public void ProcessProblem(ProblemAttempt problem)
+    public void ProcessProblem(ProblemAttempt problem, StudentProfile profile)
     {
         if (problem.IsCorrect)
         {
             _correctStreak++;
+            
+            // Award game time: 1 second × difficulty level
+            int secondsEarned = 1 * problem.Difficulty;
+            profile.GameTokenSeconds += secondsEarned;
+            
             if (problem.WasWeakness && problem.NowMastered)
             {
                 _recentWeaknessConquered = true;
@@ -419,6 +451,9 @@ public class ApprovalEngine
         {
             _correctStreak = 0;
             _approvalThreshold = _random.Next(3, 8); // Reset
+            
+            // Deduct 1 second on incorrect, but maintain minimum of 1 second
+            profile.GameTokenSeconds = Math.Max(1, profile.GameTokenSeconds - 1);
         }
 
         // Approval conditions

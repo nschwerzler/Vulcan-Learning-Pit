@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spock Learning Debug Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #4a9eff;
+            margin-bottom: 10px;
+        }
+        
+        .status {
+            color: #4aff88;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card {
+            background: #2a2a2a;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #444;
+        }
+        
+        .card h2 {
+            color: #4aff88;
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        pre {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 15px;
+            overflow-x: auto;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .metric:last-child {
+            border-bottom: none;
+        }
+        
+        .metric-label {
+            color: #888;
+        }
+        
+        .metric-value {
+            color: #fff;
+            font-weight: bold;
+        }
+        
+        .refresh-btn {
+            background: #4a9eff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .refresh-btn:hover {
+            background: #3a8eef;
+        }
+        
+        .auto-refresh {
+            margin-left: 20px;
+            vertical-align: middle;
+        }
+        
+        .error {
+            color: #ff4a4a;
+            padding: 10px;
+            background: #2a1a1a;
+            border-radius: 4px;
+        }
+        
+        .loading {
+            color: #ffb84a;
+        }
+    </style>
+</head>
+<body>
+    <h1>◢ SPOCK LEARNING DEBUG DASHBOARD</h1>
+    <div class="status" id="status">Connecting to debug server...</div>
+    
+    <div>
+        <button class="refresh-btn" onclick="loadAllData()">🔄 Refresh Now</button>
+        <label class="auto-refresh">
+            <input type="checkbox" id="autoRefresh" checked onchange="toggleAutoRefresh()">
+            Auto-refresh (5s)
+        </label>
+    </div>
+    
+    <div class="grid">
+        <div class="card">
+            <h2>🏥 Health Status</h2>
+            <div id="health" class="loading">Loading...</div>
+        </div>
+        
+        <div class="card">
+            <h2>📚 Current Session</h2>
+            <div id="session" class="loading">Loading...</div>
+        </div>
+        
+        <div class="card">
+            <h2>✨ Approval Engine</h2>
+            <div id="approval" class="loading">Loading...</div>
+        </div>
+        
+        <div class="card">
+            <h2>🎯 Weakness Tracker</h2>
+            <div id="weaknesses" class="loading">Loading...</div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2>🔍 Full State</h2>
+        <pre id="fullState" class="loading">Loading...</pre>
+    </div>
+
+    <script>
+        const baseUrl = 'http://localhost:5555';
+        let autoRefreshInterval = null;
+        
+        async function fetchEndpoint(endpoint) {
+            try {
+                const response = await fetch(`${baseUrl}${endpoint}`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                return { error: error.message };
+            }
+        }
+        
+        function renderMetrics(data) {
+            if (data.error) {
+                return `<div class="error">❌ ${data.error}</div>`;
+            }
+            
+            if (data.message) {
+                return `<div class="metric"><span class="metric-label">Status</span><span class="metric-value">${data.message}</span></div>`;
+            }
+            
+            let html = '';
+            for (const [key, value] of Object.entries(data)) {
+                if (typeof value === 'object') {
+                    html += `<div class="metric"><span class="metric-label">${key}</span><span class="metric-value">${JSON.stringify(value)}</span></div>`;
+                } else {
+                    html += `<div class="metric"><span class="metric-label">${key}</span><span class="metric-value">${value}</span></div>`;
+                }
+            }
+            return html;
+        }
+        
+        async function loadHealth() {
+            const data = await fetchEndpoint('/health');
+            document.getElementById('health').innerHTML = renderMetrics(data);
+            
+            if (data.error) {
+                document.getElementById('status').innerHTML = `<span class="error">❌ Debug server not reachable at ${baseUrl}</span>`;
+            } else {
+                document.getElementById('status').innerHTML = `✅ Connected to debug server at ${baseUrl}`;
+            }
+        }
+        
+        async function loadSession() {
+            const data = await fetchEndpoint('/session');
+            document.getElementById('session').innerHTML = renderMetrics(data);
+        }
+        
+        async function loadApproval() {
+            const data = await fetchEndpoint('/approval');
+            document.getElementById('approval').innerHTML = renderMetrics(data);
+        }
+        
+        async function loadWeaknesses() {
+            const data = await fetchEndpoint('/weaknesses');
+            document.getElementById('weaknesses').innerHTML = renderMetrics(data);
+        }
+        
+        async function loadFullState() {
+            const data = await fetchEndpoint('/state');
+            document.getElementById('fullState').textContent = JSON.stringify(data, null, 2);
+        }
+        
+        async function loadAllData() {
+            await Promise.all([
+                loadHealth(),
+                loadSession(),
+                loadApproval(),
+                loadWeaknesses(),
+                loadFullState()
+            ]);
+        }
+        
+        function toggleAutoRefresh() {
+            const enabled = document.getElementById('autoRefresh').checked;
+            if (enabled) {
+                autoRefreshInterval = setInterval(loadAllData, 5000);
+            } else {
+                clearInterval(autoRefreshInterval);
+            }
+        }
+        
+        // Initial load
+        loadAllData();
+        
+        // Start auto-refresh
+        autoRefreshInterval = setInterval(loadAllData, 5000);
+    </script>
+</body>
+</html>

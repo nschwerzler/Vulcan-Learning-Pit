@@ -14,6 +14,7 @@ public class StudentProfile
     public List<Session> SessionHistory { get; set; } = new();
     public StudentPreferences Preferences { get; set; } = new();
     public ParentSettings ParentSettings { get; set; } = new();
+    public double GameTokenMinutes { get; set; } = 0.0;  // 🪙 Game time earned (0.1 minutes per answer)
 }
 
 /// <summary>

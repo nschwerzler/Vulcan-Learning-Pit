@@ -29,6 +29,7 @@ public class MainViewModel : INotifyPropertyChanged
     private int _correctStreak = 0;
     private int _totalAttempts = 0;
     private int _correctAnswers = 0;
+    private double _gameTokenMinutes = 0.0;
     private bool _isAnswerSubmitted = false;
     private string _feedbackMessage = "";
     private string _submitButtonText = "Submit Answer";
@@ -110,6 +111,12 @@ public class MainViewModel : INotifyPropertyChanged
         set { _correctAnswers = value; OnPropertyChanged(); }
     }
 
+    public double GameTokenMinutes
+    {
+        get => _gameTokenMinutes;
+        set { _gameTokenMinutes = value; OnPropertyChanged(); }
+    }
+
     public string SubmitButtonText
     {
         get => _submitButtonText;
@@ -165,6 +172,9 @@ public class MainViewModel : INotifyPropertyChanged
         var isCorrect = CheckAnswer(_currentProblem, UserAnswer);
         
         TotalAttempts++;
+        
+        // Award game token: 0.1 minutes per answer (10 answers = 1 minute)
+        GameTokenMinutes += 0.1;
         
         if (isCorrect)
         {

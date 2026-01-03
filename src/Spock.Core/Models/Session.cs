@@ -28,6 +28,7 @@ public class SessionMetrics
     public List<string> DomainsVisited { get; set; } = new();
     public List<string> WeaknessesAddressed { get; set; } = new();
     public List<string> WeaknessesResolved { get; set; } = new();
+    public double TokensEarned { get; set; } = 0.0;              // 🪙 Game token minutes earned this session
 }
 
 /// <summary>
