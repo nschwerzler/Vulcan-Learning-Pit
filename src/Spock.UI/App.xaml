@@ -4,6 +4,29 @@
              xmlns:local="clr-namespace:Spock.UI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <!-- Typography Resources -->
+        <FontFamily x:Key="PrimaryFont">Segoe UI, Calibri, Tahoma, Arial</FontFamily>
+        <FontFamily x:Key="MonospaceFont">Cascadia Code, Consolas, Courier New</FontFamily>
+        
+        <!-- Global Text Rendering -->
+        <Style TargetType="TextBlock">
+            <Setter Property="TextOptions.TextFormattingMode" Value="Ideal"/>
+            <Setter Property="TextOptions.TextRenderingMode" Value="ClearType"/>
+            <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}"/>
+        </Style>
+        
+        <Style TargetType="TextBox">
+            <Setter Property="TextOptions.TextFormattingMode" Value="Ideal"/>
+            <Setter Property="TextOptions.TextRenderingMode" Value="ClearType"/>
+            <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}"/>
+        </Style>
+        
+        <Style TargetType="Button">
+            <Setter Property="TextOptions.TextFormattingMode" Value="Ideal"/>
+            <Setter Property="TextOptions.TextRenderingMode" Value="ClearType"/>
+            <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}"/>
+        </Style>
+        
         <!-- Converters -->
         <local:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
         <local:InverseBoolConverter x:Key="InverseBoolConverter"/>
@@ -59,7 +82,7 @@
             <GradientStop Color="#3ADF78" Offset="1"/>
         </LinearGradientBrush>
         
-        <!-- Button Style with Hover Animation -->
+        <!-- Button Style with Hover and Click Animation -->
         <Style x:Key="AnimatedButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#4A9EFF"/>
             <Setter Property="Foreground" Value="White"/>
@@ -68,13 +91,23 @@
             <Setter Property="Padding" Value="30,15"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
                                 CornerRadius="8"
                                 Padding="{TemplateBinding Padding}"
-                                x:Name="border">
+                                x:Name="border"
+                                RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="borderScale" ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -84,7 +117,16 @@
                                         <Storyboard>
                                             <ColorAnimation Storyboard.TargetName="border"
                                                           Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                          To="#5AAFFF" Duration="0:0:0.2"/>
+                                                          To="#5AAFFF" Duration="0:0:0.2"
+                                                          EasingFunction="{StaticResource EaseOut}"/>
+                                            <DoubleAnimation Storyboard.TargetName="borderScale"
+                                                           Storyboard.TargetProperty="ScaleX"
+                                                           To="1.05" Duration="0:0:0.2"
+                                                           EasingFunction="{StaticResource EaseOut}"/>
+                                            <DoubleAnimation Storyboard.TargetName="borderScale"
+                                                           Storyboard.TargetProperty="ScaleY"
+                                                           To="1.05" Duration="0:0:0.2"
+                                                           EasingFunction="{StaticResource EaseOut}"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.EnterActions>
@@ -93,13 +135,50 @@
                                         <Storyboard>
                                             <ColorAnimation Storyboard.TargetName="border"
                                                           Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                          To="#4A9EFF" Duration="0:0:0.2"/>
+                                                          To="#4A9EFF" Duration="0:0:0.2"
+                                                          EasingFunction="{StaticResource EaseOut}"/>
+                                            <DoubleAnimation Storyboard.TargetName="borderScale"
+                                                           Storyboard.TargetProperty="ScaleX"
+                                                           To="1.0" Duration="0:0:0.2"
+                                                           EasingFunction="{StaticResource EaseOut}"/>
+                                            <DoubleAnimation Storyboard.TargetName="borderScale"
+                                                           Storyboard.TargetProperty="ScaleY"
+                                                           To="1.0" Duration="0:0:0.2"
+                                                           EasingFunction="{StaticResource EaseOut}"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.ExitActions>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#3A7FDF"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border"
+                                                          Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                          To="#3A7FDF" Duration="0:0:0.05"/>
+                                            <DoubleAnimation Storyboard.TargetName="borderScale"
+                                                           Storyboard.TargetProperty="ScaleX"
+                                                           To="0.98" Duration="0:0:0.05"/>
+                                            <DoubleAnimation Storyboard.TargetName="borderScale"
+                                                           Storyboard.TargetProperty="ScaleY"
+                                                           To="0.98" Duration="0:0:0.05"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="borderScale"
+                                                           Storyboard.TargetProperty="ScaleX"
+                                                           To="1.05" Duration="0:0:0.1"
+                                                           EasingFunction="{StaticResource EaseOut}"/>
+                                            <DoubleAnimation Storyboard.TargetName="borderScale"
+                                                           Storyboard.TargetProperty="ScaleY"
+                                                           To="1.05" Duration="0:0:0.1"
+                                                           EasingFunction="{StaticResource EaseOut}"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="border" Property="Background" Value="#555"/>

@@ -16,10 +16,12 @@ public class MainViewModel : INotifyPropertyChanged
     private readonly SpockDialogueEngine _dialogueEngine;
     private readonly WeaknessTracker _weaknessTracker;
     private readonly Random _random = new();
+    private readonly DebugServer? _debugServer;
     
     // Comprehensive problem bank - 150+ problems across all domains
     private readonly List<Problem> _problemBank;
     private int _currentProblemIndex = -1; // Start at -1 so first LoadNextProblem goes to 0
+    private Problem? _currentProblem;
     
     private string _currentQuestion = "";
     private string _userAnswer = "";
@@ -30,9 +32,13 @@ public class MainViewModel : INotifyPropertyChanged
     private bool _isAnswerSubmitted = false;
     private string _feedbackMessage = "";
     private string _submitButtonText = "Submit Answer";
+    private bool _isMultipleChoice = false;
+    private ObservableCollection<string> _multipleChoiceOptions = new();
+    private Domain _currentDomain = Domain.Math;
 
-    public MainViewModel()
+    public MainViewModel(DebugServer? debugServer = null)
     {
+        _debugServer = debugServer;
         _approvalEngine = new ApprovalEngine();
         _dialogueEngine = new SpockDialogueEngine();
         _weaknessTracker = new WeaknessTracker();
@@ -44,11 +50,17 @@ public class MainViewModel : INotifyPropertyChanged
         _problemBank = _problemBank.OrderBy(_ => _random.Next()).ToList();
         
         // Commands
-        SubmitCommand = new RelayCommand(async () => await SubmitAnswerAsync(), () => !string.IsNullOrWhiteSpace(UserAnswer));
+        SubmitCommand = new RelayCommand(
+            async () => await SubmitAnswerAsync(), 
+            () => IsAnswerSubmitted || !string.IsNullOrWhiteSpace(UserAnswer));
         NextProblemCommand = new RelayCommand(LoadNextProblem, () => _isAnswerSubmitted);
+        SelectOptionCommand = new RelayCommand<string>(SelectOption, option => !IsAnswerSubmitted);
         
         // Load first problem
         LoadNextProblem();
+        
+        // Update debug state
+        UpdateDebugState();
     }
 
     public string CurrentQuestion
@@ -115,17 +127,42 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
+    public bool IsMultipleChoice
+    {
+        get => _isMultipleChoice;
+        set { _isMultipleChoice = value; OnPropertyChanged(); }
+    }
+
+    public ObservableCollection<string> MultipleChoiceOptions
+    {
+        get => _multipleChoiceOptions;
+        set { _multipleChoiceOptions = value; OnPropertyChanged(); }
+    }
+Domain CurrentDomain
+    {
+        get => _currentDomain;
+        set { _currentDomain = value; OnPropertyChanged(); }
+    }
+
+    public 
     public double AccuracyPercentage => TotalAttempts > 0 ? (CorrectAnswers * 100.0 / TotalAttempts) : 0;
 
     public ICommand SubmitCommand { get; }
     public ICommand NextProblemCommand { get; }
+    public ICommand SelectOptionCommand { get; }
 
     private async Task SubmitAnswerAsync()
     {
-        if (IsAnswerSubmitted) return;
+        // If answer already submitted, this is actually a "Next Problem" action
+        if (IsAnswerSubmitted)
+        {
+            LoadNextProblem();
+            return;
+        }
 
-        var currentProblem = _problemBank[_currentProblemIndex];
-        var isCorrect = CheckAnswer(currentProblem, UserAnswer);
+        if (_currentProblem == null) return;
+        
+        var isCorrect = CheckAnswer(_currentProblem, UserAnswer);
         
         TotalAttempts++;
         
@@ -138,7 +175,7 @@ public class MainViewModel : INotifyPropertyChanged
         else
         {
             CorrectStreak = 0;
-            FeedbackMessage = $"✗ Incorrect. The answer was: {currentProblem.Content.CorrectAnswers.First()}";
+            FeedbackMessage = $"✗ Incorrect. The answer was: {_currentProblem.Content.CorrectAnswers.First()}";
         }
         
         OnPropertyChanged(nameof(AccuracyPercentage));
@@ -146,7 +183,7 @@ public class MainViewModel : INotifyPropertyChanged
         // Process through approval engine
         var problemAttempt = new ProblemAttempt
         {
-            ProblemId = currentProblem.Id,
+            ProblemId = _currentProblem.Id,
             IsCorrect = isCorrect,
             TimeSpentSeconds = 10, // Would be real timing in production
             AttemptTime = DateTime.UtcNow
@@ -171,7 +208,7 @@ public class MainViewModel : INotifyPropertyChanged
             {
                 var response = await _dialogueEngine.GetSubtleApprovalAsync(
                     CorrectStreak,
-                    currentProblem.MicroTopic,
+                    _currentProblem.MicroTopic,
                     CancellationToken.None);
                 SpockMessage = response.Message;
             }
@@ -191,7 +228,7 @@ public class MainViewModel : INotifyPropertyChanged
         else if (!isCorrect)
         {
             var response = await _dialogueEngine.GetCorrectiveFeedbackAsync(
-                currentProblem.MicroTopic,
+                _currentProblem.MicroTopic,
                 "Review the fundamentals",
                 CancellationToken.None);
             SpockMessage = response.Message;
@@ -204,6 +241,9 @@ public class MainViewModel : INotifyPropertyChanged
 
         IsAnswerSubmitted = true;
         SubmitButtonText = "Next Problem";
+        
+        // Update debug state after submission
+        UpdateDebugState();
     }
 
     private void LoadNextProblem()
@@ -215,9 +255,29 @@ public class MainViewModel : INotifyPropertyChanged
         
         // Cycle through problems
         _currentProblemIndex = (_currentProblemIndex + 1) % _problemBank.Count;
-        var problem = _problemBank[_currentProblemIndex];
+        _currentProblem = _problemBank[_currentProblemIndex];
         
-        CurrentQuestion = FormatProblem(problem);
+        // Update current domain for color/emoji display
+        CurrentDomain = _currentProblem.Domain;
+        
+        // Check if multiple choice and setup options
+        IsMultipleChoice = _currentProblem.Content.Format == ProblemFormat.MultipleChoice && 
+                          _currentProblem.Content.Options?.Any() == true;
+        
+        if (IsMultipleChoice)
+        {
+            MultipleChoiceOptions.Clear();
+            foreach (var option in _currentProblem.Content.Options!)
+            {
+                MultipleChoiceOptions.Add(option);
+            }
+            // Domain will be shown in visual indicator, not text
+            CurrentQuestion = _currentProblem.Content.Question;
+        }
+        else
+        {
+            CurrentQuestion = FormatProblem(_currentProblem);
+        }
         
         if (!IsAnswerSubmitted)
         {
@@ -226,6 +286,25 @@ public class MainViewModel : INotifyPropertyChanged
         }
         
         ((RelayCommand)SubmitCommand).RaiseCanExecuteChanged();
+        ((RelayCommand<string>)SelectOptionCommand).RaiseCanExecuteChanged();
+        
+        // Update debug state
+        UpdateDebugState();
+    }
+
+    private void UpdateDebugState()
+    {
+        // Debug server functionality removed - will be re-implemented if needed
+        // Left as placeholder for future debugging features
+    }
+
+    private void SelectOption(string option)
+    {
+        if (IsAnswerSubmitted || !IsMultipleChoice) return;
+        
+        // For multiple choice, auto-submit when option is clicked
+        UserAnswer = option;
+        _ = SubmitAnswerAsync();
     }
 
     private string FormatProblem(Problem problem)
@@ -248,12 +327,26 @@ public class MainViewModel : INotifyPropertyChanged
     {
         if (string.IsNullOrWhiteSpace(answer)) return false;
         
-        answer = answer.Trim().ToLowerInvariant();
+        answer = answer.Trim();
         
-        foreach (var correctAnswer in problem.Content.CorrectAnswers)
+        // For multiple choice, do exact match (case-insensitive)
+        if (problem.Content.Format == ProblemFormat.MultipleChoice)
         {
-            if (answer == correctAnswer.ToLowerInvariant())
-                return true;
+            foreach (var correctAnswer in problem.Content.CorrectAnswers)
+            {
+                if (answer.Equals(correctAnswer, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+        }
+        else
+        {
+            // For free response, normalize and compare
+            var normalizedAnswer = answer.ToLowerInvariant();
+            foreach (var correctAnswer in problem.Content.CorrectAnswers)
+            {
+                if (normalizedAnswer == correctAnswer.ToLowerInvariant())
+                    return true;
+            }
         }
         
         return false;
@@ -289,6 +382,28 @@ public class RelayCommand : ICommand
     public bool CanExecute(object? parameter) => _canExecute?.Invoke() ?? true;
 
     public async void Execute(object? parameter) => await _executeAsync();
+
+    public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+}
+
+// Generic RelayCommand with parameter
+public class RelayCommand<T> : ICommand
+{
+    private readonly Action<T> _execute;
+    private readonly Func<T, bool>? _canExecute;
+
+    public RelayCommand(Action<T> execute, Func<T, bool>? canExecute = null)
+    {
+        _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+        _canExecute = canExecute;
+    }
+
+    public event EventHandler? CanExecuteChanged;
+
+    public bool CanExecute(object? parameter) => 
+        _canExecute?.Invoke((T)parameter!) ?? true;
+
+    public void Execute(object? parameter) => _execute((T)parameter!);
 
     public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
 }

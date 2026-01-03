@@ -14,11 +14,27 @@ public class ApprovalEngine
     private bool _recentWeaknessConquered = false;
     private readonly Random _random = new();
     private readonly List<ApprovalEvent> _pendingApprovals = new();
+    private readonly List<ApprovalEvent> _approvalHistory = new();
 
     /// <summary>
     /// Event fired when approval is triggered for UI display
     /// </summary>
     public event EventHandler<ApprovalEvent>? ApprovalTriggered;
+
+    /// <summary>
+    /// Current correct answer streak (for debugging/UI)
+    /// </summary>
+    public int CorrectStreak => _correctStreak;
+
+    /// <summary>
+    /// Current approval threshold (for debugging/UI)
+    /// </summary>
+    public int ApprovalThreshold => _approvalThreshold;
+
+    /// <summary>
+    /// History of all approvals (for debugging/UI)
+    /// </summary>
+    public IReadOnlyList<ApprovalEvent> ApprovalHistory => _approvalHistory;
 
     public ApprovalEngine()
     {
@@ -92,6 +108,7 @@ public class ApprovalEngine
             Timestamp = DateTime.UtcNow
         };
 
+        _approvalHistory.Add(approval);
         ApprovalTriggered?.Invoke(this, approval);
         return approval;
     }

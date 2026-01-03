@@ -800,7 +800,10 @@
         },
         "runtime": {
           "bin/placeholder/Spock.Engine.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },

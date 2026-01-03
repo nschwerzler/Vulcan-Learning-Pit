@@ -195,7 +195,7 @@ public class SessionStateMachine
         IEnumerable<SessionTrigger> triggers;
         lock (_lock)
         {
-            triggers = _machine.GetPermittedTriggers();
+            triggers = _machine.PermittedTriggers;
         }
         return await Task.FromResult(triggers);
     }
