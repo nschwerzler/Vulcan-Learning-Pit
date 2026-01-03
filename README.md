@@ -146,14 +146,22 @@ dotnet test --list-tests
 - Data persistence (18 tests)
 - Integration scenarios (11 tests)
 
+## Documentation
+
+- **[README.md](README.md)** - This file (quick start guide)
+- **[docs/SUMMARY.md](docs/SUMMARY.md)** - Project overview and current status
+- **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** - Complete system architecture
+- **[docs/BUGFIXES.md](docs/BUGFIXES.md)** - Bug fix history and solutions
+- **[docs/plan.md](docs/plan.md)** - Full specification and feature details
+
 ## Structure
 
-- [docs/plan.md](docs/plan.md): Complete specification
-- src/Spock.Core/: Domain models and enums
-- src/Spock.Engine/: Adaptive algorithms (all 6 engines)
-- src/Spock.Data/: Entity Framework persistence layer
-- src/Spock.UI/: WPF application with MVVM
-- tests/Spock.Tests/: 178 passing tests with timeout enforcement
+- **docs/** - All documentation (see above)
+- **src/Spock.Core/** - Domain models and enums
+- **src/Spock.Engine/** - Adaptive algorithms (all 6 engines)
+- **src/Spock.Data/** - Entity Framework persistence layer
+- **src/Spock.UI/** - WPF application with MVVM
+- **tests/Spock.Tests/** - 178 passing tests with timeout enforcement
 
 ## Tech Stack
 

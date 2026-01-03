@@ -21,6 +21,8 @@ public class DomainToEmojiConverter : IValueConverter
                 Domain.Reading => "📖",
                 Domain.Science => "🔬",
                 Domain.Executive => "🎯",
+                Domain.WashingtonHistory => "🏔️",
+                Domain.Bitcoin => "₿",
                 _ => "❓"
             };
         }

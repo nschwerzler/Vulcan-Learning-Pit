@@ -22,6 +22,8 @@ public class DomainToColorConverter : IValueConverter
                 Domain.Reading => new SolidColorBrush(Color.FromRgb(255, 184, 74)),  // Orange #FFB84A
                 Domain.Science => new SolidColorBrush(Color.FromRgb(74, 255, 136)),  // Green #4AFF88
                 Domain.Executive => new SolidColorBrush(Color.FromRgb(255, 105, 180)), // Pink #FF69B4
+                Domain.WashingtonHistory => new SolidColorBrush(Color.FromRgb(139, 69, 19)), // Brown #8B4513
+                Domain.Bitcoin => new SolidColorBrush(Color.FromRgb(247, 147, 26)),  // Bitcoin Orange #F7931A
                 _ => new SolidColorBrush(Color.FromRgb(136, 136, 136))              // Gray #888
             };
         }

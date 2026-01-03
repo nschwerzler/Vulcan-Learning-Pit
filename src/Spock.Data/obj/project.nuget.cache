@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6bkLXfz3m9s=",
+  "dgSpecHash": "iZ7Za9mAtqE=",
   "success": true,
-  "projectFilePath": "c:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Data\\Spock.Data.csproj",
+  "projectFilePath": "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Data\\Spock.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nschw\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\nschw\\.nuget\\packages\\microsoft.build\\17.7.2\\microsoft.build.17.7.2.nupkg.sha512",

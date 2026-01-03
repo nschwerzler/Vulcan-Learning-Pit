@@ -205,7 +205,8 @@ public class MainViewModel : INotifyPropertyChanged
         "Math",
         "Logic",
         "Reading",
-        "Science"
+        "Science",
+        "Bitcoin"
     };
 
     public double AccuracyPercentage => TotalAttempts > 0 ? (CorrectAnswers * 100.0 / TotalAttempts) : 0;
@@ -453,6 +454,7 @@ public class MainViewModel : INotifyPropertyChanged
                 "Logic" => Domain.Logic,
                 "Reading" => Domain.Reading,
                 "Science" => Domain.Science,
+                "Bitcoin" => Domain.Bitcoin,
                 _ => (Domain?)null
             };
             

@@ -9,7 +9,11 @@ public enum Domain
     Logic,
     Reading,
     Science,
-    Executive
+    Executive,
+    WashingtonHistory,
+    Bitcoin,
+    Minecraft,
+    Health
 }
 
 /// <summary>
