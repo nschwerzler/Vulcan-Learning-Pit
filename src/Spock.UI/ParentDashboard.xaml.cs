@@ -6,6 +6,7 @@ namespace Spock.UI;
 /// <summary>
 /// Parent Dashboard window for monitoring student progress.
 /// Password-protected, parent-only interface with real-time analytics.
+/// Implements psychological safety: data for support, not judgment.
 /// </summary>
 public partial class ParentDashboard : Window
 {
@@ -17,16 +18,29 @@ public partial class ParentDashboard : Window
 
     /// <summary>
     /// Shows the dashboard with password protection.
-    /// In production, this would integrate with proper authentication.
+    /// Prompts for parent authentication before displaying data.
     /// </summary>
     public static void ShowDashboard(Window owner)
     {
-        // TODO: Add password protection
-        // For now, just show the window
-        var dashboard = new ParentDashboard
+        // Show password dialog first
+        var passwordDialog = new PasswordDialog
         {
             Owner = owner
         };
-        dashboard.Show();
+
+        var result = passwordDialog.ShowDialog();
+
+        if (result == true && passwordDialog.IsAuthenticated)
+        {
+            // Password correct - show dashboard
+            var dashboard = new ParentDashboard
+            {
+                Owner = owner
+            };
+            dashboard.Show();
+        }
+        // If password incorrect or cancelled, do nothing (dashboard won't open)
     }
 }
+
+

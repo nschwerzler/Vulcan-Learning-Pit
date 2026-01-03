@@ -1,11 +1,12 @@
 # Spock Learning
 
-Adaptive learning platform for grades 4-college with a Spock mentor motif. Desktop WPF application built with .NET 9 C#.
+Adaptive learning platform for grades 4-college with a Spock mentor motif. Desktop WPF application built with .NET 10 C#.
 
-✅ **Core Engine Complete** - All adaptive engines integrated  
-🎨 **UI Functional** - Full MVVM interface with session coordination  
-✅ **135 Tests Passing** - All integration tests successful  
+✅ **Core Engine Complete** - All adaptive engines integrated
+🎨 **UI Functional** - Full MVVM interface with session coordination
+✅ **178 Tests Passing** - All integration tests successful
 🐛 **Debug Server Active** - HTTP API for real-time state inspection
+🔧 **Production Ready** - Recent bug fixes eliminate deadlock risks
 
 ## Quick Start
 
@@ -51,6 +52,13 @@ Invoke-RestMethod http://localhost:5555/health
 - Automatic mastery detection and acceleration
 - Session metrics tracking (accuracy, time, focus score)
 - Zone of Proximal Development problem selection
+- **Game Token System** - Difficulty-based reward system (16 tests)
+
+**✅ Phase 4.5: Data Persistence** (Complete - 18 tests)
+- Entity Framework Core with SQLite
+- StudentDataService for profile and session management
+- Session history and aggregate metrics
+- Weakness trend tracking
 
 **🚧 Phase 5: Enhancement & Content** (Next)
 - Visual enhancements and animations
@@ -67,7 +75,7 @@ Invoke-RestMethod http://localhost:5555/health
 git clone https://github.com/nschwerzler/Vulcan-Learning-Pit.git
 cd Spock
 
-# Run tests (127 passing)
+# Run tests (178 passing)
 dotnet test
 
 # Run the UI
@@ -125,7 +133,7 @@ dotnet test --filter "FullyQualifiedName~SpockDialogueEngineTests"
 dotnet test --list-tests
 ```
 
-**135 passing tests** covering:
+**178 passing tests** covering:
 - Core models (15 tests)
 - Approval system (12 tests)
 - Session state machine (17 tests)
@@ -134,7 +142,9 @@ dotnet test --list-tests
 - BKT algorithms (20 tests)
 - Dialogue generation (23 tests)
 - Session coordination (8 tests)
-- Integration scenarios (3 tests)
+- Game token system (16 tests)
+- Data persistence (18 tests)
+- Integration scenarios (11 tests)
 
 ## Structure
 
@@ -143,13 +153,13 @@ dotnet test --list-tests
 - src/Spock.Engine/: Adaptive algorithms (all 6 engines)
 - src/Spock.Data/: Entity Framework persistence layer
 - src/Spock.UI/: WPF application with MVVM
-- tests/Spock.Tests/: 127 passing tests with timeout enforcement
+- tests/Spock.Tests/: 178 passing tests with timeout enforcement
 
 ## Tech Stack
 
 - **UI**: WPF with MVVM pattern
-- **Backend**: .NET 9 C# class libraries
-- **Database**: Entity Framework Core with SQLite (planned)
+- **Backend**: .NET 10 C# class libraries
+- **Database**: Entity Framework Core 10.0.1 with SQLite
 - **Testing**: MSTest + Moq + FluentAssertions
 - **State Management**: Stateless 5.20.0
 - **Distribution**: MSIX packaging or ClickOnce (planned)

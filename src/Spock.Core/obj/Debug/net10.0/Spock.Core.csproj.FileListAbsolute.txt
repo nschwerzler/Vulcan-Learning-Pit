@@ -1,0 +1,12 @@
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Core\bin\Debug\net10.0\Spock.Core.deps.json
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Core\bin\Debug\net10.0\Spock.Core.dll
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Core\bin\Debug\net10.0\Spock.Core.pdb
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Core\obj\Debug\net10.0\Spock.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Core\obj\Debug\net10.0\Spock.Core.AssemblyInfoInputs.cache
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Core\obj\Debug\net10.0\Spock.Core.AssemblyInfo.cs
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Core\obj\Debug\net10.0\Spock.Core.csproj.CoreCompileInputs.cache
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Core\obj\Debug\net10.0\Spock.Core.sourcelink.json
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Core\obj\Debug\net10.0\Spock.Core.dll
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Core\obj\Debug\net10.0\refint\Spock.Core.dll
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Core\obj\Debug\net10.0\Spock.Core.pdb
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Core\obj\Debug\net10.0\ref\Spock.Core.dll

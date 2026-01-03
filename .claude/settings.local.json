@@ -3,7 +3,9 @@
     "allow": [
       "Bash(claude mcp add:*)",
       "Bash(claude settings set:*)",
-      "Bash(claude settings:*)"
+      "Bash(claude settings:*)",
+      "Bash(dotnet test:*)",
+      "Bash(dotnet build:*)"
     ],
     "deny": [],
     "ask": []

@@ -508,8 +508,15 @@ public class ApprovalEngine
         _approvalThreshold = _random.Next(3, 8); // 3-7 inclusive
     }
 
-    public void ProcessProblem(ProblemAttempt problem, StudentProfile profile)
+    public ApprovalResult ProcessProblem(ProblemAttempt problem, StudentProfile profile, SessionState session)
     {
+        var result = new ApprovalResult
+        {
+            IsCorrect = problem.IsCorrect,
+            TokensEarned = 0,
+            ApprovalTriggered = false
+        };
+
         if (problem.IsCorrect)
         {
             _correctStreak++;
@@ -517,97 +524,439 @@ public class ApprovalEngine
             // Award game time: 1 second × difficulty level
             int secondsEarned = 1 * problem.Difficulty;
             profile.GameTokenSeconds += secondsEarned;
+            session.TokensEarnedThisSession += secondsEarned;
+            result.TokensEarned = secondsEarned;
+            
+            // Track performance for adaptive difficulty
+            session.CorrectAnswers++;
+            session.TotalAttempts++;
             
             if (problem.WasWeakness && problem.NowMastered)
             {
                 _recentWeaknessConquered = true;
+                result.WeaknessConquered = true;
             }
         }
         else
         {
             _correctStreak = 0;
-            _approvalThreshold = _random.Next(3, 8); // Reset
+            _approvalThreshold = _random.Next(3, 8); // Reset variable-ratio
             
             // Deduct 1 second on incorrect, but maintain minimum of 1 second
-            profile.GameTokenSeconds = Math.Max(1, profile.GameTokenSeconds - 1);
+            int penaltySeconds = 1;
+            profile.GameTokenSeconds = Math.Max(1, profile.GameTokenSeconds - penaltySeconds);
+            result.TokensEarned = -penaltySeconds;
+            
+            session.TotalAttempts++;
             
             // Show complete solution with explanation, then move to next problem
             // No retry - weakness is tracked for disguised practice later
-            DisplaySolution(problem);
-            MoveToNextProblem();
+            result.Solution = DisplaySolution(problem);
         }
 
-        // Approval conditions
+        // Check approval conditions
         if (_correctStreak >= _approvalThreshold)
         {
-            TriggerApproval(ApprovalType.Streak, ApprovalIntensity.Subtle);
+            result.Approval = TriggerApproval(ApprovalType.Streak, ApprovalIntensity.Subtle, session);
+            result.ApprovalTriggered = true;
             _correctStreak = 0;
-            _approvalThreshold = _random.Next(3, 8);
+            _approvalThreshold = _random.Next(3, 8); // New random threshold
         }
 
         if (_recentWeaknessConquered)
         {
-            TriggerApproval(ApprovalType.Mastery, ApprovalIntensity.Strong);
+            result.Approval = TriggerApproval(ApprovalType.Mastery, ApprovalIntensity.Strong, session);
+            result.ApprovalTriggered = true;
             _recentWeaknessConquered = false;
         }
+
+        return result;
     }
 
-    private void TriggerApproval(ApprovalType type, ApprovalIntensity intensity)
+    private ApprovalMessage TriggerApproval(ApprovalType type, ApprovalIntensity intensity, SessionState session)
     {
-        // Implementation for displaying approval
+        var approval = new ApprovalMessage
+        {
+            Type = type,
+            Intensity = intensity,
+            Timestamp = DateTime.UtcNow
+        };
+
+        // Select appropriate dialogue based on type and intensity
+        approval.Message = type switch
+        {
+            ApprovalType.Streak when intensity == ApprovalIntensity.Subtle => 
+                _subtleApprovals[_random.Next(_subtleApprovals.Count)],
+            ApprovalType.Mastery when intensity == ApprovalIntensity.Strong =>
+                GenerateMasteryApproval(session),
+            _ => "Proceed."
+        };
+
+        // Occasionally add narrative echo (10% chance)
+        if (_random.NextDouble() < 0.1 && session.PriorApprovals.Count > 0)
+        {
+            var priorApproval = session.PriorApprovals[_random.Next(session.PriorApprovals.Count)];
+            approval.NarrativeEcho = $"This builds upon your {priorApproval.Context} from session {priorApproval.SessionNumber}.";
+        }
+
+        session.ApprovalsThisSession.Add(approval);
+        return approval;
     }
+
+    private string GenerateMasteryApproval(SessionState session)
+    {
+        var conqueredSkill = session.WeaknessesConqueredThisSession.LastOrDefault();
+        if (conqueredSkill != null)
+        {
+            return $"This skill was inefficient. It is no longer so. {conqueredSkill} weakness resolved.";
+        }
+        return "Your performance now meets standards.";
+    }
+
+    private SolutionDisplay DisplaySolution(ProblemAttempt problem)
+    {
+        return new SolutionDisplay
+        {
+            StudentAnswer = problem.StudentAnswer,
+            CorrectAnswer = problem.Problem.Content.CorrectAnswers.First(),
+            Explanation = problem.Problem.Content.Guidance.WorkedExample,
+            KeyPrinciple = problem.Problem.Content.Guidance.KeyPrinciple,
+            CommonMistake = problem.Problem.Content.Guidance.CommonMistake,
+            WhatStudentDid = AnalyzeStudentError(problem)
+        };
+    }
+
+    private string AnalyzeStudentError(ProblemAttempt problem)
+    {
+        // Analyze student's incorrect approach
+        // This would use pattern matching or heuristics based on problem type
+        return $"You attempted: {problem.StudentAnswer}. Common error pattern detected.";
+    }
+
+    private readonly List<string> _subtleApprovals = new()
+    {
+        "Your accuracy has improved.",
+        "You are maintaining efficiency.",
+        "Logical consistency noted.",
+        "Pattern recognition is strengthening.",
+        "Your approach is becoming more systematic.",
+        "Time efficiency has increased."
+    };
 }
 
-public enum ApprovalType { Streak, Mastery }
-public enum ApprovalIntensity { Subtle, Strong }
+public enum ApprovalType { Streak, Mastery, Breakthrough }
+public enum ApprovalIntensity { Subtle, Moderate, Strong }
+
+public class ApprovalResult
+{
+    public bool IsCorrect { get; set; }
+    public int TokensEarned { get; set; }
+    public bool ApprovalTriggered { get; set; }
+    public bool WeaknessConquered { get; set; }
+    public ApprovalMessage? Approval { get; set; }
+    public SolutionDisplay? Solution { get; set; }
+}
+
+public class ApprovalMessage
+{
+    public ApprovalType Type { get; set; }
+    public ApprovalIntensity Intensity { get; set; }
+    public string Message { get; set; }
+    public string? NarrativeEcho { get; set; }
+    public DateTime Timestamp { get; set; }
+}
+
+public class SolutionDisplay
+{
+    public string StudentAnswer { get; set; }
+    public string CorrectAnswer { get; set; }
+    public string Explanation { get; set; }
+    public string KeyPrinciple { get; set; }
+    public string CommonMistake { get; set; }
+    public string WhatStudentDid { get; set; }
+}
 ```
 
 ### Topic Switch Engine (ADD-Optimized)
 
 ```csharp
-public class SessionManager
+public class TopicScheduler
 {
     private const int MaxSameMicrotopic = 2;
     private readonly Random _random = new();
+    private readonly WeaknessTracker _weaknessTracker;
+    private readonly BayesianKnowledgeTracer _bkt;
     
     private int _sameTopicCount = 0;
     private int _minutesInDomain = 0;
     private int _domainSwitchThreshold;
+    private string _currentMicroTopic;
+    private Domain _currentDomain;
+    private DateTime _domainStartTime;
+    private List<Problem> _problemBank;
+    private HashSet<string> _recentlyUsedProblemIds;
 
-    public SessionManager()
+    public TopicScheduler(WeaknessTracker weaknessTracker, BayesianKnowledgeTracer bkt, List<Problem> problemBank)
     {
+        _weaknessTracker = weaknessTracker;
+        _bkt = bkt;
+        _problemBank = problemBank;
+        _recentlyUsedProblemIds = new HashSet<string>();
         _domainSwitchThreshold = _random.Next(3, 7); // 3-6 minutes
     }
 
-    public Problem GetNextProblem()
+    public Problem GetNextProblem(StudentProfile profile, SessionState session)
     {
+        UpdateTimers(session);
+
         // Rule 1: Never exceed 2 consecutive same micro-topics
         if (_sameTopicCount >= MaxSameMicrotopic)
         {
-            return GetDifferentDomain();
+            return GetDifferentDomain(profile, session);
         }
 
-        // Rule 2: Switch domains every 3-6 minutes
+        // Rule 2: Switch domains every 3-6 minutes (ADD-friendly)
         if (_minutesInDomain >= _domainSwitchThreshold)
         {
             _domainSwitchThreshold = _random.Next(3, 7);
-            return GetDifferentDomain();
+            return GetDifferentDomain(profile, session);
         }
 
-        // Rule 3: Disguise weakness targeting
-        if (HasUnaddressedWeakness())
+        // Rule 3: Disguise weakness targeting (priority)
+        if (HasUnaddressedWeakness(profile, session))
         {
-            return GetWeaknessInDifferentFormat();
+            return GetWeaknessInDifferentFormat(profile, session);
+        }
+
+        // Rule 4: Rapid mastery preview (if performance is exceptional)
+        if (IsReadyForPreview(profile, session))
+        {
+            return GetPreviewProblem(profile);
         }
 
         // Default: balanced progression
-        return GetBalancedProblem();
+        return GetBalancedProblem(profile, session);
     }
 
-    private Problem GetDifferentDomain() { /* Implementation */ return null; }
-    private Problem GetWeaknessInDifferentFormat() { /* Implementation */ return null; }
-    private Problem GetBalancedProblem() { /* Implementation */ return null; }
-    private bool HasUnaddressedWeakness() { /* Implementation */ return false; }
+    private void UpdateTimers(SessionState session)
+    {
+        var elapsed = (DateTime.UtcNow - _domainStartTime).TotalMinutes;
+        _minutesInDomain = (int)elapsed;
+    }
+
+    private Problem GetDifferentDomain(StudentProfile profile, SessionState session)
+    {
+        // Get domains other than current
+        var availableDomains = Enum.GetValues<Domain>()
+            .Where(d => d != _currentDomain)
+            .ToList();
+
+        // Weight by skill level - prefer domains at appropriate difficulty
+        var targetDomain = SelectWeightedDomain(availableDomains, profile);
+        
+        var problems = _problemBank
+            .Where(p => p.Domain == targetDomain)
+            .Where(p => !_recentlyUsedProblemIds.Contains(p.Id))
+            .Where(p => IsAppropriiateDifficulty(p, profile))
+            .ToList();
+
+        if (problems.Count == 0) problems = _problemBank.Where(p => p.Domain == targetDomain).ToList();
+
+        var selected = problems[_random.Next(problems.Count)];
+        UpdateCurrentContext(selected);
+        return selected;
+    }
+
+    private Problem GetWeaknessInDifferentFormat(StudentProfile profile, SessionState session)
+    {
+        var weaknesses = _weaknessTracker.GetActiveWeaknesses(profile.Id);
+        if (weaknesses.Count == 0) return GetBalancedProblem(profile, session);
+
+        // Select weakness that hasn't been addressed recently
+        var targetWeakness = weaknesses
+            .OrderBy(w => w.LastAttempt)
+            .FirstOrDefault();
+
+        if (targetWeakness == null) return GetBalancedProblem(profile, session);
+
+        // Find problems that target this weakness in different contexts
+        var disguisedProblems = _problemBank
+            .Where(p => p.Metadata?.DisguisedWeakness == targetWeakness.SkillId)
+            .Where(p => !targetWeakness.PresentedAs.Contains(p.MicroTopic))
+            .Where(p => !_recentlyUsedProblemIds.Contains(p.Id))
+            .ToList();
+
+        if (disguisedProblems.Count == 0)
+        {
+            // Direct approach if no disguised versions available
+            disguisedProblems = _problemBank
+                .Where(p => p.MicroTopic == targetWeakness.SkillId)
+                .Where(p => !_recentlyUsedProblemIds.Contains(p.Id))
+                .ToList();
+        }
+
+        if (disguisedProblems.Count == 0) return GetBalancedProblem(profile, session);
+
+        var selected = disguisedProblems[_random.Next(disguisedProblems.Count)];
+        selected.Metadata = selected.Metadata ?? new ProblemMetadata();
+        selected.Metadata.DisguisedWeakness = targetWeakness.SkillId;
+        
+        targetWeakness.DisguiseCount++;
+        targetWeakness.PresentedAs.Add(selected.MicroTopic);
+        
+        UpdateCurrentContext(selected);
+        return selected;
+    }
+
+    private Problem GetBalancedProblem(StudentProfile profile, SessionState session)
+    {
+        // Use BKT to determine optimal difficulty and topic
+        var recommendedSkills = _bkt.GetRecommendedSkills(profile, session);
+        
+        var problems = _problemBank
+            .Where(p => recommendedSkills.Contains(p.MicroTopic))
+            .Where(p => !_recentlyUsedProblemIds.Contains(p.Id))
+            .Where(p => IsAppropriiateDifficulty(p, profile))
+            .ToList();
+
+        if (problems.Count == 0)
+        {
+            // Fallback to any appropriate difficulty problem
+            problems = _problemBank
+                .Where(p => !_recentlyUsedProblemIds.Contains(p.Id))
+                .Where(p => IsAppropriiateDifficulty(p, profile))
+                .ToList();
+        }
+
+        var selected = problems.Count > 0 
+            ? problems[_random.Next(problems.Count)]
+            : _problemBank[_random.Next(_problemBank.Count)];
+
+        UpdateCurrentContext(selected);
+        return selected;
+    }
+
+    private Problem GetPreviewProblem(StudentProfile profile)
+    {
+        // Get problems slightly above current level
+        var currentMaxDifficulty = GetCurrentMaxDifficulty(profile);
+        var previewProblems = _problemBank
+            .Where(p => p.Difficulty == currentMaxDifficulty + 1)
+            .Where(p => !_recentlyUsedProblemIds.Contains(p.Id))
+            .ToList();
+
+        if (previewProblems.Count == 0) return GetBalancedProblem(profile, null);
+
+        var selected = previewProblems[_random.Next(previewProblems.Count)];
+        selected.Metadata = selected.Metadata ?? new ProblemMetadata();
+        selected.Metadata.IsPreview = true;
+        
+        UpdateCurrentContext(selected);
+        return selected;
+    }
+
+    private void UpdateCurrentContext(Problem problem)
+    {
+        if (problem.Domain != _currentDomain)
+        {
+            _currentDomain = problem.Domain;
+            _domainStartTime = DateTime.UtcNow;
+            _minutesInDomain = 0;
+            _sameTopicCount = 0;
+        }
+        
+        if (problem.MicroTopic == _currentMicroTopic)
+        {
+            _sameTopicCount++;
+        }
+        else
+        {
+            _currentMicroTopic = problem.MicroTopic;
+            _sameTopicCount = 1;
+        }
+
+        _recentlyUsedProblemIds.Add(problem.Id);
+        
+        // Clear recent problems cache after 10 problems
+        if (_recentlyUsedProblemIds.Count > 10)
+        {
+            _recentlyUsedProblemIds.Clear();
+        }
+    }
+
+    private bool HasUnaddressedWeakness(StudentProfile profile, SessionState session)
+    {
+        var weaknesses = _weaknessTracker.GetActiveWeaknesses(profile.Id);
+        return weaknesses.Any(w => 
+            (DateTime.UtcNow - w.LastAttempt).TotalMinutes > 5 &&
+            !session.WeaknessesAddressedThisSession.Contains(w.SkillId));
+    }
+
+    private bool IsReadyForPreview(StudentProfile profile, SessionState session)
+    {
+        // Check if recent performance is exceptional (>95% accuracy, <60% target time)
+        if (session.TotalAttempts < 5) return false;
+        
+        double accuracy = (double)session.CorrectAnswers / session.TotalAttempts;
+        double avgTime = session.AverageTimePerProblem;
+        
+        var recentProblems = session.ProblemsAttempted.TakeLast(5);
+        if (!recentProblems.Any()) return false;
+        
+        double avgTargetTime = recentProblems.Average(p => p.Problem.TargetTime);
+        
+        return accuracy > 0.95 && avgTime < 0.6 * avgTargetTime;
+    }
+
+    private bool IsAppropriiateDifficulty(Problem problem, StudentProfile profile)
+    {
+        var skillLevel = profile.Level.GetDifficultyForDomain(problem.Domain);
+        return problem.Difficulty >= skillLevel - 1 && problem.Difficulty <= skillLevel + 2;
+    }
+
+    private Domain SelectWeightedDomain(List<Domain> domains, StudentProfile profile)
+    {
+        // Weight domains based on skill gaps and recent practice
+        var weights = domains.Select(d => new
+        {
+            Domain = d,
+            Weight = CalculateDomainWeight(d, profile)
+        }).ToList();
+
+        var totalWeight = weights.Sum(w => w.Weight);
+        var randomValue = _random.NextDouble() * totalWeight;
+        
+        double cumulative = 0;
+        foreach (var item in weights)
+        {
+            cumulative += item.Weight;
+            if (randomValue <= cumulative)
+                return item.Domain;
+        }
+
+        return domains[_random.Next(domains.Count)];
+    }
+
+    private double CalculateDomainWeight(Domain domain, StudentProfile profile)
+    {
+        // Higher weight for domains that need more practice
+        var skillLevel = profile.Level.GetDifficultyForDomain(domain);
+        var mastery = _bkt.GetDomainMastery(profile.Id, domain);
+        
+        // Inverse of mastery - lower mastery = higher weight
+        return 1.0 - mastery + 0.1; // +0.1 to ensure minimum weight
+    }
+
+    private int GetCurrentMaxDifficulty(StudentProfile profile)
+    {
+        return new[] 
+        { 
+            profile.Level.GetDifficultyForDomain(Domain.Math),
+            profile.Level.GetDifficultyForDomain(Domain.Logic),
+            profile.Level.GetDifficultyForDomain(Domain.Reading),
+            profile.Level.GetDifficultyForDomain(Domain.Science)
+        }.Max();
+    }
 }
 ```
 

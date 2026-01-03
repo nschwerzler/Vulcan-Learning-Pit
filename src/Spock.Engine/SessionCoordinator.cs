@@ -14,7 +14,8 @@ public class SessionCoordinator
     private readonly TopicScheduler _topicScheduler;
     private readonly BayesianKnowledgeTracer _knowledgeTracer;
     private readonly SpockDialogueEngine _dialogueEngine;
-    private readonly object _lock = new();
+    private readonly Random _random = new();
+    private readonly SemaphoreSlim _asyncLock = new(1, 1);
     
     private Session _currentSession;
     private StudentProfile _studentProfile;
@@ -50,19 +51,18 @@ public class SessionCoordinator
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        lock (_lock)
+        await _asyncLock.WaitAsync(cancellationToken);
+        try
         {
             var sessionDuration = DateTime.UtcNow - _lastProblemTime;
             _problemsInCurrentDomain++;
 
             // Check if we should switch domains (ADD-aware)
-            var shouldSwitchTask = _topicScheduler.ShouldSwitchDomainAsync(
+            var shouldSwitch = await _topicScheduler.ShouldSwitchDomainAsync(
                 _currentDomain,
                 _problemsInCurrentDomain,
                 sessionDuration.TotalMinutes,
                 cancellationToken);
-            
-            var shouldSwitch = shouldSwitchTask.Result;
 
             if (shouldSwitch)
             {
@@ -73,14 +73,13 @@ public class SessionCoordinator
                     .Select(d => d!.Value)
                     .Distinct()
                     .ToList();
-                
-                var nextDomainTask = _topicScheduler.SelectNextDomainAsync(
+
+                var nextDomain = await _topicScheduler.SelectNextDomainAsync(
                     _currentDomain,
                     _studentProfile,
                     weaknessDomains,
                     cancellationToken);
-                
-                var nextDomain = nextDomainTask.Result;
+
                 if (nextDomain.HasValue)
                 {
                     _currentDomain = nextDomain.Value;
@@ -103,7 +102,7 @@ public class SessionCoordinator
             // Get weaknesses and try to disguise them
             var targetTimes = domainProblems.ToDictionary(p => p.MicroTopic, p => (double)p.TargetTime);
             var weaknessIds = _weaknessTracker.GetActiveWeaknesses(targetTimes);
-            
+
             if (weaknessIds.Any())
             {
                 var targetWeaknessId = weaknessIds.First();
@@ -115,7 +114,7 @@ public class SessionCoordinator
                 {
                     var disguisedProblem = domainProblems
                         .FirstOrDefault(p => p.MicroTopic == disguise);
-                    
+
                     if (disguisedProblem != null)
                     {
                         disguisedProblem.Metadata.DisguisedWeakness = targetWeaknessId;
@@ -125,11 +124,14 @@ public class SessionCoordinator
             }
 
             // Use BKT to select appropriate difficulty
-            var masteryTask = _knowledgeTracer.GetAllMasteryEstimatesAsync(cancellationToken);
-            var masteryEstimates = masteryTask.Result;
+            var masteryEstimates = await _knowledgeTracer.GetAllMasteryEstimatesAsync(cancellationToken);
             var selectedProblem = SelectProblemByKnowledgeState(domainProblems, masteryEstimates);
-            
+
             return selectedProblem ?? domainProblems.First();
+        }
+        finally
+        {
+            _asyncLock.Release();
         }
     }
 
@@ -144,7 +146,8 @@ public class SessionCoordinator
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        lock (_lock)
+        await _asyncLock.WaitAsync(cancellationToken);
+        try
         {
             // Record attempt in session
             _currentSession.Problems.Add(attempt);
@@ -153,30 +156,28 @@ public class SessionCoordinator
             var allAttempts = _currentSession.Problems
                 .Where(p => p.ProblemId == problem.Id || true) // Get all attempts for this skill
                 .ToList();
-            
-            var updateTask = _weaknessTracker.UpdateMetricsAsync(
+
+            await _weaknessTracker.UpdateMetricsAsync(
                 problem.MicroTopic,
                 allAttempts,
                 problem.TargetTime,
                 cancellationToken);
-            updateTask.Wait(cancellationToken);
 
             // Update BKT knowledge state
-            var bktTask = _knowledgeTracer.UpdateSkillAsync(
+            await _knowledgeTracer.UpdateSkillAsync(
                 problem.MicroTopic,
                 attempt.IsCorrect,
                 cancellationToken);
-            bktTask.Wait(cancellationToken);
 
             // Check if weakness was mastered
             if (!string.IsNullOrEmpty(problem.Metadata.DisguisedWeakness))
             {
-                var masteryTask = _knowledgeTracer.IsMasteredAsync(
+                var isMastered = await _knowledgeTracer.IsMasteredAsync(
                     problem.Metadata.DisguisedWeakness,
                     0.90, // Mastery threshold (90%)
                     cancellationToken);
-                
-                if (masteryTask.Result)
+
+                if (isMastered)
                 {
                     attempt.WasWeakness = true;
                     attempt.NowMastered = true;
@@ -184,12 +185,10 @@ public class SessionCoordinator
             }
 
             // Process through approval engine
-            var approvalsTask = _approvalEngine.ProcessProblemAsync(attempt, cancellationToken);
-            var approvals = approvalsTask.Result;
+            var approvals = await _approvalEngine.ProcessProblemAsync(attempt, cancellationToken);
 
             // Generate Spock dialogue
-            var dialogueTask = GenerateDialogueAsync(attempt, approvals, problem, cancellationToken);
-            var dialogue = dialogueTask.Result;
+            var dialogue = await GenerateDialogueAsync(attempt, approvals, problem, cancellationToken);
 
             // Update session metrics
             UpdateSessionMetrics(attempt, problem);
@@ -211,6 +210,10 @@ public class SessionCoordinator
                 ShouldSwitchTopic = false // Determined by next GetNextProblem call
             };
         }
+        finally
+        {
+            _asyncLock.Release();
+        }
     }
 
     /// <summary>
@@ -218,12 +221,17 @@ public class SessionCoordinator
     /// </summary>
     public Session EndSession(SessionEndReason reason)
     {
-        lock (_lock)
+        _asyncLock.Wait();
+        try
         {
             _currentSession.EndTime = DateTime.UtcNow;
             _currentSession.EndReason = reason;
-            
+
             return _currentSession;
+        }
+        finally
+        {
+            _asyncLock.Release();
         }
     }
 
@@ -232,9 +240,14 @@ public class SessionCoordinator
     /// </summary>
     public SessionMetrics GetCurrentMetrics()
     {
-        lock (_lock)
+        _asyncLock.Wait();
+        try
         {
             return _currentSession.Metrics;
+        }
+        finally
+        {
+            _asyncLock.Release();
         }
     }
 
@@ -264,7 +277,7 @@ public class SessionCoordinator
                 cancellationToken);
 
             // 20% chance of narrative echo
-            if (latestApproval != null && new Random().NextDouble() < 0.2)
+            if (latestApproval != null && _random.NextDouble() < 0.2)
             {
                 var echo = await _dialogueEngine.GetNarrativeEchoAsync(
                     latestApproval,
@@ -331,9 +344,23 @@ public class SessionCoordinator
     {
         var metrics = _currentSession.Metrics;
         
+        // Increment total attempts
+        metrics.TotalAttempts++;
+        
         if (attempt.IsCorrect)
         {
             metrics.TotalCorrect++;
+            
+            // Award game time: 1 second × difficulty level
+            int secondsEarned = 1 * problem.Difficulty;
+            _studentProfile.GameTokenSeconds += secondsEarned;
+            metrics.TokensEarned += secondsEarned;
+        }
+        else
+        {
+            // Deduct 1 second on incorrect, but maintain minimum of 1 second
+            _studentProfile.GameTokenSeconds = Math.Max(1, _studentProfile.GameTokenSeconds - 1);
+            metrics.TokensEarned -= 1;
         }
 
         // Update average time
