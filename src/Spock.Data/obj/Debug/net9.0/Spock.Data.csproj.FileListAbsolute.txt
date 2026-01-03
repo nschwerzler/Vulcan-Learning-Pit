@@ -10,3 +10,7 @@ C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\S
 C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\refint\Spock.Data.dll
 C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\Spock.Data.pdb
 C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\ref\Spock.Data.dll
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\Spock.Data.csproj.AssemblyReference.cache
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\bin\Debug\net9.0\Spock.Core.dll
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\bin\Debug\net9.0\Spock.Core.pdb
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\Spock.Data.csproj.Up2Date

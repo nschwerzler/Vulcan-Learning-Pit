@@ -656,6 +656,9 @@
         }
       },
       "Spock.Data/1.0.0": {
+        "dependencies": {
+          "Spock.Core": "1.0.0"
+        },
         "runtime": {
           "Spock.Data.dll": {
             "assemblyVersion": "1.0.0.0",

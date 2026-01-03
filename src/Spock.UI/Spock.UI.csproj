@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Spock.Core\Spock.Core.csproj" />
+    <ProjectReference Include="..\Spock.Data\Spock.Data.csproj" />
     <ProjectReference Include="..\Spock.Engine\Spock.Engine.csproj" />
   </ItemGroup>
 

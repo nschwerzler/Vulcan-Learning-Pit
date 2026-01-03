@@ -25,6 +25,19 @@
           "bin/placeholder/Spock.Core.dll": {}
         }
       },
+      "Spock.Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "Spock.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Spock.Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Spock.Data.dll": {}
+        }
+      },
       "Spock.Engine/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
@@ -68,6 +81,11 @@
       "path": "../Spock.Core/Spock.Core.csproj",
       "msbuildProject": "../Spock.Core/Spock.Core.csproj"
     },
+    "Spock.Data/1.0.0": {
+      "type": "project",
+      "path": "../Spock.Data/Spock.Data.csproj",
+      "msbuildProject": "../Spock.Data/Spock.Data.csproj"
+    },
     "Spock.Engine/1.0.0": {
       "type": "project",
       "path": "../Spock.Engine/Spock.Engine.csproj",
@@ -77,6 +95,7 @@
   "projectFileDependencyGroups": {
     "net9.0-windows7.0": [
       "Spock.Core >= 1.0.0",
+      "Spock.Data >= 1.0.0",
       "Spock.Engine >= 1.0.0"
     ]
   },
@@ -107,6 +126,9 @@
           "projectReferences": {
             "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Core\\Spock.Core.csproj": {
               "projectPath": "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Core\\Spock.Core.csproj"
+            },
+            "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Data\\Spock.Data.csproj": {
+              "projectPath": "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Data\\Spock.Data.csproj"
             },
             "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Engine\\Spock.Engine.csproj": {
               "projectPath": "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Engine\\Spock.Engine.csproj"

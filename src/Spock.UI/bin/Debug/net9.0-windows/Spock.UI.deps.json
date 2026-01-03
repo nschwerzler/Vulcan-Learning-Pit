@@ -9,6 +9,7 @@
       "Spock.UI/1.0.0": {
         "dependencies": {
           "Spock.Core": "1.0.0",
+          "Spock.Data": "1.0.0",
           "Spock.Engine": "1.0.0"
         },
         "runtime": {
@@ -26,6 +27,17 @@
       "Spock.Core/1.0.0": {
         "runtime": {
           "Spock.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Spock.Data/1.0.0": {
+        "dependencies": {
+          "Spock.Core": "1.0.0"
+        },
+        "runtime": {
+          "Spock.Data.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -59,6 +71,11 @@
       "hashPath": "stateless.5.20.0.nupkg.sha512"
     },
     "Spock.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Spock.Data/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

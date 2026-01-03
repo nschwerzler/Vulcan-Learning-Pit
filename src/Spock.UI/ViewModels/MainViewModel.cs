@@ -36,7 +36,7 @@ public class MainViewModel : INotifyPropertyChanged
         _dialogueEngine = new SpockDialogueEngine();
         _weaknessTracker = new WeaknessTracker();
         
-        // Initialize sample problems
+        // Initialize sample problems (expanded bank in development)
         _problemBank = CreateSampleProblems();
         
         // Commands

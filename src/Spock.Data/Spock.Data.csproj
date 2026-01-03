@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Spock.Core\Spock.Core.csproj" />
+  </ItemGroup>
+
 </Project>
