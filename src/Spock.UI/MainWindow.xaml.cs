@@ -15,6 +15,12 @@ public partial class MainWindow : Window
         InitializeComponent();
         DataContext = new MainViewModel();
     }
+
+    private void OpenDashboard_Click(object sender, RoutedEventArgs e)
+    {
+        // Show parent dashboard in a new window
+        ParentDashboard.ShowDashboard(this);
+    }
 }
 
 // Converter for showing/hiding feedback

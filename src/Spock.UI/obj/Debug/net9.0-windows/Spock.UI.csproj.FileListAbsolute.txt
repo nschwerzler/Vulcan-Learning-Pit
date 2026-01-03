@@ -28,3 +28,5 @@ C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net9.0-win
 C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net9.0-windows\Spock.Engine.pdb
 C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\obj\Debug\net9.0-windows\App.baml
 C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\obj\Debug\net9.0-windows\Spock.UI.csproj.Up2Date
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\obj\Debug\net9.0-windows\ParentDashboard.g.cs
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\obj\Debug\net9.0-windows\ParentDashboard.baml

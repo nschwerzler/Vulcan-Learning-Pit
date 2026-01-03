@@ -28,6 +28,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" 
@@ -37,7 +38,23 @@
                           Foreground="#4A9EFF"
                           VerticalAlignment="Center"/>
 
-                <StackPanel Grid.Column="1" Margin="20,0">
+                <Button Grid.Column="1"
+                       Content="📊 Parent Dashboard"
+                       Click="OpenDashboard_Click"
+                       Background="#2A2A2A"
+                       Foreground="#888"
+                       BorderBrush="#444"
+                       Padding="15,5"
+                       Margin="0,0,20,0"
+                       FontSize="12"
+                       Cursor="Hand"
+                       VerticalAlignment="Center">
+                    <Button.ToolTip>
+                        <ToolTip Content="View detailed progress analytics and parental controls"/>
+                    </Button.ToolTip>
+                </Button>
+
+                <StackPanel Grid.Column="2" Margin="20,0">
                     <TextBlock Text="STREAK" FontSize="10" Foreground="#888" HorizontalAlignment="Center"/>
                     <TextBlock Text="{Binding CorrectStreak}" 
                               FontSize="28" 
@@ -46,7 +63,7 @@
                               HorizontalAlignment="Center"/>
                 </StackPanel>
 
-                <StackPanel Grid.Column="2" Margin="20,0">
+                <StackPanel Grid.Column="3" Margin="20,0">
                     <TextBlock Text="ACCURACY" FontSize="10" Foreground="#888" HorizontalAlignment="Center"/>
                     <TextBlock FontSize="28" FontWeight="Bold" Foreground="#FFB84A" HorizontalAlignment="Center">
                         <TextBlock.Text>
@@ -57,7 +74,7 @@
                     </TextBlock>
                 </StackPanel>
 
-                <StackPanel Grid.Column="3" Margin="20,0,0,0">
+                <StackPanel Grid.Column="4" Margin="20,0">
                     <TextBlock Text="PROBLEMS" FontSize="10" Foreground="#888" HorizontalAlignment="Center"/>
                     <TextBlock FontSize="28" FontWeight="Bold" Foreground="#CCC" HorizontalAlignment="Center">
                         <TextBlock.Text>
