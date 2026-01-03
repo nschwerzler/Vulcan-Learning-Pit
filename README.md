@@ -1,4 +1,4 @@
-# Spock Learning
+# Vulcan Learning Pit
 
 Adaptive learning platform for grades 4-college with a Spock mentor motif. Desktop WPF application built with .NET 10 C#.
 

@@ -51,7 +51,7 @@ public class DebugServer : IDisposable
         // Root endpoint
         _app.MapGet("/", () => new
         {
-            message = "Spock Learning Debug Server",
+            message = "Vulcan Learning Pit Debug Server",
             endpoints = new[]
             {
                 "/health",

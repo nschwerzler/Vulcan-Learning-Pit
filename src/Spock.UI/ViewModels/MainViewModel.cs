@@ -193,9 +193,18 @@ public class MainViewModel : INotifyPropertyChanged
     public ObservableCollection<string> GradeLevels { get; } = new ObservableCollection<string>
     {
         "All",
-        "Elementary (4-5)",
-        "Middle School (6-8)",
-        "High School (9-12)",
+        "Grade 1",
+        "Grade 2",
+        "Grade 3",
+        "Grade 4",
+        "Grade 5",
+        "Grade 6",
+        "Grade 7",
+        "Grade 8",
+        "Grade 9",
+        "Grade 10",
+        "Grade 11",
+        "Grade 12",
         "College"
     };
 
@@ -206,7 +215,11 @@ public class MainViewModel : INotifyPropertyChanged
         "Logic",
         "Reading",
         "Science",
-        "Bitcoin"
+        "Executive Skills",
+        "Washington History",
+        "Bitcoin",
+        "Minecraft",
+        "Health"
     };
 
     public double AccuracyPercentage => TotalAttempts > 0 ? (CorrectAnswers * 100.0 / TotalAttempts) : 0;
@@ -400,13 +413,10 @@ public class MainViewModel : INotifyPropertyChanged
             MultipleChoiceInstruction = _currentProblem.Content.AllowMultipleAnswers 
                 ? "Pick 1 or more" 
                 : "Pick 1";
-            // Domain will be shown in visual indicator, not text
-            CurrentQuestion = _currentProblem.Content.Question;
         }
-        else
-        {
-            CurrentQuestion = FormatProblem(_currentProblem);
-        }
+        
+        // Always set CurrentQuestion to ensure it displays (not conditional on format)
+        CurrentQuestion = _currentProblem.Content.Question;
         
         if (!IsAnswerSubmitted)
         {
@@ -437,9 +447,18 @@ public class MainViewModel : INotifyPropertyChanged
         {
             filtered = SelectedGradeLevel switch
             {
-                "Elementary (4-5)" => filtered.Where(p => p.Difficulty >= 1 && p.Difficulty <= 3),
-                "Middle School (6-8)" => filtered.Where(p => p.Difficulty >= 4 && p.Difficulty <= 6),
-                "High School (9-12)" => filtered.Where(p => p.Difficulty >= 7 && p.Difficulty <= 8),
+                "Grade 1" => filtered.Where(p => p.Difficulty == 1),
+                "Grade 2" => filtered.Where(p => p.Difficulty == 2),
+                "Grade 3" => filtered.Where(p => p.Difficulty == 3),
+                "Grade 4" => filtered.Where(p => p.Difficulty == 4),
+                "Grade 5" => filtered.Where(p => p.Difficulty == 5),
+                "Grade 6" => filtered.Where(p => p.Difficulty == 6),
+                "Grade 7" => filtered.Where(p => p.Difficulty == 7),
+                "Grade 8" => filtered.Where(p => p.Difficulty == 8),
+                "Grade 9" => filtered.Where(p => p.Difficulty == 9),
+                "Grade 10" => filtered.Where(p => p.Difficulty == 10),
+                "Grade 11" => filtered.Where(p => p.Difficulty == 11),
+                "Grade 12" => filtered.Where(p => p.Difficulty == 12),
                 "College" => filtered.Where(p => p.Difficulty >= 9 && p.Difficulty <= 10),
                 _ => filtered
             };
@@ -454,7 +473,11 @@ public class MainViewModel : INotifyPropertyChanged
                 "Logic" => Domain.Logic,
                 "Reading" => Domain.Reading,
                 "Science" => Domain.Science,
+                "Executive Skills" => Domain.Executive,
+                "Washington History" => Domain.WashingtonHistory,
                 "Bitcoin" => Domain.Bitcoin,
+                "Minecraft" => Domain.Minecraft,
+                "Health" => Domain.Health,
                 _ => (Domain?)null
             };
             

@@ -1,4 +1,4 @@
-# Spock Learning System - Architecture Documentation
+# Vulcan Learning Pit - Architecture Documentation
 
 **Last Updated**: 2026-01-02
 **Version**: 1.0
@@ -18,7 +18,7 @@
 
 ## System Overview
 
-Spock Learning is an adaptive educational platform that uses psychological principles, Bayesian inference, and intelligent scheduling to create personalized learning experiences for students grades 4-12+.
+Vulcan Learning Pit is an adaptive educational platform that uses psychological principles, Bayesian inference, and intelligent scheduling to create personalized learning experiences for students grades 4-12+.
 
 ### Key Design Principles
 
@@ -725,7 +725,7 @@ Aggregate anonymized metrics for research:
 
 ## Conclusion
 
-The Spock Learning architecture is designed for:
+The Vulcan Learning Pit architecture is designed for:
 - **Reliability**: Thread-safe, async-first, fully tested
 - **Maintainability**: Clear separation of concerns, well-documented
 - **Extensibility**: Plugin points for new engines and domains

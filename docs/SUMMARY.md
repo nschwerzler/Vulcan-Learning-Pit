@@ -1,4 +1,4 @@
-# Spock Learning - Project Summary
+# Vulcan Learning Pit - Project Summary
 
 **Date**: 2026-01-02
 **Status**: ✅ Production Ready
@@ -7,9 +7,9 @@
 
 ---
 
-## What is Spock Learning?
+## What is Vulcan Learning Pit?
 
-Spock Learning is an adaptive educational platform designed for students grades 4-12+ that uses:
+Vulcan Learning Pit is an adaptive educational platform designed for students grades 4-12+ that uses:
 - **Variable-ratio psychological reinforcement** (Spock's rare approval)
 - **Bayesian Knowledge Tracing** for skill mastery estimation
 - **ADD-aware topic switching** to maintain engagement

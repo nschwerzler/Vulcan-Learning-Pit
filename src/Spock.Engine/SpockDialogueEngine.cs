@@ -169,13 +169,13 @@ public class SpockDialogueEngine
         lock (_lock)
         {
             var feedbackMessages = specificGuidance != null
-                ? new[] { $"Incorrect. {specificGuidance} Try again." }
+                ? new[] { $"Incorrect. {specificGuidance}" }
                 : new[]
                 {
-                    $"Incorrect. Review the relationship between concepts. Try again.",
-                    $"Your assumption about {concept} requires revision. Try again.",
-                    $"This error pattern recurs. Focus on fundamental principles. Try again.",
-                    $"Time inefficiency detected. Optimize your approach. Try again."
+                    $"Incorrect. Review the relationship between {concept}.",
+                    $"Your assumption about {concept} requires revision.",
+                    $"This error pattern recurs. Focus on fundamental principles.",
+                    $"Time inefficiency detected. Optimize your approach."
                 };
 
             var message = feedbackMessages[_random.Next(feedbackMessages.Length)];
@@ -215,7 +215,6 @@ public class SpockDialogueEngine
                 {
                     message += $" Remember: {guidance.KeyPrinciple}";
                 }
-                message += " Try again.";
             }
             else if (attemptNumber == 2 && guidance.StepsDetailed.Any())
             {
@@ -225,7 +224,6 @@ public class SpockDialogueEngine
                 {
                     message += $"\n{i + 1}. {guidance.StepsDetailed[i]}";
                 }
-                message += "\n\nTry again.";
             }
             else if (attemptNumber >= 3 && !string.IsNullOrEmpty(guidance.WorkedExample))
             {
@@ -236,12 +234,11 @@ public class SpockDialogueEngine
                 {
                     message += $"\n\nCommon mistake to avoid: {guidance.CommonMistake}";
                 }
-                message += "\n\nTry again.";
             }
             else
             {
                 // Fallback if no guidance provided
-                message = "Incorrect. Review the problem carefully and try again.";
+                message = "Incorrect. Review the problem carefully.";
             }
 
             return Task.FromResult(new DialogueResponse

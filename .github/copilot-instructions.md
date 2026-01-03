@@ -1,4 +1,4 @@
-# GitHub Copilot Instructions for Spock Learning
+# GitHub Copilot Instructions for Vulcan Learning Pit
 
 ## Meta-Instructions (How to Update This File)
 
@@ -14,7 +14,7 @@ When the user says:
 
 ## Project Identity (Always Load)
 
-**Spock Learning** is an adaptive learning platform for grades 4-college that uses a Spock mentor motif to provide motivation through earned approval rather than coercion. The system rapidly adapts difficulty based on student performance and can accelerate learners from elementary to college-level material when mastery is demonstrated.
+**Vulcan Learning Pit** is an adaptive learning platform for grades 4-college that uses a Spock mentor motif to provide motivation through earned approval rather than coercion. The system rapidly adapts difficulty based on student performance and can accelerate learners from elementary to college-level material when mastery is demonstrated.
 
 **Repository**: https://github.com/nschwerzler/Vulcan-Learning-Pit
 

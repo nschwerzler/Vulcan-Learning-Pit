@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Spock.UI"
         xmlns:converters="clr-namespace:Spock.UI.Converters"
         mc:Ignorable="d"
-        Title="Spock Learning" Height="1000" Width="1400"
+        Title="Vulcan Learning Pit" Height="1000" Width="1400"
         MinHeight="800" MinWidth="1100"
         Background="#1A1A1A"
         FontFamily="Segoe UI"
@@ -47,7 +47,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" 
-                          Text="SPOCK LEARNING SYSTEM" 
+                          Text="VULCAN LEARNING PIT" 
                           FontSize="24" 
                           FontWeight="Bold"
                           Foreground="#4A9EFF"
@@ -582,6 +582,7 @@
                             <Button Content="{Binding}" 
                                    Command="{Binding DataContext.SelectOptionCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                    CommandParameter="{Binding}"
+                                   IsEnabled="{Binding DataContext.IsAnswerSubmitted, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource InverseBoolConverter}}"
                                    FontSize="18"
                                    Padding="20,12"
                                    Margin="0,0,0,10"

@@ -4,7 +4,7 @@ using Spock.Core.Models;
 namespace Spock.Data;
 
 /// <summary>
-/// Entity Framework Core database context for Spock Learning.
+/// Entity Framework Core database context for Vulcan Learning Pit.
 /// Manages session persistence, student profiles, and problem history.
 /// </summary>
 public class SpockDbContext : DbContext

@@ -1,6 +1,6 @@
-# Spock Learning Plan (Plan-Only Spec)
+# Vulcan Learning Pit Plan (Plan-Only Spec)
 
-This plan is intended to drop directly into the Spock design doc. It balances strong motivation, adaptive rigor, and ADD-friendly variety without coercion or unhealthy pressure.
+This plan is intended to drop directly into the Vulcan Learning Pit design doc. It balances strong motivation, adaptive rigor, and ADD-friendly variety without coercion or unhealthy pressure.
 
 ---
 

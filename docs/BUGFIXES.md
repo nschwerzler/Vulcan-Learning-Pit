@@ -1,4 +1,4 @@
-# Spock Learning - Bug Fixes Documentation
+# Vulcan Learning Pit - Bug Fixes Documentation
 
 **Date**: 2026-01-02
 **Fixed By**: Code Review and TDD Process

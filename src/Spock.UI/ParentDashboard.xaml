@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Spock.UI"
         mc:Ignorable="d"
-        Title="Parent Dashboard - Spock Learning" Height="800" Width="1200"
+        Title="Parent Dashboard - Vulcan Learning Pit" Height="800" Width="1200"
         Background="#1A1A1A"
         FontFamily="Segoe UI"
         WindowStartupLocation="CenterScreen"
