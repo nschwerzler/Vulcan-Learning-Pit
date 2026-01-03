@@ -776,27 +776,38 @@ The system:
 
 To provide an additional layer of motivation beyond Spock's approval, students earn **Game Time** for sustained engagement:
 
-- **Base Earning Rate**: 1 second per correct answer × difficulty level (e.g., difficulty 8 problem = 8 seconds earned)
-- **Penalty for Incorrect**: -1 second per incorrect answer (minimum balance: 1 second, never goes below 1 to avoid being too punishing)
-- **Difficulty Scaling**: Natural progression as problems get harder
-  - **Grade 1 (Difficulty 1)**: 1 second per correct answer
-  - **Grade 2 (Difficulty 2)**: 2 seconds per correct answer
-  - **Grade 3 (Difficulty 3)**: 3 seconds per correct answer
-  - **Grade 4 (Difficulty 4)**: 4 seconds per correct answer
-  - **Grade 5 (Difficulty 5)**: 5 seconds per correct answer
-  - **Grade 6 (Difficulty 6)**: 6 seconds per correct answer
-  - **Grade 7 (Difficulty 7)**: 7 seconds per correct answer
-  - **Grade 8 (Difficulty 8)**: 8 seconds per correct answer
-  - **Grade 9 (Difficulty 9)**: 9 seconds per correct answer
-  - **Grade 10 (Difficulty 10)**: 10 seconds per correct answer
-  - **Grade 11 (Difficulty 11)**: 11 seconds per correct answer
-  - **Grade 12 (Difficulty 12)**: 12 seconds per correct answer
-  - Scales directly with problem difficulty rating
+- **Earning Rule**: Correct answer = problem difficulty in seconds (Grade 6 problem = 6 seconds earned)
+- **Minecraft Exception**: Minecraft questions earn flat 1 second per correct answer (no difficulty multiplier)
+- **Penalty Rule**: Wrong answer = -1 second (regardless of difficulty or domain)
+- **Minimum Balance**: Never goes below 1 second (prevents being too punishing)
+- **Difficulty Examples**:
+  - Grade 1 problem correct = 1 second earned
+  - Grade 2 problem correct = 2 seconds earned
+  - Grade 3 problem correct = 3 seconds earned
+  - Grade 4 problem correct = 4 seconds earned
+  - Grade 5 problem correct = 5 seconds earned
+  - Grade 6 problem correct = 6 seconds earned
+  - Grade 7 problem correct = 7 seconds earned
+  - Grade 8 problem correct = 8 seconds earned
+  - Grade 9 problem correct = 9 seconds earned
+  - Grade 10 problem correct = 10 seconds earned
+  - Grade 11 problem correct = 11 seconds earned
+  - Grade 12 problem correct = 12 seconds earned
+  - **Minecraft (any difficulty)** = 1 second earned (flat rate)
+  - Any wrong answer = -1 second (minimum balance: 1 second)
 - **Conversion Examples**: 
   - 60 seconds = 1 minute displayed
   - 3600 seconds (60 minutes) = 1 hour displayed
   - Example: 20 middle-school problems (difficulty 5) = 100 seconds = 1 min 40 sec
-- **Display**: Large, prominent time display without emoji (e.g., "2m 15s" or "1h 3m") in header with increased font size
+- **Display**: 
+  - **MASSIVE, CENTERPIECE display** - should be the most prominent element on screen
+  - **Size**: 3-4x larger than any other text element (48-72pt font minimum)
+  - **Position**: Top center of screen, always visible, impossible to miss
+  - **Style**: Bold, high-contrast color (e.g., bright gold/cyan against dark background)
+  - **Format**: Clean time display without emoji (e.g., "2m 15s" or "1h 3m 47s")
+  - **Animation**: Subtle glow or pulse effect when tokens are earned, satisfying visual feedback
+  - **Emphasis**: This is THE SCORE - treat it like a video game high score display
+  - **Psychology**: Make earning seconds feel like accumulating treasure/power
 - **Purpose**: Tangible reward that encourages accuracy while naturally rewarding advancement to harder material through difficulty-based earning
 - **Parental Control**: Parents can set redemption rules and maximum daily token earning in dashboard
 - **Data Tracking**: Tokens stored in `StudentProfile.GameTokenSeconds` and session-level in `SessionMetrics.TokensEarned`
@@ -833,8 +844,8 @@ public class ApprovalEngine
         {
             _correctStreak++;
             
-            // Award game time: 1 second × difficulty level
-            int secondsEarned = 1 * problem.Difficulty;
+            // Award game time: 1 second × difficulty level (except Minecraft = flat 1 second)
+            int secondsEarned = problem.Domain == Domain.Minecraft ? 1 : problem.Difficulty;
             profile.GameTokenSeconds += secondsEarned;
             session.TokensEarnedThisSession += secondsEarned;
             result.TokensEarned = secondsEarned;
