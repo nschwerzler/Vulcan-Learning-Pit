@@ -138,13 +138,13 @@ public class MainViewModel : INotifyPropertyChanged
         get => _multipleChoiceOptions;
         set { _multipleChoiceOptions = value; OnPropertyChanged(); }
     }
-Domain CurrentDomain
+    
+    public Domain CurrentDomain
     {
         get => _currentDomain;
         set { _currentDomain = value; OnPropertyChanged(); }
     }
 
-    public 
     public double AccuracyPercentage => TotalAttempts > 0 ? (CorrectAnswers * 100.0 / TotalAttempts) : 0;
 
     public ICommand SubmitCommand { get; }

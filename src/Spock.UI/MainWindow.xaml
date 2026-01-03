@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Spock.UI"
+        xmlns:converters="clr-namespace:Spock.UI.Converters"
         mc:Ignorable="d"
         Title="Spock Learning" Height="800" Width="1200"
         MinHeight="600" MinWidth="900"
@@ -17,8 +18,8 @@
         <local:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
         <local:InverseBoolConverter x:Key="InverseBoolConverter"/>
         <local:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
-        <local:DomainToEmojiConverter x:Key="DomainToEmojiConverter"/>
-        <local:DomainToColorConverter x:Key="DomainToColorConverter"/>
+        <converters:DomainToEmojiConverter x:Key="DomainToEmojiConverter"/>
+        <converters:DomainToColorConverter x:Key="DomainToColorConverter"/>
     </Window.Resources>
     
     <Grid Margin="20">
