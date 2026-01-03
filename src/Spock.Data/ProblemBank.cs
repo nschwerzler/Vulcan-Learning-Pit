@@ -354,7 +354,7 @@ public static class ProblemBank
                 TargetTime = 50,
                 Content = new ProblemContent
                 {
-                    Question = "Simplify: 2⁴ × 2³",
+                    Question = "Simplify: 2⁴ × 2³\n\n(Simplify means to write this in its simplest form - either as a single number or as a single power like 2⁷. When you multiply powers with the same base, you add the exponents.)",
                     Format = ProblemFormat.FreeResponse,
                     CorrectAnswers = new List<string> { "128", "2^7", "2⁷" }
                 }

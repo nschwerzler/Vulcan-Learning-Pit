@@ -95,7 +95,7 @@ public class ProblemTests
         // Assert - Data integrity reasoning: Timestamps critical for performance tracking
         var afterTime = DateTime.UtcNow;
         attempt.AttemptTime.Should().BeOnOrAfter(beforeTime).And.BeOnOrBefore(afterTime);
-        attempt.GivenAnswers.Should().NotBeNull().And.BeEmpty();
+        attempt.StudentAnswers.Should().NotBeNull().And.BeEmpty();
     }
 
     [TestMethod]

@@ -28,7 +28,12 @@ public class SessionMetrics
     public List<string> DomainsVisited { get; set; } = new();
     public List<string> WeaknessesAddressed { get; set; } = new();
     public List<string> WeaknessesResolved { get; set; } = new();
-    public double TokensEarned { get; set; } = 0.0;              // 🪙 Game token minutes earned this session
+    
+    /// <summary>
+    /// Game time earned this session in seconds. Tracks difficulty-based rewards:
+    /// +1 second × difficulty per correct answer, -1 second per incorrect answer.
+    /// </summary>
+    public int TokensEarned { get; set; } = 0;
 }
 
 /// <summary>

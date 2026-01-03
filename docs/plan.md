@@ -36,15 +36,15 @@ That creates a powerful desire to please without emotional manipulation.
 
 ---
 
-## Curriculum Scope: Grades 4-College (Rapid Adaptive Spiral)
+## Curriculum Scope: Grades 1-12 (Rapid Adaptive Spiral)
 
-The system does **not** lock to grade levels. It continuously adjusts **up and down** by concept and can accelerate into high school and college topics upon mastery.
+The system does **not** lock to grade levels. It continuously adjusts **up and down** by concept and can accelerate from elementary through high school upon mastery.
 
 Rapid learning mode: if a grade band is mastered (90%+ across skills under time limits), auto-unlock the next level with optional parent approval.
 
 ### Core Domains (expanded)
 
-1. Math (Grades 4-College)
+1. Math (Grades 1-12)
 2. Logic & Reasoning (expanded to advanced)
 3. Reading & Comprehension (into analytical/critical)
 4. Science Thinking (into hypothesis testing/experimental design)
@@ -54,7 +54,31 @@ Rapid learning mode: if a grade band is mastered (90%+ across skills under time 
 
 ## Detailed Curriculum by Domain (Expanded)
 
-### 1) Math (Grades 4-College)
+### 1) Math (Grades 1-12)
+
+**Grade 1**
+
+- Number recognition (1-100)
+- Counting and cardinality
+- Addition/subtraction (1-20)
+- Basic shapes and patterns
+- Comparing quantities (more/less/equal)
+
+**Grade 2**
+
+- Addition/subtraction fluency (1-100)
+- Place value (ones, tens)
+- Measurement concepts (length, time)
+- Even/odd numbers
+- Introduction to arrays and groups
+
+**Grade 3**
+
+- Multiplication tables (1-10)
+- Division concepts
+- Fractions (halves, thirds, fourths)
+- Area and perimeter basics
+- Multi-step word problems
 
 **Grade 4-5**
 
@@ -77,18 +101,21 @@ Rapid learning mode: if a grade band is mastered (90%+ across skills under time 
 - Systems (intro)
 - Pattern generalization
 
-**High School**
+**Grades 9-10 (Algebra I & Geometry)**
 
-- Algebra I/II: quadratics, functions, inequalities
-- Geometry: proofs, transformations
-- Pre-calc: trig, logs, sequences
-- Statistics: probability, distributions
+- Quadratics, functions, inequalities
+- Geometric proofs and transformations
+- Systems of equations
+- Basic trigonometry
+- Statistics and probability foundations
 
-**College Intro**
+**Grades 11-12 (Advanced)**
 
-- Calculus: limits, derivatives, integrals
-- Linear algebra: matrices, vectors
-- Discrete math: sets, graphs
+- Algebra II: polynomials, rational functions
+- Pre-calculus: advanced trig, logs, sequences
+- Calculus concepts (for advanced learners)
+- Data analysis and distributions
+- Mathematical modeling
 
 **Spock reinforcement (scales up)**
 
@@ -101,15 +128,27 @@ Rapid learning mode: if a grade band is mastered (90%+ across skills under time 
 
 ---
 
-### 2) Logic & Reasoning (Spock's core, to advanced)
+### 2) Logic & Reasoning (Spock's core, grades 1-12)
 
+**Elementary (Grades 1-5)**
+- Simple patterns (AB, ABC patterns)
+- Sorting and categorization
+- Basic if-then reasoning ("If it rains, then...")
+- Visual logic puzzles
+- Sequence prediction
+
+**Middle School (Grades 6-8)**
 - Deductive reasoning
 - If-then chains
 - Elimination logic
 - Pattern compression
+
+**High School (Grades 9-12)**
+- Multi-step deduction
 - "Which assumption breaks the system?"
-- Advanced: inductive proofs, game theory, paradoxes
-- College: formal logic, computability
+- Inductive reasoning patterns
+- Game theory introduction
+- Logical paradoxes
 
 This domain is **grade-agnostic** and adapts continuously.
 
@@ -124,14 +163,33 @@ This domain is **grade-agnostic** and adapts continuously.
 
 ---
 
-### 3) Reading & Comprehension (to analytical/critical)
+### 3) Reading & Comprehension (grades 1-12)
 
+**Elementary (Grades 1-3)**
+- Letter recognition and phonics
+- Short sentence comprehension
+- Story sequencing (beginning, middle, end)
+- Character identification
+- Picture-text connections
+
+**Upper Elementary (Grades 4-5)**
 - Short passages (never long)
+- Main idea identification
+- Simple inference
+- Cause and effect
+
+**Middle School (Grades 6-8)**
 - Answering why, not what
 - Inference vs stated fact
 - Detecting misleading language
-- Advanced: argument analysis, rhetoric, source evaluation
-- College: close reading of philosophy/technical texts, synthesis
+- Author's purpose
+
+**High School (Grades 9-12)**
+- Argument analysis
+- Rhetoric and persuasive techniques
+- Source evaluation
+- Theme and symbolism
+- Cross-text synthesis
 
 **Key rule**
 No boring passages. Use and expand:
@@ -152,14 +210,31 @@ No boring passages. Use and expand:
 
 ---
 
-### 4) Science Thinking (not memorization)
+### 4) Science Thinking (not memorization, grades 1-12)
 
+**Elementary (Grades 1-3)**
+- Observation skills
+- Simple predictions ("What will happen if...?")
+- Sorting by properties
+- Identifying patterns in nature
+
+**Upper Elementary (Grades 4-5)**
+- Simple hypothesis formation
+- Fair tests and controlled variables (basic)
+- Recording observations
+- Cause and effect in science
+
+**Middle School (Grades 6-8)**
 - Hypothesis vs evidence
 - Cause vs correlation
 - Controlled variables
 - Prediction before reveal
-- Advanced: data interpretation, modeling
-- College: scientific method in physics/biology, peer review simulation
+
+**High School (Grades 9-12)**
+- Data interpretation and graphing
+- Scientific modeling
+- Experimental design
+- Evaluating scientific claims
 
 No trivia. Always reasoning.
 
@@ -332,11 +407,11 @@ Goal: provide parents with clear, actionable data on progress without exposing i
 
 **Benchmarking and comparative stats (ethical and approximate)**
 
-- Grade-level comparisons using anonymized aggregates or norms (e.g., "Performing at 6th-grade level in math, ahead of typical 5th-grade peers by 1.2 years").
+- Grade-level comparisons using anonymized aggregates or norms (e.g., "Performing at 3rd-grade level in math, ahead of typical 2nd-grade peers by 1.2 years").
 - Percentiles where possible (e.g., "Top 20% for age in logic reasoning").
 - Educational IQ estimate (non-clinical proxy) derived from speed/accuracy/complexity; labeled "Educational Estimate Only" (e.g., "Estimated cognitive percentile: 85th").
-- Peer relativity: age-adjusted comparisons (e.g., "Relative to 10-year-olds: Math fluency 75th percentile; Reading inference 90th percentile"), sourced from anonymized data or public benchmarks (e.g., NAEP).
-- Acceleration indicators: "Rapid mastery potential: eligible to unlock high school concepts in math after current thresholds."
+- Peer relativity: age-adjusted comparisons (e.g., "Relative to 7-year-olds: Math fluency 75th percentile; Reading inference 90th percentile"), sourced from anonymized data or public benchmarks (e.g., NAEP).
+- Acceleration indicators: "Rapid mastery potential: eligible to unlock higher-grade concepts in math after current thresholds."
 
 **Data privacy and ethics**
 
@@ -399,10 +474,11 @@ To provide an additional layer of motivation beyond Spock's approval, students e
 - **Base Earning Rate**: 1 second per correct answer × difficulty level (e.g., difficulty 8 problem = 8 seconds earned)
 - **Penalty for Incorrect**: -1 second per incorrect answer (minimum balance: 1 second, never goes below 1 to avoid being too punishing)
 - **Difficulty Scaling**: Natural progression as problems get harder
-  - **Elementary (Difficulty 1-3)**: 1-3 seconds per correct answer
-  - **Middle School (Difficulty 4-6)**: 4-6 seconds per correct answer
-  - **High School (Difficulty 7-8)**: 7-8 seconds per correct answer
-  - **College/Advanced (Difficulty 9-10)**: 9-10 seconds per correct answer
+  - **Grades 1-2 (Difficulty 1-2)**: 1-2 seconds per correct answer
+  - **Grades 3-5 (Difficulty 3-4)**: 3-4 seconds per correct answer
+  - **Grades 6-8 (Difficulty 5-6)**: 5-6 seconds per correct answer
+  - **Grades 9-10 (Difficulty 7-8)**: 7-8 seconds per correct answer
+  - **Grades 11-12 (Difficulty 9-10)**: 9-10 seconds per correct answer
   - Scales directly with problem difficulty rating
 - **Conversion Examples**: 
   - 60 seconds = 1 minute displayed
@@ -608,14 +684,20 @@ public class WeaknessTracker
 - "Your performance in [concept] now meets standards."
 - "Weakness identified [X sessions ago]. Weakness resolved."
 
-### Corrective Feedback (Calm, Precise)
+### Corrective Feedback (Calm, Precise, Instructive)
 
-**On error:**
+**On error (with solution guidance):**
 
-- "Incorrect. Review the relationship between [X] and [Y]."
-- "Your assumption about [concept] is flawed. Consider [alternative]."
-- "This error recurs. Focus on [specific step]."
-- "Time inefficiency detected. Optimize your approach."
+- "Incorrect. To solve this: [Step 1], then [Step 2]. Next time, remember [key principle]."
+- "Your approach missed [concept]. The correct method: [specific steps]. Apply this pattern to similar problems."
+- "This error recurs. The systematic approach: [numbered steps]. Practice this sequence."
+- "Time inefficiency detected. Faster method: [optimized approach]. This reduces steps from [X] to [Y]."
+- "Common mistake: [what they did]. Correct approach: [what to do instead]. Why: [brief explanation]."
+
+**Progressive hint system:**
+- First attempt: Minimal hint pointing to the concept
+- Second attempt: More detailed step-by-step guidance
+- Third attempt: Full worked example with explanation
 
 ### Narrative Echoes (Rare, After Approval)
 
@@ -715,7 +797,7 @@ public class StudentProfile
 
 public class CurrentLevel
 {
-    public string Math { get; set; }        // "Grade 5" or "High School Algebra"
+    public string Math { get; set; }        // "Grade 2" or "Grade 11 Pre-Calculus"
     public int Logic { get; set; }          // 1-10 adaptive scale
     public string Reading { get; set; }
     public string Science { get; set; }
@@ -759,6 +841,16 @@ public class ProblemContent
     public ProblemFormat Format { get; set; }
     public List<string> Options { get; set; }    // For multiple choice
     public List<string> CorrectAnswers { get; set; }
+    public SolutionGuidance Guidance { get; set; }
+}
+
+public class SolutionGuidance
+{
+    public string HintMinimal { get; set; }           // "Focus on the numerator first"
+    public List<string> StepsDetailed { get; set; }   // ["Step 1: Find common denominator", "Step 2: Convert fractions"...]
+    public string WorkedExample { get; set; }         // Full solution with explanation
+    public string KeyPrinciple { get; set; }          // "Always find LCD before adding fractions"
+    public string CommonMistake { get; set; }         // What students typically do wrong
 }
 
 public class ProblemMetadata
@@ -991,10 +1083,10 @@ public class ApprovalEngineTests
 - [ ] Tune approval frequency
 
 ### Phase 4: Content & Problem Bank (Weeks 7-8)
-- [ ] Import/create math problems (Grade 4-College)
-- [ ] Add logic puzzles (adaptive scale)
-- [ ] Curate reading passages (interests-aligned)
-- [ ] Design science reasoning scenarios
+- [ ] Import/create math problems (Grades 1-12)
+- [ ] Add logic puzzles (adaptive scale, grades 1-12)
+- [ ] Curate reading passages (interests-aligned, grade-appropriate)
+- [ ] Design science reasoning scenarios (grades 1-12)
 - [ ] Implement format variation (visual/verbal/interactive)
 - [ ] Tag all content with metadata
 

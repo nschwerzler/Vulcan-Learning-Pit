@@ -14,7 +14,13 @@ public class StudentProfile
     public List<Session> SessionHistory { get; set; } = new();
     public StudentPreferences Preferences { get; set; } = new();
     public ParentSettings ParentSettings { get; set; } = new();
-    public double GameTokenMinutes { get; set; } = 0.0;  // 🪙 Game time earned (0.1 minutes per answer)
+    
+    /// <summary>
+    /// Game time earned in seconds. Earned at rate of: 1 second × problem difficulty level.
+    /// Penalty: -1 second per incorrect answer (minimum 1 second total).
+    /// Display format: "2m 15s" or "1h 3m"
+    /// </summary>
+    public int GameTokenSeconds { get; set; } = 1;  // Start at 1 second (minimum balance)
 }
 
 /// <summary>

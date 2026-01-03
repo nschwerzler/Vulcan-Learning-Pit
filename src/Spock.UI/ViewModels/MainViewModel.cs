@@ -22,6 +22,7 @@ public class MainViewModel : INotifyPropertyChanged
     private readonly List<Problem> _problemBank;
     private int _currentProblemIndex = -1; // Start at -1 so first LoadNextProblem goes to 0
     private Problem? _currentProblem;
+    private Dictionary<string, int> _problemAttempts = new(); // Track attempts per problem
     
     private string _currentQuestion = "";
     private string _userAnswer = "";
@@ -29,13 +30,17 @@ public class MainViewModel : INotifyPropertyChanged
     private int _correctStreak = 0;
     private int _totalAttempts = 0;
     private int _correctAnswers = 0;
-    private double _gameTokenMinutes = 0.0;
+    private int _gameTokenSeconds = 1;  // Start at 1 second (minimum balance)
     private bool _isAnswerSubmitted = false;
     private string _feedbackMessage = "";
     private string _submitButtonText = "Submit Answer";
     private bool _isMultipleChoice = false;
     private ObservableCollection<string> _multipleChoiceOptions = new();
     private Domain _currentDomain = Domain.Math;
+    private string _multipleChoiceInstruction = "";
+    private string _selectedGradeLevel = "All";
+    private string _selectedSubject = "All";
+    private List<Problem> _filteredProblems = new();
 
     public MainViewModel(DebugServer? debugServer = null)
     {
@@ -47,9 +52,6 @@ public class MainViewModel : INotifyPropertyChanged
         // Load comprehensive problem bank from ProblemBank class
         _problemBank = ProblemBank.GetAllProblems();
         
-        // Shuffle for variety - ADD-friendly randomization
-        _problemBank = _problemBank.OrderBy(_ => _random.Next()).ToList();
-        
         // Commands
         SubmitCommand = new RelayCommand(
             async () => await SubmitAnswerAsync(), 
@@ -57,7 +59,8 @@ public class MainViewModel : INotifyPropertyChanged
         NextProblemCommand = new RelayCommand(LoadNextProblem, () => _isAnswerSubmitted);
         SelectOptionCommand = new RelayCommand<string>(SelectOption, option => !IsAnswerSubmitted);
         
-        // Load first problem
+        // Initial filter and load first problem
+        FilterAndShuffleProblems();
         LoadNextProblem();
         
         // Update debug state
@@ -111,10 +114,10 @@ public class MainViewModel : INotifyPropertyChanged
         set { _correctAnswers = value; OnPropertyChanged(); }
     }
 
-    public double GameTokenMinutes
+    public int GameTokenSeconds
     {
-        get => _gameTokenMinutes;
-        set { _gameTokenMinutes = value; OnPropertyChanged(); }
+        get => _gameTokenSeconds;
+        set { _gameTokenSeconds = value; OnPropertyChanged(); }
     }
 
     public string SubmitButtonText
@@ -145,12 +148,58 @@ public class MainViewModel : INotifyPropertyChanged
         get => _multipleChoiceOptions;
         set { _multipleChoiceOptions = value; OnPropertyChanged(); }
     }
+
+    public string MultipleChoiceInstruction
+    {
+        get => _multipleChoiceInstruction;
+        set { _multipleChoiceInstruction = value; OnPropertyChanged(); }
+    }
     
     public Domain CurrentDomain
     {
         get => _currentDomain;
         set { _currentDomain = value; OnPropertyChanged(); }
     }
+
+    public string SelectedGradeLevel
+    {
+        get => _selectedGradeLevel;
+        set
+        {
+            _selectedGradeLevel = value;
+            OnPropertyChanged();
+            FilterAndShuffleProblems();
+        }
+    }
+
+    public string SelectedSubject
+    {
+        get => _selectedSubject;
+        set
+        {
+            _selectedSubject = value;
+            OnPropertyChanged();
+            FilterAndShuffleProblems();
+        }
+    }
+
+    public ObservableCollection<string> GradeLevels { get; } = new ObservableCollection<string>
+    {
+        "All",
+        "Elementary (4-5)",
+        "Middle School (6-8)",
+        "High School (9-12)",
+        "College"
+    };
+
+    public ObservableCollection<string> Subjects { get; } = new ObservableCollection<string>
+    {
+        "All",
+        "Math",
+        "Logic",
+        "Reading",
+        "Science"
+    };
 
     public double AccuracyPercentage => TotalAttempts > 0 ? (CorrectAnswers * 100.0 / TotalAttempts) : 0;
 
@@ -170,22 +219,36 @@ public class MainViewModel : INotifyPropertyChanged
         if (_currentProblem == null) return;
         
         var isCorrect = CheckAnswer(_currentProblem, UserAnswer);
-        
         TotalAttempts++;
         
-        // Award game token: 0.1 minutes per answer (10 answers = 1 minute)
-        GameTokenMinutes += 0.1;
+        // Track attempt count for this specific problem
+        if (!_problemAttempts.ContainsKey(_currentProblem.Id))
+        {
+            _problemAttempts[_currentProblem.Id] = 0;
+        }
+        _problemAttempts[_currentProblem.Id]++;
+        var attemptNumber = _problemAttempts[_currentProblem.Id];
         
         if (isCorrect)
         {
             CorrectAnswers++;
             CorrectStreak++;
             FeedbackMessage = "✓ Correct";
+            
+            // Award game time: 1 second × difficulty level
+            int secondsEarned = 1 * _currentProblem.Difficulty;
+            GameTokenSeconds += secondsEarned;
+            
+            // Reset attempt counter for this problem on success
+            _problemAttempts.Remove(_currentProblem.Id);
         }
         else
         {
             CorrectStreak = 0;
             FeedbackMessage = $"✗ Incorrect. The answer was: {_currentProblem.Content.CorrectAnswers.First()}";
+            
+            // Deduct 1 second on incorrect, but maintain minimum of 1 second
+            GameTokenSeconds = Math.Max(1, GameTokenSeconds - 1);
         }
         
         OnPropertyChanged(nameof(AccuracyPercentage));
@@ -237,11 +300,21 @@ public class MainViewModel : INotifyPropertyChanged
         }
         else if (!isCorrect)
         {
-            var response = await _dialogueEngine.GetCorrectiveFeedbackAsync(
-                _currentProblem.MicroTopic,
-                "Review the fundamentals",
+            // Use progressive corrective feedback with solution guidance
+            var response = await _dialogueEngine.GetCorrectiveFeedbackWithGuidanceAsync(
+                _currentProblem,
+                attemptNumber,
                 CancellationToken.None);
             SpockMessage = response.Message;
+            
+            // Allow retry - don't auto-advance on incorrect
+            IsAnswerSubmitted = false;
+            SubmitButtonText = "Submit Answer";
+            UserAnswer = ""; // Clear answer for retry
+            
+            // Update debug state and return early to allow retry
+            UpdateDebugState();
+            return;
         }
         else
         {
@@ -263,9 +336,16 @@ public class MainViewModel : INotifyPropertyChanged
         UserAnswer = "";
         FeedbackMessage = "";
         
-        // Cycle through problems
-        _currentProblemIndex = (_currentProblemIndex + 1) % _problemBank.Count;
-        _currentProblem = _problemBank[_currentProblemIndex];
+        // Cycle through filtered problems
+        if (_filteredProblems.Count == 0)
+        {
+            CurrentQuestion = "No problems match the selected filters.";
+            SpockMessage = "Adjust filters to see problems.";
+            return;
+        }
+        
+        _currentProblemIndex = (_currentProblemIndex + 1) % _filteredProblems.Count;
+        _currentProblem = _filteredProblems[_currentProblemIndex];
         
         // Update current domain for color/emoji display
         CurrentDomain = _currentProblem.Domain;
@@ -281,6 +361,10 @@ public class MainViewModel : INotifyPropertyChanged
             {
                 MultipleChoiceOptions.Add(option);
             }
+            // Set instruction based on whether multiple answers are allowed
+            MultipleChoiceInstruction = _currentProblem.Content.AllowMultipleAnswers 
+                ? "Pick 1 or more" 
+                : "Pick 1";
             // Domain will be shown in visual indicator, not text
             CurrentQuestion = _currentProblem.Content.Question;
         }
@@ -306,6 +390,64 @@ public class MainViewModel : INotifyPropertyChanged
     {
         // Debug server functionality removed - will be re-implemented if needed
         // Left as placeholder for future debugging features
+    }
+
+    private void FilterAndShuffleProblems()
+    {
+        // Start with all problems
+        var filtered = _problemBank.AsEnumerable();
+        
+        // Filter by grade level
+        if (SelectedGradeLevel != "All")
+        {
+            filtered = SelectedGradeLevel switch
+            {
+                "Elementary (4-5)" => filtered.Where(p => p.Difficulty >= 1 && p.Difficulty <= 3),
+                "Middle School (6-8)" => filtered.Where(p => p.Difficulty >= 4 && p.Difficulty <= 6),
+                "High School (9-12)" => filtered.Where(p => p.Difficulty >= 7 && p.Difficulty <= 8),
+                "College" => filtered.Where(p => p.Difficulty >= 9 && p.Difficulty <= 10),
+                _ => filtered
+            };
+        }
+        
+        // Filter by subject
+        if (SelectedSubject != "All")
+        {
+            var domain = SelectedSubject switch
+            {
+                "Math" => Domain.Math,
+                "Logic" => Domain.Logic,
+                "Reading" => Domain.Reading,
+                "Science" => Domain.Science,
+                _ => (Domain?)null
+            };
+            
+            if (domain.HasValue)
+            {
+                filtered = filtered.Where(p => p.Domain == domain.Value);
+            }
+        }
+        
+        // Convert to list and shuffle
+        _filteredProblems = filtered.ToList();
+        
+        // Shuffle using Fisher-Yates algorithm
+        for (int i = _filteredProblems.Count - 1; i > 0; i--)
+        {
+            int j = _random.Next(i + 1);
+            var temp = _filteredProblems[i];
+            _filteredProblems[i] = _filteredProblems[j];
+            _filteredProblems[j] = temp;
+        }
+        
+        // Reset current problem index when filters change
+        _currentProblemIndex = -1;
+        
+        // If we have problems after filtering, load the first one
+        if (_filteredProblems.Count > 0 && _currentProblem == null)
+        {
+            LoadNextProblem();
+        }
     }
 
     private void SelectOption(string option)
@@ -350,16 +492,51 @@ public class MainViewModel : INotifyPropertyChanged
         }
         else
         {
-            // For free response, normalize and compare
+            // For free response, try exact match first
             var normalizedAnswer = answer.ToLowerInvariant();
             foreach (var correctAnswer in problem.Content.CorrectAnswers)
             {
                 if (normalizedAnswer == correctAnswer.ToLowerInvariant())
                     return true;
             }
+            
+            // Smart parsing for natural language math answers
+            // Extract all numbers from both user answer and correct answers
+            var userNumbers = ExtractNumbers(normalizedAnswer);
+            if (userNumbers.Count > 0)
+            {
+                foreach (var correctAnswer in problem.Content.CorrectAnswers)
+                {
+                    var correctNumbers = ExtractNumbers(correctAnswer.ToLowerInvariant());
+                    
+                    // If numbers match in same order, accept it
+                    if (userNumbers.SequenceEqual(correctNumbers))
+                        return true;
+                    
+                    // Special case: division with remainder
+                    // Accept variations like "7 cells with 5 left", "7 per station and 5 leftover"
+                    if (userNumbers.Count == 2 && correctNumbers.Count == 2)
+                    {
+                        if (userNumbers[0] == correctNumbers[0] && userNumbers[1] == correctNumbers[1])
+                            return true;
+                    }
+                }
+            }
         }
         
         return false;
+    }
+    
+    private List<string> ExtractNumbers(string text)
+    {
+        // Extract all numbers including decimals and fractions
+        var numbers = new List<string>();
+        var matches = System.Text.RegularExpressions.Regex.Matches(text, @"\d+\.?\d*|\d+/\d+");
+        foreach (System.Text.RegularExpressions.Match match in matches)
+        {
+            numbers.Add(match.Value);
+        }
+        return numbers;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

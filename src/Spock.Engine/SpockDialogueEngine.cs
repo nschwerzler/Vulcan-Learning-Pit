@@ -155,8 +155,9 @@ public class SpockDialogueEngine
     }
 
     /// <summary>
-    /// Gets corrective feedback - calm and precise, never shaming.
-    /// Pedagogical principle: Specific, actionable guidance without emotional pressure.
+    /// Gets corrective feedback with instructive solution guidance.
+    /// Progressive hint system: minimal → detailed steps → worked example.
+    /// Psychological principle: Teaching HOW to solve, not just identifying errors.
     /// </summary>
     public Task<DialogueResponse> GetCorrectiveFeedbackAsync(
         string concept,
@@ -168,18 +169,87 @@ public class SpockDialogueEngine
         lock (_lock)
         {
             var feedbackMessages = specificGuidance != null
-                ? new[] { $"Incorrect. {specificGuidance}" }
+                ? new[] { $"Incorrect. {specificGuidance} Try again." }
                 : new[]
                 {
-                    $"Incorrect. Review the relationship between concepts.",
-                    $"Your assumption about {concept} requires revision.",
-                    $"This error pattern recurs. Focus on fundamental principles.",
-                    $"Time inefficiency detected. Optimize your approach."
+                    $"Incorrect. Review the relationship between concepts. Try again.",
+                    $"Your assumption about {concept} requires revision. Try again.",
+                    $"This error pattern recurs. Focus on fundamental principles. Try again.",
+                    $"Time inefficiency detected. Optimize your approach. Try again."
                 };
 
             var message = feedbackMessages[_random.Next(feedbackMessages.Length)];
             
-            return Task.FromResult(new DialogueResponse { Message = message });
+            return Task.FromResult(new DialogueResponse
+            {
+                Message = message,
+                ApprovalType = null,
+                Intensity = null
+            });
+        }
+    }
+
+    /// <summary>
+    /// Gets corrective feedback with progressive instructive hints based on problem's solution guidance.
+    /// First attempt: minimal hint, Second: detailed steps, Third+: worked example.
+    /// </summary>
+    public Task<DialogueResponse> GetCorrectiveFeedbackWithGuidanceAsync(
+        Problem problem,
+        int attemptNumber,
+        CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        lock (_lock)
+        {
+            var guidance = problem.Content.Guidance;
+            string message;
+
+            // Progressive hint system based on attempt count
+            if (attemptNumber == 1 && !string.IsNullOrEmpty(guidance.HintMinimal))
+            {
+                // First attempt: Minimal hint
+                message = $"Incorrect. {guidance.HintMinimal}";
+                
+                if (!string.IsNullOrEmpty(guidance.KeyPrinciple))
+                {
+                    message += $" Remember: {guidance.KeyPrinciple}";
+                }
+                message += " Try again.";
+            }
+            else if (attemptNumber == 2 && guidance.StepsDetailed.Any())
+            {
+                // Second attempt: Detailed step-by-step
+                message = "Incorrect. The systematic approach:\n";
+                for (int i = 0; i < guidance.StepsDetailed.Count; i++)
+                {
+                    message += $"\n{i + 1}. {guidance.StepsDetailed[i]}";
+                }
+                message += "\n\nTry again.";
+            }
+            else if (attemptNumber >= 3 && !string.IsNullOrEmpty(guidance.WorkedExample))
+            {
+                // Third+ attempt: Full worked example
+                message = $"Incorrect. Here is how to solve this:\n\n{guidance.WorkedExample}";
+                
+                if (!string.IsNullOrEmpty(guidance.CommonMistake))
+                {
+                    message += $"\n\nCommon mistake to avoid: {guidance.CommonMistake}";
+                }
+                message += "\n\nTry again.";
+            }
+            else
+            {
+                // Fallback if no guidance provided
+                message = "Incorrect. Review the problem carefully and try again.";
+            }
+
+            return Task.FromResult(new DialogueResponse
+            {
+                Message = message,
+                ApprovalType = null,
+                Intensity = null
+            });
         }
     }
 
