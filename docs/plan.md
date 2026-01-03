@@ -530,6 +530,11 @@ public class ApprovalEngine
             
             // Deduct 1 second on incorrect, but maintain minimum of 1 second
             profile.GameTokenSeconds = Math.Max(1, profile.GameTokenSeconds - 1);
+            
+            // Show complete solution with explanation, then move to next problem
+            // No retry - weakness is tracked for disguised practice later
+            DisplaySolution(problem);
+            MoveToNextProblem();
         }
 
         // Approval conditions
@@ -686,18 +691,24 @@ public class WeaknessTracker
 
 ### Corrective Feedback (Calm, Precise, Instructive)
 
-**On error (with solution guidance):**
+**On error (show solution and move on):**
 
-- "Incorrect. To solve this: [Step 1], then [Step 2]. Next time, remember [key principle]."
-- "Your approach missed [concept]. The correct method: [specific steps]. Apply this pattern to similar problems."
-- "This error recurs. The systematic approach: [numbered steps]. Practice this sequence."
-- "Time inefficiency detected. Faster method: [optimized approach]. This reduces steps from [X] to [Y]."
-- "Common mistake: [what they did]. Correct approach: [what to do instead]. Why: [brief explanation]."
+**Philosophy**: When a student answers incorrectly, immediately show the complete solution with clear explanation, then move to the next problem. Do NOT make them retry the same problem - this prevents frustration and maintains engagement.
 
-**Progressive hint system:**
-- First attempt: Minimal hint pointing to the concept
-- Second attempt: More detailed step-by-step guidance
-- Third attempt: Full worked example with explanation
+**Feedback structure:**
+1. Acknowledge the error calmly (no shame)
+2. Show what they did and why it was incorrect
+3. Present the correct solution with step-by-step reasoning
+4. Highlight the key principle to remember
+5. Move to next problem (often in different domain for ADD-friendliness)
+
+**Example responses:**
+- "Incorrect. You added the numerators directly. The correct method: First find the common denominator (12), convert 1/3 to 4/12 and 1/4 to 3/12, then add to get 7/12. Key principle: Always find a common denominator before adding fractions."
+- "Your approach missed [concept]. Here's the correct solution: [complete worked example with steps]. This pattern applies to similar problems."
+- "Common mistake: [what they did]. The correct approach: [numbered steps with reasoning]. Why this works: [brief principle explanation]."
+- "Time inefficiency detected. Here's the faster method: [optimized approach showing all steps]. This reduces complexity from [X] to [Y]."
+
+**No retry attempts**: After showing the solution, the system moves to a new problem. The weakness is tracked and the concept will be reintroduced later in a different context (disguised practice).
 
 ### Narrative Echoes (Rare, After Approval)
 

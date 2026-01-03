@@ -58,7 +58,10 @@ public class ProblemMetadata
 /// </summary>
 public class ProblemAttempt
 {
+    public string Id { get; set; } = Guid.NewGuid().ToString();
+    public string SessionId { get; set; } = string.Empty;         // Session FK for persistence
     public string ProblemId { get; set; } = string.Empty;
+    public Domain Domain { get; set; }                            // Cached for queries
     public DateTime AttemptTime { get; set; } = DateTime.UtcNow;
     public bool IsCorrect { get; set; }
     public int TimeSpentSeconds { get; set; }

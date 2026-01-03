@@ -7,7 +7,9 @@ namespace Spock.Core.Models;
 public class StudentProfile
 {
     public string Id { get; set; } = Guid.NewGuid().ToString();
+    public string Name { get; set; } = string.Empty;              // Student name for identification
     public int Age { get; set; }
+    public Domain CurrentDomain { get; set; } = Domain.Math;      // Current active learning domain
     public CurrentLevel Level { get; set; } = new();
     public List<WeaknessRecord> Weaknesses { get; set; } = new();
     public List<ApprovalEvent> ApprovalHistory { get; set; } = new();

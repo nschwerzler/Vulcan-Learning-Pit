@@ -6,11 +6,14 @@ namespace Spock.Core.Models;
 /// </summary>
 public class WeaknessRecord
 {
+    public string Id { get; set; } = Guid.NewGuid().ToString();
+    public string StudentId { get; set; } = string.Empty;        // Student FK for persistence
     public string SkillId { get; set; } = string.Empty;
     public string SkillName { get; set; } = string.Empty;
+    public Domain Domain { get; set; }                            // Cached for queries
     public DateTime FirstDetected { get; set; } = DateTime.UtcNow;
     public DateTime LastAttempt { get; set; } = DateTime.UtcNow;
-    public WeaknessMetrics Metrics { get; set; } = new();
+    public double Accuracy { get; set; }                          // Current accuracy percentage
     public bool IsResolved { get; set; }
     public DateTime? ResolvedDate { get; set; }
 }

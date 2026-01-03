@@ -20,7 +20,6 @@ public class WeaknessRecordTests
         // Assert
         record.SkillId.Should().NotBeNull();
         record.SkillName.Should().NotBeNull();
-        record.Metrics.Should().NotBeNull();
         record.IsResolved.Should().BeFalse();
         record.ResolvedDate.Should().BeNull();
     }

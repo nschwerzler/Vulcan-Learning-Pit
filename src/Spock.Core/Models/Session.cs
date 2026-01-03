@@ -23,6 +23,7 @@ public class Session
 public class SessionMetrics
 {
     public int TotalCorrect { get; set; }
+    public int TotalAttempts { get; set; }                       // For calculating accuracy
     public double AverageTime { get; set; }
     public double FocusScore { get; set; }                       // 0-1, derived from consistency
     public List<string> DomainsVisited { get; set; } = new();
@@ -43,6 +44,7 @@ public class SessionMetrics
 public class ApprovalEvent
 {
     public string Id { get; set; } = Guid.NewGuid().ToString();
+    public string SessionId { get; set; } = string.Empty;        // Session FK for persistence
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
     public ApprovalType Type { get; set; }
     public ApprovalIntensity Intensity { get; set; }

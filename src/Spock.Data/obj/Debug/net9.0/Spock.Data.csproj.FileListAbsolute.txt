@@ -14,3 +14,5 @@ C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\S
 C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\bin\Debug\net9.0\Spock.Core.dll
 C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\bin\Debug\net9.0\Spock.Core.pdb
 C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\Spock.Data.csproj.Up2Date
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\bin\Debug\net9.0\Spock.Data.runtimeconfig.json
+C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.Data\obj\Debug\net9.0\Spock.Data.genruntimeconfig.cache

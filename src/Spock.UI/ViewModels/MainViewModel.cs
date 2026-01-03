@@ -33,6 +33,7 @@ public class MainViewModel : INotifyPropertyChanged
     private int _gameTokenSeconds = 1;  // Start at 1 second (minimum balance)
     private bool _isAnswerSubmitted = false;
     private string _feedbackMessage = "";
+    private bool _isCorrectAnswer = false;
     private string _submitButtonText = "Submit Answer";
     private bool _isMultipleChoice = false;
     private ObservableCollection<string> _multipleChoiceOptions = new();
@@ -94,6 +95,12 @@ public class MainViewModel : INotifyPropertyChanged
     {
         get => _feedbackMessage;
         set { _feedbackMessage = value; OnPropertyChanged(); }
+    }
+
+    public bool IsCorrectAnswer
+    {
+        get => _isCorrectAnswer;
+        set { _isCorrectAnswer = value; OnPropertyChanged(); }
     }
 
     public int CorrectStreak
@@ -233,7 +240,8 @@ public class MainViewModel : INotifyPropertyChanged
         {
             CorrectAnswers++;
             CorrectStreak++;
-            FeedbackMessage = "✓ Correct";
+            IsCorrectAnswer = true;
+            FeedbackMessage = "CORRECT";
             
             // Award game time: 1 second × difficulty level
             int secondsEarned = 1 * _currentProblem.Difficulty;
@@ -245,7 +253,8 @@ public class MainViewModel : INotifyPropertyChanged
         else
         {
             CorrectStreak = 0;
-            FeedbackMessage = $"✗ Incorrect. The answer was: {_currentProblem.Content.CorrectAnswers.First()}";
+            IsCorrectAnswer = false;
+            FeedbackMessage = $"INCORRECT. The answer was: {_currentProblem.Content.CorrectAnswers.First()}";
             
             // Deduct 1 second on incorrect, but maintain minimum of 1 second
             GameTokenSeconds = Math.Max(1, GameTokenSeconds - 1);
@@ -300,21 +309,46 @@ public class MainViewModel : INotifyPropertyChanged
         }
         else if (!isCorrect)
         {
-            // Use progressive corrective feedback with solution guidance
+            // Show complete solution and move on - no retry needed
             var response = await _dialogueEngine.GetCorrectiveFeedbackWithGuidanceAsync(
                 _currentProblem,
                 attemptNumber,
                 CancellationToken.None);
-            SpockMessage = response.Message;
             
-            // Allow retry - don't auto-advance on incorrect
-            IsAnswerSubmitted = false;
-            SubmitButtonText = "Submit Answer";
-            UserAnswer = ""; // Clear answer for retry
+            // Build comprehensive feedback showing what they did wrong and the full solution
+            var feedbackParts = new List<string>();
+            feedbackParts.Add($"Incorrect. Your answer: {UserAnswer}");
             
-            // Update debug state and return early to allow retry
-            UpdateDebugState();
-            return;
+            // Add the dialogue engine response (includes pedagogical guidance)
+            feedbackParts.Add(response.Message);
+            
+            // Add the complete worked solution if available
+            if (_currentProblem.Content.Guidance != null)
+            {
+                if (!string.IsNullOrEmpty(_currentProblem.Content.Guidance.WorkedExample))
+                {
+                    feedbackParts.Add($"\nComplete solution:\n{_currentProblem.Content.Guidance.WorkedExample}");
+                }
+                else if (_currentProblem.Content.Guidance.StepsDetailed?.Any() == true)
+                {
+                    feedbackParts.Add($"\nStep-by-step solution:");
+                    for (int i = 0; i < _currentProblem.Content.Guidance.StepsDetailed.Count; i++)
+                    {
+                        feedbackParts.Add($"{i + 1}. {_currentProblem.Content.Guidance.StepsDetailed[i]}");
+                    }
+                }
+                
+                if (!string.IsNullOrEmpty(_currentProblem.Content.Guidance.KeyPrinciple))
+                {
+                    feedbackParts.Add($"\nKey principle: {_currentProblem.Content.Guidance.KeyPrinciple}");
+                }
+            }
+            
+            // Show correct answer
+            var correctAnswerText = string.Join(", ", _currentProblem.Content.CorrectAnswers);
+            feedbackParts.Add($"\nCorrect answer: {correctAnswerText}");
+            
+            SpockMessage = string.Join("\n", feedbackParts);
         }
         else
         {
