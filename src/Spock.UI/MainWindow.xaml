@@ -81,8 +81,6 @@
                             </TextBlock.Style>
                         </TextBlock>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <!-- Token Icon (coin emoji) -->
-                            <TextBlock Text="🪙" FontSize="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
                             <!-- Reward Value -->
                             <TextBlock FontSize="22" FontWeight="Bold" VerticalAlignment="Center">
                                 <TextBlock.Style>

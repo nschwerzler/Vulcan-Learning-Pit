@@ -264,8 +264,8 @@ public class MainViewModel : INotifyPropertyChanged
             IsCorrectAnswer = true;
             FeedbackMessage = "CORRECT";
             
-            // Award game time: 1 second × difficulty level
-            int secondsEarned = 1 * _currentProblem.Difficulty;
+            // Award game time: 1 second × difficulty level (except Minecraft = flat 1 second)
+            int secondsEarned = _currentProblem.Domain == Domain.Minecraft ? 1 : _currentProblem.Difficulty;
             GameTokenSeconds += secondsEarned;
             LastTokensEarned = secondsEarned;  // Track for reward display
             
@@ -508,13 +508,24 @@ public class MainViewModel : INotifyPropertyChanged
             _filteredProblems[j] = temp;
         }
         
-        // Reset current problem index when filters change
+        // Reset current problem index and state when filters change
         _currentProblemIndex = -1;
+        _isAnswerSubmitted = false;
+        _userAnswer = "";
+        _feedbackMessage = "";
+        IsCorrectAnswer = false;
+        SubmitButtonText = "Submit Answer";
         
         // If we have problems after filtering, load the first one
-        if (_filteredProblems.Count > 0 && _currentProblem == null)
+        if (_filteredProblems.Count > 0)
         {
             LoadNextProblem();
+        }
+        else
+        {
+            // No problems match current filters
+            CurrentQuestion = "No problems available for selected grade/subject combination.";
+            SpockMessage = "Adjust filters to continue.";
         }
     }
 

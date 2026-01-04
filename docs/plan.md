@@ -794,7 +794,7 @@ To provide an additional layer of motivation beyond Spock's approval, students e
   - Grade 11 problem correct = 11 seconds earned
   - Grade 12 problem correct = 12 seconds earned
   - **Minecraft (any difficulty)** = 1 second earned (flat rate)
-  - Any wrong answer = -1 second (minimum balance: 1 second)
+  - Any wrong answer = -1 second (minimum balance: 0 seconds)
 - **Conversion Examples**: 
   - 60 seconds = 1 minute displayed
   - 3600 seconds (60 minutes) = 1 hour displayed
