@@ -358,8 +358,8 @@ public class SessionCoordinator
         }
         else
         {
-            // Deduct 1 second on incorrect, but maintain minimum of 1 second
-            _studentProfile.GameTokenSeconds = Math.Max(1, _studentProfile.GameTokenSeconds - 1);
+            // Deduct 1 second on incorrect, but maintain minimum of 0 seconds
+            _studentProfile.GameTokenSeconds = Math.Max(0, _studentProfile.GameTokenSeconds - 1);
             metrics.TokensEarned -= 1;
         }
 

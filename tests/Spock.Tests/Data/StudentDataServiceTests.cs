@@ -55,7 +55,7 @@ public class StudentDataServiceTests : IDisposable
         student.Should().NotBeNull();
         student.Name.Should().Be("Alice");
         student.Age.Should().Be(10);
-        student.GameTokenSeconds.Should().Be(1);
+        student.GameTokenSeconds.Should().Be(0);
         student.Id.Should().NotBeEmpty();
     }
 

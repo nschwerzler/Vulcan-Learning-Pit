@@ -493,7 +493,7 @@ if (attempt.IsCorrect)
 }
 else
 {
-    _studentProfile.GameTokenSeconds = Math.Max(1, _studentProfile.GameTokenSeconds - 1);  // ✅ WORKING
+    _studentProfile.GameTokenSeconds = Math.Max(0, _studentProfile.GameTokenSeconds - 1);  // ✅ WORKING (updated to 0 minimum)
     metrics.TokensEarned -= 1;  // ✅ WORKING
 }
 ```

@@ -779,7 +779,7 @@ To provide an additional layer of motivation beyond Spock's approval, students e
 - **Earning Rule**: Correct answer = problem difficulty in seconds (Grade 6 problem = 6 seconds earned)
 - **Minecraft Exception**: Minecraft questions earn flat 1 second per correct answer (no difficulty multiplier)
 - **Penalty Rule**: Wrong answer = -1 second (regardless of difficulty or domain)
-- **Minimum Balance**: Never goes below 1 second (prevents being too punishing)
+- **Minimum Balance**: Never goes below 0 seconds
 - **Difficulty Examples**:
   - Grade 1 problem correct = 1 second earned
   - Grade 2 problem correct = 2 seconds earned
@@ -867,7 +867,7 @@ public class ApprovalEngine
             
             // Deduct 1 second on incorrect, but maintain minimum of 1 second
             int penaltySeconds = 1;
-            profile.GameTokenSeconds = Math.Max(1, profile.GameTokenSeconds - penaltySeconds);
+            profile.GameTokenSeconds = Math.Max(0, profile.GameTokenSeconds - penaltySeconds);
             result.TokensEarned = -penaltySeconds;
             
             session.TotalAttempts++;

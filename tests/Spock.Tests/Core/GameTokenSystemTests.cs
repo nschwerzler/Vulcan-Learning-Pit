@@ -37,7 +37,7 @@ public class GameTokenSystemTests
         profile.GameTokenSeconds += earned;
         
         // Assert
-        profile.GameTokenSeconds.Should().Be(2, "difficulty 1 problem earns 1 second");
+        profile.GameTokenSeconds.Should().Be(1, "difficulty 1 problem earns 1 second");
     }
     
     [TestMethod]
@@ -88,16 +88,16 @@ public class GameTokenSystemTests
     
     [TestMethod]
     [Timeout(5000)]
-    public void TokenPenalty_NeverGoesbelowOne()
+    public void TokenPenalty_NeverGoesBelowZero()
     {
         // Arrange
         var profile = new StudentProfile { GameTokenSeconds = 1 };
         
         // Act - try to deduct 1 second
-        profile.GameTokenSeconds = Math.Max(1, profile.GameTokenSeconds - 1);
+        profile.GameTokenSeconds = Math.Max(0, profile.GameTokenSeconds - 1);
         
         // Assert
-        profile.GameTokenSeconds.Should().Be(1, "balance should never go below 1 second");
+        profile.GameTokenSeconds.Should().Be(0, "balance should never go below 0 seconds");
     }
     
     [TestMethod]
@@ -116,7 +116,7 @@ public class GameTokenSystemTests
         }
         
         // Assert
-        profile.GameTokenSeconds.Should().Be(101, "20 problems × 5 seconds + 1 initial = 101 seconds (1m 41s)");
+        profile.GameTokenSeconds.Should().Be(100, "20 problems × 5 seconds = 100 seconds (1m 40s)");
     }
     
     [TestMethod]

@@ -19,10 +19,10 @@ public class StudentProfile
     
     /// <summary>
     /// Game time earned in seconds. Earned at rate of: 1 second × problem difficulty level.
-    /// Penalty: -1 second per incorrect answer (minimum 1 second total).
+    /// Penalty: -1 second per incorrect answer (minimum 0 seconds total).
     /// Display format: "2m 15s" or "1h 3m"
     /// </summary>
-    public int GameTokenSeconds { get; set; } = 1;  // Start at 1 second (minimum balance)
+    public int GameTokenSeconds { get; set; } = 0;  // Start at 0 seconds
 }
 
 /// <summary>

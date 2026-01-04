@@ -20,7 +20,7 @@ public class SessionCoordinatorBugTests
         // Actual: GameTokenSeconds remains unchanged (1 second)
         
         // Arrange
-        var profile = new StudentProfile { Id = "test-1", GameTokenSeconds = 1 };
+        var profile = new StudentProfile { Id = "test-1", GameTokenSeconds = 0 };
         var coordinator = new SessionCoordinator(profile);
         var problem = CreateTestProblem(Domain.Math, "fractions-addition", difficulty: 5);
         var attempt = new ProblemAttempt
@@ -36,7 +36,7 @@ public class SessionCoordinatorBugTests
         var feedback = await coordinator.ProcessAttemptAsync(attempt, problem, cts.Token);
         
         // Assert
-        profile.GameTokenSeconds.Should().Be(6, "1 initial + 5 seconds for difficulty 5 problem = 6 seconds");
+        profile.GameTokenSeconds.Should().Be(5, "0 initial + 5 seconds for difficulty 5 problem = 5 seconds");
     }
     
     [TestMethod]
@@ -67,12 +67,12 @@ public class SessionCoordinatorBugTests
     
     [TestMethod]
     [Timeout(5000)]
-    public async Task ProcessAttemptAsync_IncorrectAtMinimumBalance_ShouldNotGoBelowOne()
+    public async Task ProcessAttemptAsync_IncorrectAtMinimumBalance_ShouldNotGoBelowZero()
     {
-        // BUG: SessionCoordinator doesn't enforce minimum balance of 1 second
+        // BUG: SessionCoordinator doesn't enforce minimum balance of 0 seconds
         
         // Arrange
-        var profile = new StudentProfile { Id = "test-3", GameTokenSeconds = 1 };
+        var profile = new StudentProfile { Id = "test-3", GameTokenSeconds = 0 };
         var coordinator = new SessionCoordinator(profile);
         var problem = CreateTestProblem(Domain.Math, "fractions-addition", difficulty: 5);
         var attempt = new ProblemAttempt
@@ -88,7 +88,7 @@ public class SessionCoordinatorBugTests
         var feedback = await coordinator.ProcessAttemptAsync(attempt, problem, cts.Token);
         
         // Assert
-        profile.GameTokenSeconds.Should().Be(1, "balance should never go below 1 second");
+        profile.GameTokenSeconds.Should().Be(0, "balance should never go below 0 seconds");
     }
     
     [TestMethod]
@@ -98,7 +98,7 @@ public class SessionCoordinatorBugTests
         // BUG: SessionCoordinator doesn't update SessionMetrics.TokensEarned
         
         // Arrange
-        var profile = new StudentProfile { Id = "test-4", GameTokenSeconds = 1 };
+        var profile = new StudentProfile { Id = "test-4", GameTokenSeconds = 0 };
         var coordinator = new SessionCoordinator(profile);
         var problem = CreateTestProblem(Domain.Math, "fractions-addition", difficulty: 7);
         var attempt = new ProblemAttempt
@@ -124,7 +124,7 @@ public class SessionCoordinatorBugTests
         // BUG: SessionMetrics.TokensEarned doesn't accumulate across multiple problems
         
         // Arrange
-        var profile = new StudentProfile { Id = "test-5", GameTokenSeconds = 1 };
+        var profile = new StudentProfile { Id = "test-5", GameTokenSeconds = 0 };
         var coordinator = new SessionCoordinator(profile);
         
         using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
@@ -144,7 +144,7 @@ public class SessionCoordinatorBugTests
         
         // Assert
         feedback3.SessionMetrics.TokensEarned.Should().Be(7, "5 + 3 - 1 = 7 tokens earned in session");
-        profile.GameTokenSeconds.Should().Be(8, "1 initial + 5 + 3 - 1 = 8 seconds total");
+        profile.GameTokenSeconds.Should().Be(7, "0 initial + 5 + 3 - 1 = 7 seconds total");
     }
     
     [TestMethod]
@@ -156,7 +156,7 @@ public class SessionCoordinatorBugTests
         // Actual: TotalAttempts remains 0
         
         // Arrange
-        var profile = new StudentProfile { Id = "test-6", GameTokenSeconds = 1 };
+        var profile = new StudentProfile { Id = "test-6", GameTokenSeconds = 0 };
         var coordinator = new SessionCoordinator(profile);
         
         using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
@@ -187,7 +187,7 @@ public class SessionCoordinatorBugTests
         // Expected: Accuracy = TotalCorrect / TotalAttempts
         
         // Arrange
-        var profile = new StudentProfile { Id = "test-7", GameTokenSeconds = 1 };
+        var profile = new StudentProfile { Id = "test-7", GameTokenSeconds = 0 };
         var coordinator = new SessionCoordinator(profile);
         
         using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
@@ -224,7 +224,7 @@ public class SessionCoordinatorBugTests
         // This test verifies the system doesn't hang
         
         // Arrange
-        var profile = new StudentProfile { Id = "test-8", GameTokenSeconds = 1 };
+        var profile = new StudentProfile { Id = "test-8", GameTokenSeconds = 0 };
         var coordinator = new SessionCoordinator(profile);
         var problems = CreateTestProblems();
         

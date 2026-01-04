@@ -30,7 +30,8 @@ public class MainViewModel : INotifyPropertyChanged
     private int _correctStreak = 0;
     private int _totalAttempts = 0;
     private int _correctAnswers = 0;
-    private int _gameTokenSeconds = 1;  // Start at 1 second (minimum balance)
+    private int _gameTokenSeconds = 0;  // Start at 0 seconds
+    private int _lastTokensEarned = 0;  // Last reward earned (for display)
     private bool _isAnswerSubmitted = false;
     private string _feedbackMessage = "";
     private bool _isCorrectAnswer = false;
@@ -125,6 +126,12 @@ public class MainViewModel : INotifyPropertyChanged
     {
         get => _gameTokenSeconds;
         set { _gameTokenSeconds = value; OnPropertyChanged(); }
+    }
+
+    public int LastTokensEarned
+    {
+        get => _lastTokensEarned;
+        set { _lastTokensEarned = value; OnPropertyChanged(); }
     }
 
     public string SubmitButtonText
@@ -260,6 +267,7 @@ public class MainViewModel : INotifyPropertyChanged
             // Award game time: 1 second × difficulty level
             int secondsEarned = 1 * _currentProblem.Difficulty;
             GameTokenSeconds += secondsEarned;
+            LastTokensEarned = secondsEarned;  // Track for reward display
             
             // Reset attempt counter for this problem on success
             _problemAttempts.Remove(_currentProblem.Id);
@@ -269,9 +277,10 @@ public class MainViewModel : INotifyPropertyChanged
             CorrectStreak = 0;
             IsCorrectAnswer = false;
             FeedbackMessage = $"INCORRECT. The answer was: {_currentProblem.Content.CorrectAnswers.First()}";
+            LastTokensEarned = -1;  // Show penalty
             
             // Deduct 1 second on incorrect, but maintain minimum of 1 second
-            GameTokenSeconds = Math.Max(1, GameTokenSeconds - 1);
+            GameTokenSeconds = Math.Max(0, GameTokenSeconds - 1);
         }
         
         OnPropertyChanged(nameof(AccuracyPercentage));
