@@ -195,7 +195,9 @@ public class SessionStateMachine
         IEnumerable<SessionTrigger> triggers;
         lock (_lock)
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             triggers = _machine.PermittedTriggers;
+#pragma warning restore CS0618 // Type or member is obsolete
         }
         return await Task.FromResult(triggers);
     }

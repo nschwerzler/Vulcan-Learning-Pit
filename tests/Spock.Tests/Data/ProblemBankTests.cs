@@ -265,4 +265,61 @@ public class ProblemBankTests
         
         Assert.IsTrue(evidenceBasedTopics.Count > 0, "Should have evidence-based health topics");
     }
+
+    [TestMethod]
+    [Timeout(5000)]
+    public void AllMathProblems_ShouldHaveComprehensiveGuidance()
+    {
+        var mathProblems = ProblemBank.GetProblemsByDomain(Domain.Math);
+
+        Assert.IsTrue(mathProblems.Count > 0, "Should have math problems");
+
+        foreach (var problem in mathProblems)
+        {
+            // Verify all guidance fields are populated
+            Assert.IsNotNull(problem.Content.Guidance, $"Problem '{problem.Content.Question}' should have Guidance");
+            Assert.IsFalse(string.IsNullOrWhiteSpace(problem.Content.Guidance.HintMinimal),
+                $"Problem '{problem.Content.Question}' should have HintMinimal");
+            Assert.IsFalse(string.IsNullOrWhiteSpace(problem.Content.Guidance.WorkedExample),
+                $"Problem '{problem.Content.Question}' should have WorkedExample");
+            Assert.IsFalse(string.IsNullOrWhiteSpace(problem.Content.Guidance.KeyPrinciple),
+                $"Problem '{problem.Content.Question}' should have KeyPrinciple");
+            Assert.IsFalse(string.IsNullOrWhiteSpace(problem.Content.Guidance.CommonMistake),
+                $"Problem '{problem.Content.Question}' should have CommonMistake");
+
+            // Verify StepsDetailed has actual steps
+            Assert.IsNotNull(problem.Content.Guidance.StepsDetailed,
+                $"Problem '{problem.Content.Question}' should have StepsDetailed list");
+            Assert.IsTrue(problem.Content.Guidance.StepsDetailed.Count > 0,
+                $"Problem '{problem.Content.Question}' should have at least one detailed step");
+        }
+    }
+
+    [TestMethod]
+    [Timeout(5000)]
+    public void MathProblems_MultiplicationTwoDigit_ShouldHaveStepByStepWork()
+    {
+        var mathProblems = ProblemBank.GetProblemsByDomain(Domain.Math);
+        var multiplicationProblems = mathProblems
+            .Where(p => p.MicroTopic == "multiplication-two-digit" || p.MicroTopic == "multiplication-three-digit")
+            .ToList();
+
+        Assert.IsTrue(multiplicationProblems.Count >= 16, "Should have at least 16 two/three-digit multiplication problems");
+
+        foreach (var problem in multiplicationProblems)
+        {
+            // Verify step-by-step guidance shows the work
+            Assert.IsTrue(problem.Content.Guidance.StepsDetailed.Count >= 5,
+                $"Multiplication problem '{problem.Content.Question}' should have at least 5 detailed steps");
+
+            // Verify worked example shows visual representation
+            Assert.IsTrue(problem.Content.Guidance.WorkedExample.Length > 20,
+                $"Multiplication problem '{problem.Content.Question}' should have a detailed worked example");
+
+            // Verify it has a meaningful common mistake section
+            var commonMistake = problem.Content.Guidance.CommonMistake;
+            Assert.IsTrue(commonMistake.Length > 20,
+                $"Multiplication problem '{problem.Content.Question}' should have a detailed CommonMistake explanation");
+        }
+    }
 }

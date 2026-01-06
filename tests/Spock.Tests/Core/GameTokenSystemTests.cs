@@ -15,13 +15,13 @@ public class GameTokenSystemTests
 {
     [TestMethod]
     [Timeout(5000)]
-    public void StudentProfile_InitialBalance_IsOneSecond()
+    public void StudentProfile_InitialBalance_IsZeroSeconds()
     {
         // Arrange & Act
         var profile = new StudentProfile();
         
         // Assert
-        profile.GameTokenSeconds.Should().Be(1, "initial balance should be 1 second to prevent going below minimum");
+        profile.GameTokenSeconds.Should().Be(0, "initial balance should be 0 seconds");
     }
     
     [TestMethod]
@@ -29,7 +29,7 @@ public class GameTokenSystemTests
     public void TokenEarning_DifficultyOne_EarnsOneSecond()
     {
         // Arrange
-        var profile = new StudentProfile { GameTokenSeconds = 1 };
+        var profile = new StudentProfile { GameTokenSeconds = 0 };
         int difficulty = 1;
         
         // Act
@@ -105,7 +105,7 @@ public class GameTokenSystemTests
     public void TokenAccumulation_TwentyProblemsAtDifficultyFive_Equals100Seconds()
     {
         // Arrange
-        var profile = new StudentProfile { GameTokenSeconds = 1 };
+        var profile = new StudentProfile { GameTokenSeconds = 0 };
         int problemCount = 20;
         int difficulty = 5;
         

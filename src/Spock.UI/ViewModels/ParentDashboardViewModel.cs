@@ -20,6 +20,7 @@ public class ParentDashboardViewModel : INotifyPropertyChanged
     private int _maxSessionsPerDay = 3;
     private bool _accelerationAllowed = true;
     private bool _dashboardNotifications = true;
+    private bool _isLoading;
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -30,11 +31,33 @@ public class ParentDashboardViewModel : INotifyPropertyChanged
         SettingsCommand = new RelayCommand(OpenSettings);
         SaveSettingsCommand = new RelayCommand(SaveSettings);
 
-        // Load initial data
-        LoadDashboardData();
+        // Load initial data asynchronously off the UI thread
+        _ = InitializeAsync();
+    }
+
+    /// <summary>
+    /// Asynchronously initialize the dashboard data off the UI thread.
+    /// </summary>
+    private async Task InitializeAsync()
+    {
+        IsLoading = true;
+        try
+        {
+            await Task.Run(() => LoadDashboardData());
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     #region Properties
+
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set => SetProperty(ref _isLoading, value);
+    }
 
     public int SessionsThisWeek
     {
@@ -121,97 +144,138 @@ public class ParentDashboardViewModel : INotifyPropertyChanged
     private void LoadDashboardData()
     {
         // Load sample data - in production, this would query the database
+        // This method runs off the UI thread for performance
+
+        // Update simple properties (thread-safe)
         SessionsThisWeek = 8;
         AverageAccuracy = 78.5;
         FocusScore = 7.2;
         WeaknessesResolved = 3;
 
-        // Recent sessions
-        RecentSessions.Add(new SessionSummary
+        // Create session data
+        var sessions = new List<SessionSummary>
         {
-            StartTime = DateTime.Now.AddHours(-2),
-            ProblemsCompleted = 12,
-            Accuracy = 83.3,
-            DomainsVisited = "Math, Logic",
-            Duration = "14 min",
-            ApprovalsReceived = 2
-        });
+            new()
+            {
+                StartTime = DateTime.Now.AddHours(-2),
+                ProblemsCompleted = 12,
+                Accuracy = 83.3,
+                DomainsVisited = "Math, Logic",
+                Duration = "14 min",
+                ApprovalsReceived = 2
+            },
+            new()
+            {
+                StartTime = DateTime.Now.AddDays(-1),
+                ProblemsCompleted = 15,
+                Accuracy = 80.0,
+                DomainsVisited = "Math, Reading, Science",
+                Duration = "18 min",
+                ApprovalsReceived = 1
+            },
+            new()
+            {
+                StartTime = DateTime.Now.AddDays(-2),
+                ProblemsCompleted = 10,
+                Accuracy = 70.0,
+                DomainsVisited = "Math, Logic",
+                Duration = "12 min",
+                ApprovalsReceived = 0
+            }
+        };
 
-        RecentSessions.Add(new SessionSummary
+        // Create weakness data
+        var weaknesses = new List<WeaknessSummary>
         {
-            StartTime = DateTime.Now.AddDays(-1),
-            ProblemsCompleted = 15,
-            Accuracy = 80.0,
-            DomainsVisited = "Math, Reading, Science",
-            Duration = "18 min",
-            ApprovalsReceived = 1
-        });
+            new()
+            {
+                SkillName = "Fraction Addition",
+                Accuracy = 62.5,
+                AttemptsCount = 8,
+                ErrorPattern = "Conceptual - denominator confusion"
+            },
+            new()
+            {
+                SkillName = "Reading Inference",
+                Accuracy = 66.7,
+                AttemptsCount = 6,
+                ErrorPattern = "Procedural - missing context clues"
+            },
+            new()
+            {
+                SkillName = "Pattern Recognition",
+                Accuracy = 71.4,
+                AttemptsCount = 7,
+                ErrorPattern = "Speed - rushing through analysis"
+            }
+        };
 
-        RecentSessions.Add(new SessionSummary
+        // Create conquest data
+        var conquests = new List<WeaknessSummary>
         {
-            StartTime = DateTime.Now.AddDays(-2),
-            ProblemsCompleted = 10,
-            Accuracy = 70.0,
-            DomainsVisited = "Math, Logic",
-            Duration = "12 min",
-            ApprovalsReceived = 0
-        });
+            new()
+            {
+                SkillName = "Multiplication Fluency",
+                FinalAccuracy = 92.0,
+                MasteredDate = DateTime.Now.AddDays(-5)
+            },
+            new()
+            {
+                SkillName = "Deductive Chains",
+                FinalAccuracy = 94.5,
+                MasteredDate = DateTime.Now.AddDays(-12)
+            },
+            new()
+            {
+                SkillName = "Variable Identification",
+                FinalAccuracy = 90.0,
+                MasteredDate = DateTime.Now.AddDays(-18)
+            }
+        };
 
-        // Active weaknesses
-        ActiveWeaknesses.Add(new WeaknessSummary
+        // Marshal back to UI thread for ObservableCollection updates
+        System.Windows.Application.Current.Dispatcher.Invoke(() =>
         {
-            SkillName = "Fraction Addition",
-            Accuracy = 62.5,
-            AttemptsCount = 8,
-            ErrorPattern = "Conceptual - denominator confusion"
-        });
+            RecentSessions.Clear();
+            foreach (var session in sessions)
+            {
+                RecentSessions.Add(session);
+            }
 
-        ActiveWeaknesses.Add(new WeaknessSummary
-        {
-            SkillName = "Reading Inference",
-            Accuracy = 66.7,
-            AttemptsCount = 6,
-            ErrorPattern = "Procedural - missing context clues"
-        });
+            ActiveWeaknesses.Clear();
+            foreach (var weakness in weaknesses)
+            {
+                ActiveWeaknesses.Add(weakness);
+            }
 
-        ActiveWeaknesses.Add(new WeaknessSummary
-        {
-            SkillName = "Pattern Recognition",
-            Accuracy = 71.4,
-            AttemptsCount = 7,
-            ErrorPattern = "Speed - rushing through analysis"
-        });
-
-        // Recent conquests
-        RecentConquests.Add(new WeaknessSummary
-        {
-            SkillName = "Multiplication Fluency",
-            FinalAccuracy = 92.0,
-            MasteredDate = DateTime.Now.AddDays(-5)
-        });
-
-        RecentConquests.Add(new WeaknessSummary
-        {
-            SkillName = "Deductive Chains",
-            FinalAccuracy = 94.5,
-            MasteredDate = DateTime.Now.AddDays(-12)
-        });
-
-        RecentConquests.Add(new WeaknessSummary
-        {
-            SkillName = "Variable Identification",
-            FinalAccuracy = 90.0,
-            MasteredDate = DateTime.Now.AddDays(-18)
+            RecentConquests.Clear();
+            foreach (var conquest in conquests)
+            {
+                RecentConquests.Add(conquest);
+            }
         });
     }
 
-    private void RefreshData()
+    private async void RefreshData()
     {
-        // Reload dashboard data
-        RecentSessions.Clear();
-        ActiveWeaknesses.Clear();
-        RecentConquests.Clear();
-        LoadDashboardData();
+        IsLoading = true;
+        try
+        {
+            // Clear collections on UI thread
+            await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                RecentSessions.Clear();
+                ActiveWeaknesses.Clear();
+                RecentConquests.Clear();
+            });
+
+            // Reload dashboard data off UI thread
+            await Task.Run(() => LoadDashboardData());
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     private void OpenSettings()

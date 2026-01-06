@@ -29,7 +29,7 @@ public class SpockDbContext : DbContext
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
             entity.Property(e => e.Age).IsRequired();
-            entity.Property(e => e.GameTokenSeconds).HasDefaultValue(1);
+            entity.Property(e => e.GameTokenSeconds).HasDefaultValue(0);
             entity.Property(e => e.CurrentDomain).HasConversion<string>();
             
             // Configure owned entities (stored as JSON in single column)

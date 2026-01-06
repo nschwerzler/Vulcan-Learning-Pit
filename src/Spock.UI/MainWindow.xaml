@@ -498,17 +498,12 @@
                 <!-- Problem Content -->
                 <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Padding="40">
                     <StackPanel>
-                        <!-- Domain Emoji + Label -->
+                        <!-- Domain Label -->
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                            <TextBlock Text="{Binding CurrentDomain, Converter={StaticResource DomainToEmojiConverter}}" 
-                                      FontSize="28" 
-                                      Margin="0,0,12,0"
-                                      Foreground="#FFF"
-                                      VerticalAlignment="Center"/>
                             <TextBlock Text="{Binding CurrentDomain}" 
-                                      FontSize="16" 
-                                      Foreground="#888"
-                                      FontWeight="SemiBold"
+                                      FontSize="28" 
+                                      Foreground="#00CED1"
+                                      FontWeight="Bold"
                                       VerticalAlignment="Center"/>
                         </StackPanel>
                         

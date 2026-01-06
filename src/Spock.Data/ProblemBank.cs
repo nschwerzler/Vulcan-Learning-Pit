@@ -431,6 +431,711 @@ public static List<Problem> GetAllProblems()
                 }
             },
 
+            // ===== Grade 4: Two-Digit & Three-Digit Multiplication =====
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-two-digit",
+                Difficulty = 4,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "What is 23 × 35?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "805" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "Break it into parts: (23 × 30) + (23 × 5)",
+                        StepsDetailed = new List<string>
+                        {
+                            "Set up the problem vertically:",
+                            "    23",
+                            "  × 35",
+                            "  ----",
+                            "Step 1: Multiply 23 by 5 (the ones place of 35)",
+                            "  23 × 5 = 115",
+                            "Step 2: Multiply 23 by 30 (the tens place of 35)",
+                            "  23 × 30 = 690",
+                            "Step 3: Add the partial products",
+                            "  115 + 690 = 805"
+                        },
+                        WorkedExample = @"    23
+  × 35
+  ----
+   115  (23 × 5)
++ 690  (23 × 30)
+-----
+  805",
+                        KeyPrinciple = "Multi-digit multiplication uses the distributive property. Multiply by each digit separately (starting from ones), then add all partial products.",
+                        CommonMistake = "Forgetting to add a zero when multiplying by the tens digit. When you multiply 23 × 3 (the 3 in 35), you're really multiplying by 30, so write 690 not 69!"
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-two-digit",
+                Difficulty = 4,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "What is 47 × 28?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "1316" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "Multiply 47 by 8, then multiply 47 by 20, then add",
+                        StepsDetailed = new List<string>
+                        {
+                            "Set up vertically:",
+                            "    47",
+                            "  × 28",
+                            "  ----",
+                            "Step 1: Multiply 47 × 8",
+                            "  7 × 8 = 56 (write 6, carry 5)",
+                            "  4 × 8 = 32, plus carried 5 = 37",
+                            "  Result: 376",
+                            "Step 2: Multiply 47 × 20",
+                            "  47 × 2 = 94, then add one zero for the tens place",
+                            "  Result: 940",
+                            "Step 3: Add partial products",
+                            "  376 + 940 = 1316"
+                        },
+                        WorkedExample = @"     47
+   × 28
+   ----
+    376  (47 × 8)
++  940  (47 × 20)
+------
+   1316",
+                        KeyPrinciple = "Work right to left. Multiply by the ones digit first, then the tens digit (don't forget the place value!), then add.",
+                        CommonMistake = "Multiplying 47 × 2 and getting 94 without remembering it's actually 47 × 20 = 940. The position matters!"
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-two-digit",
+                Difficulty = 4,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "What is 56 × 43?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "2408" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "56 × 3 = 168, and 56 × 40 = 2240, then add them",
+                        StepsDetailed = new List<string>
+                        {
+                            "    56",
+                            "  × 43",
+                            "  ----",
+                            "Step 1: Multiply 56 × 3",
+                            "  6 × 3 = 18 (write 8, carry 1)",
+                            "  5 × 3 = 15, plus 1 = 16",
+                            "  First partial product: 168",
+                            "Step 2: Multiply 56 × 40",
+                            "  56 × 4 = 224",
+                            "  Add zero for tens place: 2240",
+                            "Step 3: Add the results",
+                            "  168 + 2240 = 2408"
+                        },
+                        WorkedExample = @"     56
+   × 43
+   ----
+    168  (56 × 3)
++ 2240  (56 × 40)
+------
+   2408",
+                        KeyPrinciple = "Each digit in the multiplier creates a partial product. Line them up by place value, then add.",
+                        CommonMistake = "Forgetting to carry when multiplying. For example, 6 × 3 = 18, you must write the 8 and carry the 1!"
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-two-digit",
+                Difficulty = 4,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "What is 64 × 57?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "3648" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "Break it into 64 × 7 and 64 × 50",
+                        StepsDetailed = new List<string>
+                        {
+                            "    64",
+                            "  × 57",
+                            "  ----",
+                            "Step 1: Multiply 64 × 7",
+                            "  4 × 7 = 28 (write 8, carry 2)",
+                            "  6 × 7 = 42, plus 2 = 44",
+                            "  Result: 448",
+                            "Step 2: Multiply 64 × 50",
+                            "  64 × 5 = 320",
+                            "  Add zero: 3200",
+                            "Step 3: Add them",
+                            "  448 + 3200 = 3648"
+                        },
+                        WorkedExample = @"     64
+   × 57
+   ----
+    448  (64 × 7)
++ 3200  (64 × 50)
+------
+   3648",
+                        KeyPrinciple = "The standard algorithm works for any size numbers. Multiply each digit, maintain place value, then sum all partial products.",
+                        CommonMistake = "Misaligning the partial products. The second line must be shifted one place left (or add a zero on the right) because you're multiplying by the tens place!"
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-two-digit",
+                Difficulty = 4,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "What is 82 × 36?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "2952" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "Multiply 82 by 6, then by 30, then add",
+                        StepsDetailed = new List<string>
+                        {
+                            "    82",
+                            "  × 36",
+                            "  ----",
+                            "Step 1: 82 × 6",
+                            "  2 × 6 = 12 (write 2, carry 1)",
+                            "  8 × 6 = 48, plus 1 = 49",
+                            "  Result: 492",
+                            "Step 2: 82 × 30",
+                            "  82 × 3 = 246",
+                            "  Add zero: 2460",
+                            "Step 3: Add",
+                            "  492 + 2460 = 2952"
+                        },
+                        WorkedExample = @"     82
+   × 36
+   ----
+    492  (82 × 6)
++ 2460  (82 × 30)
+------
+   2952",
+                        KeyPrinciple = "Multi-digit multiplication is just repeated single-digit multiplication with careful place value tracking.",
+                        CommonMistake = "Adding the carry at the wrong time. Multiply first, THEN add the carry. Don't add the carry before multiplying!"
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-two-digit",
+                Difficulty = 4,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "What is 91 × 74?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "6734" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "91 × 4 = 364, and 91 × 70 = 6370",
+                        StepsDetailed = new List<string>
+                        {
+                            "    91",
+                            "  × 74",
+                            "  ----",
+                            "Step 1: 91 × 4",
+                            "  1 × 4 = 4",
+                            "  9 × 4 = 36",
+                            "  Result: 364",
+                            "Step 2: 91 × 70",
+                            "  91 × 7 = 637",
+                            "  Add zero: 6370",
+                            "Step 3: Add",
+                            "  364 + 6370 = 6734"
+                        },
+                        WorkedExample = @"     91
+   × 74
+   ----
+    364  (91 × 4)
++ 6370  (91 × 70)
+------
+   6734",
+                        KeyPrinciple = "Stay organized! Write each partial product clearly, line up place values, then add carefully.",
+                        CommonMistake = "Rushing the final addition. Take your time adding the partial products - that's where many mistakes happen!"
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-two-digit",
+                Difficulty = 5,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "What is 78 × 92?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "7176" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "78 × 2 = 156, then 78 × 90 = 7020",
+                        StepsDetailed = new List<string>
+                        {
+                            "    78",
+                            "  × 92",
+                            "  ----",
+                            "Step 1: 78 × 2",
+                            "  8 × 2 = 16 (write 6, carry 1)",
+                            "  7 × 2 = 14, plus 1 = 15",
+                            "  Result: 156",
+                            "Step 2: 78 × 90",
+                            "  78 × 9 = 702",
+                            "  Add zero: 7020",
+                            "Step 3: Add",
+                            "  156 + 7020 = 7176"
+                        },
+                        WorkedExample = @"     78
+   × 92
+   ----
+    156  (78 × 2)
++ 7020  (78 × 90)
+------
+   7176",
+                        KeyPrinciple = "Larger numbers use the exact same process. Don't be intimidated by bigger digits - follow the steps!",
+                        CommonMistake = "Panicking with bigger numbers. 78 × 9 is just (70 × 9) + (8 × 9) = 630 + 72 = 702. Break it down!"
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-two-digit",
+                Difficulty = 5,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "What is 85 × 67?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "5695" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "85 × 7 = 595, and 85 × 60 = 5100",
+                        StepsDetailed = new List<string>
+                        {
+                            "    85",
+                            "  × 67",
+                            "  ----",
+                            "Step 1: 85 × 7",
+                            "  5 × 7 = 35 (write 5, carry 3)",
+                            "  8 × 7 = 56, plus 3 = 59",
+                            "  Result: 595",
+                            "Step 2: 85 × 60",
+                            "  85 × 6 = 510",
+                            "  Add zero: 5100",
+                            "Step 3: Add",
+                            "  595 + 5100 = 5695"
+                        },
+                        WorkedExample = @"     85
+   × 67
+   ----
+    595  (85 × 7)
++ 5100  (85 × 60)
+------
+   5695",
+                        KeyPrinciple = "Check your work by estimating: 85 is close to 90, 67 is close to 70. 90 × 70 = 6300, so 5695 is reasonable!",
+                        CommonMistake = "Not checking your answer. Always estimate to make sure your answer makes sense!"
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-two-digit",
+                Difficulty = 5,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "What is 39 × 58?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "2262" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "39 × 8 = 312, and 39 × 50 = 1950",
+                        StepsDetailed = new List<string>
+                        {
+                            "    39",
+                            "  × 58",
+                            "  ----",
+                            "Step 1: 39 × 8",
+                            "  9 × 8 = 72 (write 2, carry 7)",
+                            "  3 × 8 = 24, plus 7 = 31",
+                            "  Result: 312",
+                            "Step 2: 39 × 50",
+                            "  39 × 5 = 195",
+                            "  Add zero: 1950",
+                            "Step 3: Add",
+                            "  312 + 1950 = 2262"
+                        },
+                        WorkedExample = @"     39
+   × 58
+   ----
+    312  (39 × 8)
++ 1950  (39 × 50)
+------
+   2262",
+                        KeyPrinciple = "The carry is your friend! It keeps track of the extra when products are greater than 9.",
+                        CommonMistake = "Losing track of the carry. Write it small above the next digit so you don't forget to add it!"
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-two-digit",
+                Difficulty = 5,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "What is 76 × 84?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "6384" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "76 × 4 = 304, then 76 × 80 = 6080",
+                        StepsDetailed = new List<string>
+                        {
+                            "    76",
+                            "  × 84",
+                            "  ----",
+                            "Step 1: 76 × 4",
+                            "  6 × 4 = 24 (write 4, carry 2)",
+                            "  7 × 4 = 28, plus 2 = 30",
+                            "  Result: 304",
+                            "Step 2: 76 × 80",
+                            "  76 × 8 = 608",
+                            "  Add zero: 6080",
+                            "Step 3: Add",
+                            "  304 + 6080 = 6384"
+                        },
+                        WorkedExample = @"     76
+   × 84
+   ----
+    304  (76 × 4)
++ 6080  (76 × 80)
+------
+   6384",
+                        KeyPrinciple = "Accuracy beats speed. Take your time with each step and check your arithmetic.",
+                        CommonMistake = "Rushing through and making simple arithmetic errors. Slow down and double-check each multiplication!"
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-three-digit",
+                Difficulty = 6,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "What is 123 × 45?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "5535" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "123 × 5 = 615, and 123 × 40 = 4920",
+                        StepsDetailed = new List<string>
+                        {
+                            "     123",
+                            "   ×  45",
+                            "   -----",
+                            "Step 1: 123 × 5",
+                            "  3 × 5 = 15 (write 5, carry 1)",
+                            "  2 × 5 = 10, plus 1 = 11 (write 1, carry 1)",
+                            "  1 × 5 = 5, plus 1 = 6",
+                            "  Result: 615",
+                            "Step 2: 123 × 40",
+                            "  123 × 4 = 492",
+                            "  Add zero: 4920",
+                            "Step 3: Add",
+                            "  615 + 4920 = 5535"
+                        },
+                        WorkedExample = @"     123
+    ×  45
+    -----
+     615  (123 × 5)
+   +4920  (123 × 40)
+   -----
+    5535",
+                        KeyPrinciple = "Three-digit multiplication uses the same steps as two-digit. Just one more digit to multiply!",
+                        CommonMistake = "Getting confused with carries across three digits. Work right to left, one digit at a time, writing carries above."
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-three-digit",
+                Difficulty = 6,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "What is 246 × 37?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "9102" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "246 × 7 = 1722, and 246 × 30 = 7380",
+                        StepsDetailed = new List<string>
+                        {
+                            "     246",
+                            "   ×  37",
+                            "   -----",
+                            "Step 1: 246 × 7",
+                            "  6 × 7 = 42 (write 2, carry 4)",
+                            "  4 × 7 = 28, plus 4 = 32 (write 2, carry 3)",
+                            "  2 × 7 = 14, plus 3 = 17",
+                            "  Result: 1722",
+                            "Step 2: 246 × 30",
+                            "  246 × 3 = 738",
+                            "  Add zero: 7380",
+                            "Step 3: Add",
+                            "  1722 + 7380 = 9102"
+                        },
+                        WorkedExample = @"     246
+    ×  37
+    -----
+    1722  (246 × 7)
+   +7380  (246 × 30)
+   -----
+    9102",
+                        KeyPrinciple = "Keep your work neat and organized. Line up place values when adding partial products.",
+                        CommonMistake = "Messy work leads to errors! Use graph paper or lined paper turned sideways to keep columns straight."
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-three-digit",
+                Difficulty = 6,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "What is 358 × 62?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "22196" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "358 × 2 = 716, and 358 × 60 = 21480",
+                        StepsDetailed = new List<string>
+                        {
+                            "     358",
+                            "   ×  62",
+                            "   -----",
+                            "Step 1: 358 × 2",
+                            "  8 × 2 = 16 (write 6, carry 1)",
+                            "  5 × 2 = 10, plus 1 = 11 (write 1, carry 1)",
+                            "  3 × 2 = 6, plus 1 = 7",
+                            "  Result: 716",
+                            "Step 2: 358 × 60",
+                            "  358 × 6 = 2148",
+                            "  Add zero: 21480",
+                            "Step 3: Add",
+                            "  716 + 21480 = 22196"
+                        },
+                        WorkedExample = @"      358
+     ×  62
+     -----
+      716  (358 × 2)
+   +21480  (358 × 60)
+    -----
+    22196",
+                        KeyPrinciple = "Bigger numbers, same process! Trust the algorithm and work step by step.",
+                        CommonMistake = "Feeling overwhelmed. Remember: this is just 358 × 2, then 358 × 6 (with a zero), then add. You've got this!"
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-three-digit",
+                Difficulty = 6,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "What is 417 × 53?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "22101" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "417 × 3 = 1251, and 417 × 50 = 20850",
+                        StepsDetailed = new List<string>
+                        {
+                            "     417",
+                            "   ×  53",
+                            "   -----",
+                            "Step 1: 417 × 3",
+                            "  7 × 3 = 21 (write 1, carry 2)",
+                            "  1 × 3 = 3, plus 2 = 5",
+                            "  4 × 3 = 12",
+                            "  Result: 1251",
+                            "Step 2: 417 × 50",
+                            "  417 × 5 = 2085",
+                            "  Add zero: 20850",
+                            "Step 3: Add",
+                            "  1251 + 20850 = 22101"
+                        },
+                        WorkedExample = @"      417
+     ×  53
+     -----
+     1251  (417 × 3)
+   +20850  (417 × 50)
+    -----
+    22101",
+                        KeyPrinciple = "Estimate to check: 417 ≈ 400, 53 ≈ 50. So 400 × 50 = 20000. Our answer 22101 is close!",
+                        CommonMistake = "Not estimating first. A quick estimate helps you catch big errors before you finish!"
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-three-digit",
+                Difficulty = 7,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "What is 582 × 76?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "44232" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "582 × 6 = 3492, and 582 × 70 = 40740",
+                        StepsDetailed = new List<string>
+                        {
+                            "     582",
+                            "   ×  76",
+                            "   -----",
+                            "Step 1: 582 × 6",
+                            "  2 × 6 = 12 (write 2, carry 1)",
+                            "  8 × 6 = 48, plus 1 = 49 (write 9, carry 4)",
+                            "  5 × 6 = 30, plus 4 = 34",
+                            "  Result: 3492",
+                            "Step 2: 582 × 70",
+                            "  582 × 7 = 4074",
+                            "  Add zero: 40740",
+                            "Step 3: Add",
+                            "  3492 + 40740 = 44232"
+                        },
+                        WorkedExample = @"      582
+     ×  76
+     -----
+     3492  (582 × 6)
+   +40740  (582 × 70)
+    -----
+    44232",
+                        KeyPrinciple = "With larger numbers, organization is everything. Keep digits aligned and carries visible.",
+                        CommonMistake = "Carrying errors multiply through the problem. Double-check each multiplication before moving on!"
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-three-digit",
+                Difficulty = 7,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "What is 694 × 88?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "61072" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "694 × 8 = 5552, and 694 × 80 = 55520",
+                        StepsDetailed = new List<string>
+                        {
+                            "     694",
+                            "   ×  88",
+                            "   -----",
+                            "Step 1: 694 × 8",
+                            "  4 × 8 = 32 (write 2, carry 3)",
+                            "  9 × 8 = 72, plus 3 = 75 (write 5, carry 7)",
+                            "  6 × 8 = 48, plus 7 = 55",
+                            "  Result: 5552",
+                            "Step 2: 694 × 80",
+                            "  694 × 8 = 5552 (same as above!)",
+                            "  Add zero: 55520",
+                            "Step 3: Add",
+                            "  5552 + 55520 = 61072"
+                        },
+                        WorkedExample = @"      694
+     ×  88
+     -----
+     5552  (694 × 8)
+   +55520  (694 × 80)
+    -----
+    61072",
+                        KeyPrinciple = "Notice patterns! When multiplying by 88, you multiply by 8 twice (once for ones, once for tens). Smart thinking can save work!",
+                        CommonMistake = "Rushing through repeated work. Even when you see the same calculation, double-check it!"
+                    }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Math,
+                MicroTopic = "multiplication-three-digit",
+                Difficulty = 7,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "What is 753 × 94?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "70782" },
+                    Guidance = new SolutionGuidance
+                    {
+                        HintMinimal = "753 × 4 = 3012, and 753 × 90 = 67770",
+                        StepsDetailed = new List<string>
+                        {
+                            "     753",
+                            "   ×  94",
+                            "   -----",
+                            "Step 1: 753 × 4",
+                            "  3 × 4 = 12 (write 2, carry 1)",
+                            "  5 × 4 = 20, plus 1 = 21 (write 1, carry 2)",
+                            "  7 × 4 = 28, plus 2 = 30",
+                            "  Result: 3012",
+                            "Step 2: 753 × 90",
+                            "  753 × 9 = 6777",
+                            "  Add zero: 67770",
+                            "Step 3: Add",
+                            "  3012 + 67770 = 70782"
+                        },
+                        WorkedExample = @"      753
+     ×  94
+     -----
+     3012  (753 × 4)
+   +67770  (753 × 90)
+    -----
+    70782",
+                        KeyPrinciple = "Complex problems are just simple steps repeated. Master the basics, and big problems become easy!",
+                        CommonMistake = "Getting discouraged by big numbers. You know how to multiply single digits - that's all this is, plus organization!"
+                    }
+                }
+            },
+
             // ===== Grade 4-5: Fractions =====
             new Problem
             {

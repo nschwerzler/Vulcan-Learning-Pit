@@ -51,7 +51,7 @@ public class StudentDataService : IDisposable
             {
                 Name = name,
                 Age = age,
-                GameTokenSeconds = 1
+                GameTokenSeconds = 0
             };
             _context.StudentProfiles.Add(student);
             await _context.SaveChangesAsync(cancellationToken);

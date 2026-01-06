@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.UI\\Spock.UI.csproj": {}
+    "c:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.UI\\Spock.UI.csproj": {}
   },
   "projects": {
     "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.Core\\Spock.Core.csproj": {
@@ -1172,14 +1172,14 @@
         }
       }
     },
-    "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.UI\\Spock.UI.csproj": {
+    "c:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.UI\\Spock.UI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.UI\\Spock.UI.csproj",
+        "projectUniqueName": "c:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.UI\\Spock.UI.csproj",
         "projectName": "Spock.UI",
-        "projectPath": "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.UI\\Spock.UI.csproj",
+        "projectPath": "c:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.UI\\Spock.UI.csproj",
         "packagesPath": "C:\\Users\\nschw\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.UI\\obj\\",
+        "outputPath": "c:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.UI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nschw\\AppData\\Roaming\\NuGet\\NuGet.Config"
