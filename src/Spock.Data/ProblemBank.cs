@@ -5731,6 +5731,770 @@ public static List<Problem> GetAllProblems()
                     Options = new List<string> { "MD5", "SHA-1", "SHA-256", "AES-128" },
                     CorrectAnswers = new List<string> { "SHA-256" }
                 }
+            },
+
+            // ===== Additional Elementary (Grades 4-5): Digital Money Basics =====
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "digital-currency-concept",
+                Difficulty = 3,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin is a type of:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Physical coin", "Digital currency", "Credit card", "Bank account" },
+                    CorrectAnswers = new List<string> { "Digital currency" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "bitcoin-symbol",
+                Difficulty = 3,
+                TargetTime = 25,
+                Content = new ProblemContent
+                {
+                    Question = "What is the symbol for Bitcoin?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "$", "€", "₿", "¥" },
+                    CorrectAnswers = new List<string> { "₿" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "bitcoin-ownership",
+                Difficulty = 4,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "Who owns Bitcoin?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "A company", "A government", "No single entity (it's decentralized)", "Banks" },
+                    CorrectAnswers = new List<string> { "No single entity (it's decentralized)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "wallet-concept",
+                Difficulty = 4,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "A Bitcoin wallet stores:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Actual bitcoins", "Keys that prove ownership of bitcoins", "Paper money", "Credit cards" },
+                    CorrectAnswers = new List<string> { "Keys that prove ownership of bitcoins" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "peer-to-peer",
+                Difficulty = 4,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin transactions happen:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Through banks", "Peer-to-peer (directly between users)", "Through credit card companies", "Only in person" },
+                    CorrectAnswers = new List<string> { "Peer-to-peer (directly between users)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "satoshi-unit",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "The smallest unit of Bitcoin is called a:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Cent", "Satoshi", "Bit", "Coin" },
+                    CorrectAnswers = new List<string> { "Satoshi" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "transaction-speed",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin transactions typically take how long to confirm?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Instant", "About 10 minutes per block", "Several days", "One year" },
+                    CorrectAnswers = new List<string> { "About 10 minutes per block" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "transaction-fees",
+                Difficulty = 5,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Why do Bitcoin transactions have fees?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "To pay banks", "To incentivize miners to process transactions", "To pay governments", "Fees are optional and not needed" },
+                    CorrectAnswers = new List<string> { "To incentivize miners to process transactions" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "public-addresses",
+                Difficulty = 5,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "A Bitcoin address is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Your home address", "A public identifier where bitcoins can be sent", "Your password", "A bank account number" },
+                    CorrectAnswers = new List<string> { "A public identifier where bitcoins can be sent" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "transparency",
+                Difficulty = 6,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "All Bitcoin transactions are:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Completely private and hidden", "Publicly visible on the blockchain", "Only visible to banks", "Deleted after confirmation" },
+                    CorrectAnswers = new List<string> { "Publicly visible on the blockchain" }
+                }
+            },
+
+            // ===== Additional Middle School (Grades 6-8): Technical & Historical =====
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "genesis-block",
+                Difficulty = 6,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "The first Bitcoin block ever mined is called:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Alpha Block", "Genesis Block", "First Block", "Prime Block" },
+                    CorrectAnswers = new List<string> { "Genesis Block" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "block-time",
+                Difficulty = 6,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin's target block time (time between blocks) is approximately:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "1 minute", "10 minutes", "1 hour", "1 day" },
+                    CorrectAnswers = new List<string> { "10 minutes" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "private-keys",
+                Difficulty = 6,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "A Bitcoin private key is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Your username", "Secret key proving ownership, must be kept secure", "Public information", "Optional security feature" },
+                    CorrectAnswers = new List<string> { "Secret key proving ownership, must be kept secure" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "double-spending",
+                Difficulty = 7,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "The blockchain prevents 'double-spending' by:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Trusting users", "Recording all transactions in chronological order on distributed ledger", "Using banks", "Limiting transactions" },
+                    CorrectAnswers = new List<string> { "Recording all transactions in chronological order on distributed ledger" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "pizza-day",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "How many bitcoins were spent on the famous 'Bitcoin Pizza Day' transaction?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "1 BTC", "100 BTC", "10,000 BTC", "1 million BTC" },
+                    CorrectAnswers = new List<string> { "10,000 BTC" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "mining-difficulty",
+                Difficulty = 7,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin's mining difficulty adjusts every:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Day", "Week", "2016 blocks (about 2 weeks)", "Year" },
+                    CorrectAnswers = new List<string> { "2016 blocks (about 2 weeks)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "51-percent-attack",
+                Difficulty = 7,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "A '51% attack' on Bitcoin would require:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "51% of users agreeing", "Controlling more than 50% of network's mining power", "51% of bitcoins", "Hacking 51 computers" },
+                    CorrectAnswers = new List<string> { "Controlling more than 50% of network's mining power" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "fork-concept",
+                Difficulty = 8,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "A blockchain 'fork' occurs when:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Someone loses their keys", "The protocol splits into two versions", "Transactions fail", "Mining stops" },
+                    CorrectAnswers = new List<string> { "The protocol splits into two versions" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "mt-gox",
+                Difficulty = 8,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "Mt. Gox was significant in Bitcoin history because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "It created Bitcoin", "Major exchange that collapsed in 2014, losing ~850,000 BTC", "First Bitcoin wallet", "Bitcoin's original name" },
+                    CorrectAnswers = new List<string> { "Major exchange that collapsed in 2014, losing ~850,000 BTC" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "lightning-network",
+                Difficulty = 8,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "The Lightning Network aims to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Make Bitcoin mining faster", "Enable faster, cheaper transactions through off-chain channels", "Replace Bitcoin", "Increase block size" },
+                    CorrectAnswers = new List<string> { "Enable faster, cheaper transactions through off-chain channels" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "nodes",
+                Difficulty = 8,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "A Bitcoin node is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "A miner only", "A computer running Bitcoin software that validates/relays transactions", "A wallet", "An exchange" },
+                    CorrectAnswers = new List<string> { "A computer running Bitcoin software that validates/relays transactions" }
+                }
+            },
+
+            // ===== Additional High School/College (Grades 9-12): Advanced Concepts =====
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "hash-rate",
+                Difficulty = 9,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin's hash rate measures:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Transaction speed", "Total computational power securing the network", "Number of users", "Price volatility" },
+                    CorrectAnswers = new List<string> { "Total computational power securing the network" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "merkle-tree",
+                Difficulty = 9,
+                TargetTime = 95,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin blocks use Merkle trees to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Store user names", "Efficiently verify transaction inclusion without full block data", "Mine faster", "Encrypt wallets" },
+                    CorrectAnswers = new List<string> { "Efficiently verify transaction inclusion without full block data" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "utxo-model",
+                Difficulty = 9,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin's UTXO (Unspent Transaction Output) model means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Balances are tracked like bank accounts", "Bitcoin tracks discrete transaction outputs as spendable units", "All transactions are grouped together", "Wallets store actual coins" },
+                    CorrectAnswers = new List<string> { "Bitcoin tracks discrete transaction outputs as spendable units" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "scripting-language",
+                Difficulty = 9,
+                TargetTime = 95,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin's Script programming language is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Turing-complete", "Intentionally limited (not Turing-complete) for security", "Based on Java", "Requires JavaScript" },
+                    CorrectAnswers = new List<string> { "Intentionally limited (not Turing-complete) for security" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "segregated-witness",
+                Difficulty = 9,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "SegWit (Segregated Witness) upgrade improved Bitcoin by:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Doubling block size only", "Separating signature data, increasing effective block capacity and enabling Lightning", "Removing all fees", "Making mining easier" },
+                    CorrectAnswers = new List<string> { "Separating signature data, increasing effective block capacity and enabling Lightning" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "nonce",
+                Difficulty = 10,
+                TargetTime = 105,
+                Content = new ProblemContent
+                {
+                    Question = "In Bitcoin mining, a 'nonce' is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Number used once; miners adjust it trying to find valid hash", "Nickname for miners", "Transaction counter", "Block height" },
+                    CorrectAnswers = new List<string> { "Number used once; miners adjust it trying to find valid hash" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "difficulty-adjustment",
+                Difficulty = 10,
+                TargetTime = 110,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin's difficulty adjustment algorithm ensures:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Price stability", "Blocks are found every ~10 minutes regardless of total hash power", "Equal mining rewards", "No forks occur" },
+                    CorrectAnswers = new List<string> { "Blocks are found every ~10 minutes regardless of total hash power" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "elliptic-curve",
+                Difficulty = 10,
+                TargetTime = 115,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin uses elliptic curve cryptography (specifically secp256k1) for:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Mining only", "Generating public/private key pairs and digital signatures", "Transaction speed", "Price calculation" },
+                    CorrectAnswers = new List<string> { "Generating public/private key pairs and digital signatures" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "consensus-mechanism",
+                Difficulty = 10,
+                TargetTime = 120,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin achieves consensus (agreement on transaction order) through:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Voting", "Proof-of-Work: longest valid chain with most accumulated work wins", "Central authority", "Random selection" },
+                    CorrectAnswers = new List<string> { "Proof-of-Work: longest valid chain with most accumulated work wins" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "game-theory",
+                Difficulty = 10,
+                TargetTime = 125,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin's incentive structure (mining rewards, fees) uses game theory to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Force cooperation", "Make honest participation more profitable than attacks", "Eliminate all bad actors", "Guarantee profits" },
+                    CorrectAnswers = new List<string> { "Make honest participation more profitable than attacks" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "stock-to-flow",
+                Difficulty = 10,
+                TargetTime = 115,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin's stock-to-flow ratio (existing supply / new supply) increases over time due to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Random events", "Halving events reducing new supply while existing stock grows", "Government regulation", "Market demand" },
+                    CorrectAnswers = new List<string> { "Halving events reducing new supply while existing stock grows" }
+                }
+            },
+
+            // ===== Additional Intermediate Concepts =====
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "pseudonymous",
+                Difficulty = 6,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin transactions are 'pseudonymous,' meaning:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Completely anonymous", "Linked to addresses, not directly to real identities (but can be traced)", "Require ID verification", "Are private and hidden" },
+                    CorrectAnswers = new List<string> { "Linked to addresses, not directly to real identities (but can be traced)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "irreversible",
+                Difficulty = 6,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin transactions are:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Reversible like credit cards", "Irreversible once confirmed", "Can be canceled within 24 hours", "Require bank approval" },
+                    CorrectAnswers = new List<string> { "Irreversible once confirmed" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "cold-storage",
+                Difficulty = 7,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "Cold storage for Bitcoin refers to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Keeping Bitcoin at low temperature", "Storing keys offline (not connected to internet) for security", "Freezing accounts", "Winter mining" },
+                    CorrectAnswers = new List<string> { "Storing keys offline (not connected to internet) for security" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "hot-wallet",
+                Difficulty = 7,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "A 'hot wallet' is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Wallet stored in hot locations", "Wallet connected to internet for convenience (but less secure)", "Wallet with many transactions", "Wallet with high fees" },
+                    CorrectAnswers = new List<string> { "Wallet connected to internet for convenience (but less secure)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "seed-phrase",
+                Difficulty = 7,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "A Bitcoin wallet seed phrase (recovery phrase) is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Your password", "12-24 words that can restore your wallet and keys", "Username", "Public address" },
+                    CorrectAnswers = new List<string> { "12-24 words that can restore your wallet and keys" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "multisig",
+                Difficulty = 8,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "Multi-signature (multisig) Bitcoin wallets require:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "One signature", "Multiple signatures from different keys to authorize transactions", "Government approval", "Bank verification" },
+                    CorrectAnswers = new List<string> { "Multiple signatures from different keys to authorize transactions" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "asic-mining",
+                Difficulty = 8,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "ASIC miners are:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Regular computers", "Specialized hardware designed specifically for Bitcoin mining", "Wallets", "Exchanges" },
+                    CorrectAnswers = new List<string> { "Specialized hardware designed specifically for Bitcoin mining" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "mining-pools",
+                Difficulty = 8,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "Mining pools exist because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Required by law", "Individual miners combine computing power for more consistent rewards", "To make mining slower", "To reduce security" },
+                    CorrectAnswers = new List<string> { "Individual miners combine computing power for more consistent rewards" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "energy-consumption",
+                Difficulty = 8,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin mining's high energy consumption is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "A bug in the code", "Intentional feature providing security through Proof-of-Work", "Easy to eliminate", "Not real" },
+                    CorrectAnswers = new List<string> { "Intentional feature providing security through Proof-of-Work" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "silk-road",
+                Difficulty = 9,
+                TargetTime = 95,
+                Content = new ProblemContent
+                {
+                    Question = "The Silk Road marketplace (shut down 2013) was significant because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "It created Bitcoin", "It demonstrated Bitcoin use for illegal activities, drawing regulatory attention", "It was legal marketplace", "It had no impact" },
+                    CorrectAnswers = new List<string> { "It demonstrated Bitcoin use for illegal activities, drawing regulatory attention" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "hodl-culture",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "In Bitcoin culture, 'HODL' means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Hold On for Dear Life (keep Bitcoin long-term despite volatility)", "High-speed trading", "Selling immediately", "Mining strategy" },
+                    CorrectAnswers = new List<string> { "Hold On for Dear Life (keep Bitcoin long-term despite volatility)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "block-reward",
+                Difficulty = 7,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "The first Bitcoin block reward in 2009 was:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "1 BTC", "6.25 BTC", "50 BTC", "100 BTC" },
+                    CorrectAnswers = new List<string> { "50 BTC" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "current-block-reward",
+                Difficulty = 7,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "As of 2024, the Bitcoin block reward is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "50 BTC", "25 BTC", "12.5 BTC", "6.25 BTC" },
+                    CorrectAnswers = new List<string> { "6.25 BTC" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "final-bitcoin",
+                Difficulty = 8,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "The last Bitcoin is expected to be mined around year:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "2030", "2050", "2140", "Never (infinite supply)" },
+                    CorrectAnswers = new List<string> { "2140" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "lost-bitcoins",
+                Difficulty = 8,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoins with lost private keys are:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Automatically deleted", "Permanently inaccessible (effectively removing them from circulation)", "Redistributed to miners", "Sent to government" },
+                    CorrectAnswers = new List<string> { "Permanently inaccessible (effectively removing them from circulation)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "inflation-resistance",
+                Difficulty = 9,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin's predictable supply schedule makes it:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Inflationary", "Disinflationary (inflation rate decreases over time)", "Deflationary always", "Unstable" },
+                    CorrectAnswers = new List<string> { "Disinflationary (inflation rate decreases over time)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "network-effects",
+                Difficulty = 9,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin benefits from network effects, meaning:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "It needs internet", "Its value increases as more people use and secure the network", "Only works on networks", "Requires social media" },
+                    CorrectAnswers = new List<string> { "Its value increases as more people use and secure the network" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "scarcity-digital",
+                Difficulty = 10,
+                TargetTime = 115,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin achieved digital scarcity (something never possible before) through:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Making files expensive", "Proof-of-Work and consensus preventing duplication", "Copyright law", "Encryption only" },
+                    CorrectAnswers = new List<string> { "Proof-of-Work and consensus preventing duplication" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "censorship-resistance",
+                Difficulty = 10,
+                TargetTime = 120,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin's censorship resistance means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "No profanity allowed", "Transactions cannot be blocked by governments/institutions if properly broadcast", "All transactions are approved", "Only certain people can transact" },
+                    CorrectAnswers = new List<string> { "Transactions cannot be blocked by governments/institutions if properly broadcast" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "trustless-system",
+                Difficulty = 10,
+                TargetTime = 120,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin is 'trustless' because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Nobody can be trusted", "You don't need to trust any third party; cryptography and consensus ensure validity", "Trust is required", "It has no security" },
+                    CorrectAnswers = new List<string> { "You don't need to trust any third party; cryptography and consensus ensure validity" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "sound-money",
+                Difficulty = 10,
+                TargetTime = 125,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin proponents argue it's 'sound money' because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "It makes noise", "Fixed supply, divisible, portable, durable, and verifiable", "Government backs it", "Banks control it" },
+                    CorrectAnswers = new List<string> { "Fixed supply, divisible, portable, durable, and verifiable" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "permissionless",
+                Difficulty = 10,
+                TargetTime = 115,
+                Content = new ProblemContent
+                {
+                    Question = "Bitcoin is 'permissionless,' meaning:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Requires no rules", "Anyone can participate without needing approval from authority", "Only allowed people can use it", "Needs government permission" },
+                    CorrectAnswers = new List<string> { "Anyone can participate without needing approval from authority" }
+                }
             }
         };
     }
