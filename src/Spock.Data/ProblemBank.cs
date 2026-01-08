@@ -5584,6 +5584,588 @@ public static List<Problem> GetAllProblems()
                     Options = new List<string> { "Social media influencers", "Random blogs", "CDC, WHO, peer-reviewed medical journals", "Product advertisements" },
                     CorrectAnswers = new List<string> { "CDC, WHO, peer-reviewed medical journals" }
                 }
+            },
+
+            // ===== Additional Elementary (Grades 1-3): Health Fundamentals =====
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "dental-health",
+                Difficulty = 1,
+                TargetTime = 20,
+                Content = new ProblemContent
+                {
+                    Question = "How many times per day should you brush your teeth?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Once", "Twice", "Five times", "Never" },
+                    CorrectAnswers = new List<string> { "Twice" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "germ-prevention",
+                Difficulty = 1,
+                TargetTime = 25,
+                Content = new ProblemContent
+                {
+                    Question = "When should you wash your hands?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Only when dirty", "Before eating and after using bathroom", "Once a day", "Never" },
+                    CorrectAnswers = new List<string> { "Before eating and after using bathroom" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "hydration-basics",
+                Difficulty = 2,
+                TargetTime = 20,
+                Content = new ProblemContent
+                {
+                    Question = "What is the healthiest drink for your body?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Soda", "Water", "Energy drinks", "Juice only" },
+                    CorrectAnswers = new List<string> { "Water" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "sun-safety",
+                Difficulty = 2,
+                TargetTime = 25,
+                Content = new ProblemContent
+                {
+                    Question = "What should you wear to protect your skin from the sun?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Nothing special", "Sunscreen", "Only sunglasses", "Dark clothing only" },
+                    CorrectAnswers = new List<string> { "Sunscreen" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "safety-basics",
+                Difficulty = 2,
+                TargetTime = 20,
+                Content = new ProblemContent
+                {
+                    Question = "When riding a bike, you should always wear a:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Helmet", "Hat", "Scarf", "Nothing" },
+                    CorrectAnswers = new List<string> { "Helmet" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "five-senses",
+                Difficulty = 2,
+                TargetTime = 25,
+                Content = new ProblemContent
+                {
+                    Question = "Which body part lets you taste food?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Nose", "Eyes", "Tongue", "Ears" },
+                    CorrectAnswers = new List<string> { "Tongue" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "body-systems-intro",
+                Difficulty = 3,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "Which body part helps you breathe?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Heart", "Lungs", "Liver", "Kidneys" },
+                    CorrectAnswers = new List<string> { "Lungs" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "emotions-recognition",
+                Difficulty = 3,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "If you're feeling sad, it's good to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Keep it inside", "Talk to a trusted adult", "Ignore it", "Get angry" },
+                    CorrectAnswers = new List<string> { "Talk to a trusted adult" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "stranger-safety",
+                Difficulty = 3,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "If a stranger asks you to go with them, you should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Go if they seem nice", "Say no and tell a trusted adult", "Go and tell later", "Think about it" },
+                    CorrectAnswers = new List<string> { "Say no and tell a trusted adult" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "growth-development",
+                Difficulty = 3,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "As you grow, your bones become:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Softer", "Shorter", "Longer and stronger", "Weaker" },
+                    CorrectAnswers = new List<string> { "Longer and stronger" }
+                }
+            },
+
+            // ===== Additional Upper Elementary (Grades 4-5): Body Systems & Habits =====
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "digestive-system",
+                Difficulty = 4,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "Where does digestion begin?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Stomach", "Mouth", "Intestines", "Esophagus" },
+                    CorrectAnswers = new List<string> { "Mouth" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "respiratory-system",
+                Difficulty = 4,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "Your lungs take in oxygen and release what gas?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Nitrogen", "Helium", "Carbon dioxide", "Hydrogen" },
+                    CorrectAnswers = new List<string> { "Carbon dioxide" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "muscular-system",
+                Difficulty = 4,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "Muscles work by:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Contracting and relaxing", "Staying still", "Breaking apart", "Growing only" },
+                    CorrectAnswers = new List<string> { "Contracting and relaxing" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "screen-time-limits",
+                Difficulty = 4,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "Too much screen time can cause:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Better eyesight", "Eye strain and poor sleep", "Stronger muscles", "Faster growth" },
+                    CorrectAnswers = new List<string> { "Eye strain and poor sleep" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "balanced-diet",
+                Difficulty = 4,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "Eating too much sugar can lead to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Stronger bones", "Better focus", "Weight gain and tooth decay", "Faster running" },
+                    CorrectAnswers = new List<string> { "Weight gain and tooth decay" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "immune-system-basics",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Your immune system protects you from:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Exercise", "Germs and diseases", "Food", "Water" },
+                    CorrectAnswers = new List<string> { "Germs and diseases" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "vaccines-purpose",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Vaccines help your body by:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Making you sick", "Teaching immune system to fight diseases", "Giving you vitamins", "Making you taller" },
+                    CorrectAnswers = new List<string> { "Teaching immune system to fight diseases" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "posture-importance",
+                Difficulty = 5,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "Good posture when sitting helps prevent:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Happiness", "Back and neck pain", "Growth", "Thinking" },
+                    CorrectAnswers = new List<string> { "Back and neck pain" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "calcium-importance",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Calcium is important for building strong:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Muscles only", "Bones and teeth", "Hair", "Eyes" },
+                    CorrectAnswers = new List<string> { "Bones and teeth" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "stress-management-basics",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Which activity can help reduce stress?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Skipping meals", "Deep breathing exercises", "Staying up late", "Avoiding friends" },
+                    CorrectAnswers = new List<string> { "Deep breathing exercises" }
+                }
+            },
+
+            // ===== Additional Middle School (Grades 6-8): Body Changes & Decision Making =====
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "puberty-changes",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "During puberty, the body releases hormones that cause:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "No changes", "Physical and emotional changes", "Only height changes", "Illness" },
+                    CorrectAnswers = new List<string> { "Physical and emotional changes" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "circulatory-system",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Blood carries oxygen from the lungs to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Nowhere", "All body cells", "Only the heart", "Only the brain" },
+                    CorrectAnswers = new List<string> { "All body cells" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "calories-energy",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Calories measure:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Vitamins in food", "Energy in food", "Weight of food", "Taste of food" },
+                    CorrectAnswers = new List<string> { "Energy in food" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "antibiotic-resistance",
+                Difficulty = 7,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Taking antibiotics when not needed can lead to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Stronger immunity", "Antibiotic-resistant bacteria", "Faster healing", "Nothing bad" },
+                    CorrectAnswers = new List<string> { "Antibiotic-resistant bacteria" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "addiction-warning-signs",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Addiction is characterized by:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Occasional use", "Compulsive use despite negative consequences", "Social use only", "One-time experimentation" },
+                    CorrectAnswers = new List<string> { "Compulsive use despite negative consequences" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "body-image-health",
+                Difficulty = 7,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Healthy body image means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Looking like models", "Accepting and respecting your body", "Constant dieting", "Comparing to others" },
+                    CorrectAnswers = new List<string> { "Accepting and respecting your body" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "social-media-mental-health",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Excessive social media use has been linked to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Better sleep", "Increased anxiety and depression", "Improved focus", "Stronger friendships only" },
+                    CorrectAnswers = new List<string> { "Increased anxiety and depression" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "consent-basics",
+                Difficulty = 7,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Consent means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Silence", "Clear, voluntary agreement", "Going along to be polite", "One-time permission forever" },
+                    CorrectAnswers = new List<string> { "Clear, voluntary agreement" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "bystander-intervention",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "If you see someone being bullied, the best action is to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Join in", "Ignore it", "Safely intervene or get help from an adult", "Record it only" },
+                    CorrectAnswers = new List<string> { "Safely intervene or get help from an adult" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "sleep-cycles",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "REM sleep is important for:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Only physical rest", "Memory consolidation and emotional processing", "Digestion only", "Nothing specific" },
+                    CorrectAnswers = new List<string> { "Memory consolidation and emotional processing" }
+                }
+            },
+
+            // ===== Additional High School (Grades 9-12): Advanced Health Topics =====
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "bmi-limitations",
+                Difficulty = 8,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "BMI (Body Mass Index) is limited because it doesn't account for:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Height", "Weight", "Muscle mass vs fat mass", "Age only" },
+                    CorrectAnswers = new List<string> { "Muscle mass vs fat mass" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "alcohol-effects",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "Alcohol is metabolized primarily in which organ?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Kidneys", "Heart", "Liver", "Lungs" },
+                    CorrectAnswers = new List<string> { "Liver" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "herd-immunity",
+                Difficulty = 9,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "Herd immunity occurs when:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "One person is immune", "Enough people are immune to slow disease spread", "Everyone gets sick", "Vaccines stop working" },
+                    CorrectAnswers = new List<string> { "Enough people are immune to slow disease spread" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "eating-disorders",
+                Difficulty = 9,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "Anorexia nervosa is characterized by:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Overeating only", "Extreme food restriction and fear of weight gain", "Healthy eating", "Exercise addiction only" },
+                    CorrectAnswers = new List<string> { "Extreme food restriction and fear of weight gain" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "cardiovascular-disease",
+                Difficulty = 9,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "Which is a major risk factor for heart disease?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Regular exercise", "High LDL cholesterol", "Low stress", "Adequate sleep" },
+                    CorrectAnswers = new List<string> { "High LDL cholesterol" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "microbiome-health",
+                Difficulty = 9,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "The gut microbiome consists of:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Viruses only", "Trillions of beneficial and harmful bacteria", "Only harmful bacteria", "No living organisms" },
+                    CorrectAnswers = new List<string> { "Trillions of beneficial and harmful bacteria" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "cancer-risk-factors",
+                Difficulty = 9,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "Which lifestyle factor is linked to increased cancer risk?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Eating vegetables", "Smoking tobacco", "Exercising", "Drinking water" },
+                    CorrectAnswers = new List<string> { "Smoking tobacco" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "neuroplasticity",
+                Difficulty = 10,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "Neuroplasticity means the brain can:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Never change after age 25", "Reorganize and form new connections throughout life", "Only grow in childhood", "Only shrink with age" },
+                    CorrectAnswers = new List<string> { "Reorganize and form new connections throughout life" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "epigenetics-health",
+                Difficulty = 10,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "Epigenetics studies how:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "DNA sequence is altered", "Environment affects gene expression without changing DNA", "Genes are inherited", "Cells divide" },
+                    CorrectAnswers = new List<string> { "Environment affects gene expression without changing DNA" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "stress-cortisol",
+                Difficulty = 10,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "Chronic stress leads to elevated cortisol, which can cause:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Better health", "Weakened immune system and increased disease risk", "Faster healing", "Improved memory" },
+                    CorrectAnswers = new List<string> { "Weakened immune system and increased disease risk" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "evidence-based-medicine",
+                Difficulty = 10,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "Evidence-based medicine relies primarily on:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Personal anecdotes", "Randomized controlled trials and systematic reviews", "Celebrity endorsements", "Historical traditions" },
+                    CorrectAnswers = new List<string> { "Randomized controlled trials and systematic reviews" }
+                }
             }
         };
     }
