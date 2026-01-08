@@ -3906,6 +3906,660 @@ public static List<Problem> GetAllProblems()
                     Options = new List<string> { "Finding 100 more white swans", "Finding one black swan", "Not finding any swans", "Proving swans exist" },
                     CorrectAnswers = new List<string> { "Finding one black swan" }
                 }
+            },
+
+            // ===== Elementary (Grades 1-3): Basic Observation & Classification =====
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "observation-basic",
+                Difficulty = 1,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "You see a rock fall into water and it sinks. What did you observe?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "The rock is heavy", "The rock sank", "Water is deep", "Rocks don't float" },
+                    CorrectAnswers = new List<string> { "The rock sank" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "classification-living",
+                Difficulty = 1,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Which of these is a living thing?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Rock", "Tree", "Water", "Cloud" },
+                    CorrectAnswers = new List<string> { "Tree" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "states-of-matter",
+                Difficulty = 1,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Water freezes and becomes ice. Ice is a:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Liquid", "Solid", "Gas", "Plasma" },
+                    CorrectAnswers = new List<string> { "Solid" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "seasons-basic",
+                Difficulty = 1,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "In many places, which season is the coldest?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Summer", "Fall", "Winter", "Spring" },
+                    CorrectAnswers = new List<string> { "Winter" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "simple-machines",
+                Difficulty = 2,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "A seesaw on a playground is an example of which simple machine?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Wheel", "Lever", "Pulley", "Screw" },
+                    CorrectAnswers = new List<string> { "Lever" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "plant-needs",
+                Difficulty = 2,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Plants need sunlight, water, and what else to grow?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Music", "Air (carbon dioxide)", "Darkness", "Salt" },
+                    CorrectAnswers = new List<string> { "Air (carbon dioxide)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "measurement-tools",
+                Difficulty = 2,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Which tool is used to measure temperature?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Ruler", "Scale", "Thermometer", "Clock" },
+                    CorrectAnswers = new List<string> { "Thermometer" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "animal-habitats",
+                Difficulty = 2,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Where does a fish live?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "In trees", "In water", "Underground", "In the sky" },
+                    CorrectAnswers = new List<string> { "In water" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "food-chain-basic",
+                Difficulty = 2,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "In a food chain: grass → rabbit → fox, what does the rabbit eat?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Fox", "Grass", "Other rabbits", "Nothing" },
+                    CorrectAnswers = new List<string> { "Grass" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "magnets-basic",
+                Difficulty = 3,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Which object will a magnet attract?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Wooden stick", "Plastic cup", "Iron nail", "Glass marble" },
+                    CorrectAnswers = new List<string> { "Iron nail" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "weather-patterns",
+                Difficulty = 3,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "Dark clouds and strong wind usually mean:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Sunny weather coming", "Storm might be coming", "Hot day ahead", "Nothing special" },
+                    CorrectAnswers = new List<string> { "Storm might be coming" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "life-cycle-basic",
+                Difficulty = 3,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "A butterfly life cycle: egg → caterpillar → chrysalis → butterfly. What comes after caterpillar?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Egg", "Butterfly", "Chrysalis", "Moth" },
+                    CorrectAnswers = new List<string> { "Chrysalis" }
+                }
+            },
+
+            // ===== Upper Elementary (Grades 4-5): Scientific Method & Properties =====
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "scientific-method-steps",
+                Difficulty = 4,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "In the scientific method, what comes FIRST?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Experiment", "Hypothesis", "Observation/Question", "Conclusion" },
+                    CorrectAnswers = new List<string> { "Observation/Question" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "physical-vs-chemical-change",
+                Difficulty = 4,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "Which is a CHEMICAL change (cannot be reversed easily)?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Ice melting", "Paper folding", "Wood burning", "Water boiling" },
+                    CorrectAnswers = new List<string> { "Wood burning" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "energy-forms",
+                Difficulty = 4,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "A light bulb converts electrical energy into:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Sound energy only", "Light and heat energy", "Chemical energy", "Nuclear energy" },
+                    CorrectAnswers = new List<string> { "Light and heat energy" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "water-cycle",
+                Difficulty = 4,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "When water vapor cools and changes back to liquid water, this is called:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Evaporation", "Condensation", "Precipitation", "Transpiration" },
+                    CorrectAnswers = new List<string> { "Condensation" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "ecosystems-roles",
+                Difficulty = 5,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "In an ecosystem, organisms that make their own food (like plants) are called:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Consumers", "Producers", "Decomposers", "Predators" },
+                    CorrectAnswers = new List<string> { "Producers" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "forces-motion",
+                Difficulty = 5,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "A ball rolling on grass slows down because of:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Gravity only", "Friction", "Magnetic force", "Nuclear force" },
+                    CorrectAnswers = new List<string> { "Friction" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "cells-basic",
+                Difficulty = 5,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "The basic unit of all living things is called a:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Tissue", "Cell", "Organ", "Molecule" },
+                    CorrectAnswers = new List<string> { "Cell" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "mixtures-solutions",
+                Difficulty = 5,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "Salt dissolved in water is an example of a:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Pure substance", "Element", "Solution", "Compound only" },
+                    CorrectAnswers = new List<string> { "Solution" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "renewable-resources",
+                Difficulty = 5,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "Which is a renewable energy source?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Coal", "Oil", "Solar power", "Natural gas" },
+                    CorrectAnswers = new List<string> { "Solar power" }
+                }
+            },
+
+            // ===== Middle School (Grades 6-8): Systems & Interactions =====
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "photosynthesis-equation",
+                Difficulty = 6,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "In photosynthesis, plants use carbon dioxide and water to produce:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Oxygen only", "Glucose and oxygen", "Nitrogen", "Carbon monoxide" },
+                    CorrectAnswers = new List<string> { "Glucose and oxygen" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "atomic-structure",
+                Difficulty = 6,
+                TargetTime = 95,
+                Content = new ProblemContent
+                {
+                    Question = "An atom consists of a nucleus containing protons and neutrons, surrounded by:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Photons", "Electrons", "Quarks", "Neutrinos" },
+                    CorrectAnswers = new List<string> { "Electrons" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "newtons-laws",
+                Difficulty = 6,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "Newton's First Law: An object at rest stays at rest unless acted upon by a:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Velocity", "Unbalanced force", "Balanced force", "Energy source" },
+                    CorrectAnswers = new List<string> { "Unbalanced force" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "plate-tectonics",
+                Difficulty = 6,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "Earthquakes and volcanoes are most common at:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "The center of tectonic plates", "Plate boundaries", "Ocean centers", "Deserts" },
+                    CorrectAnswers = new List<string> { "Plate boundaries" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "genetics-basic",
+                Difficulty = 7,
+                TargetTime = 105,
+                Content = new ProblemContent
+                {
+                    Question = "In genetics, the physical expression of genes (like blue eyes) is called the:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Genotype", "Phenotype", "Allele", "Chromosome" },
+                    CorrectAnswers = new List<string> { "Phenotype" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "chemical-reactions",
+                Difficulty = 7,
+                TargetTime = 110,
+                Content = new ProblemContent
+                {
+                    Question = "In a chemical reaction, the starting substances are called:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Products", "Catalysts", "Reactants", "Compounds" },
+                    CorrectAnswers = new List<string> { "Reactants" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "conservation-of-energy",
+                Difficulty = 7,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "The law of conservation of energy states that energy cannot be:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Transferred", "Created or destroyed", "Transformed", "Measured" },
+                    CorrectAnswers = new List<string> { "Created or destroyed" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "pH-scale",
+                Difficulty = 7,
+                TargetTime = 95,
+                Content = new ProblemContent
+                {
+                    Question = "On the pH scale (0-14), a pH of 7 is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Acidic", "Basic", "Neutral", "Not possible" },
+                    CorrectAnswers = new List<string> { "Neutral" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "cell-division-mitosis",
+                Difficulty = 8,
+                TargetTime = 115,
+                Content = new ProblemContent
+                {
+                    Question = "Mitosis results in two daughter cells that are:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Genetically different from parent", "Haploid (half chromosomes)", "Genetically identical to parent", "Mutated" },
+                    CorrectAnswers = new List<string> { "Genetically identical to parent" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "natural-selection",
+                Difficulty = 8,
+                TargetTime = 120,
+                Content = new ProblemContent
+                {
+                    Question = "In natural selection, which individuals are most likely to survive and reproduce?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "The largest", "Those best adapted to environment", "The oldest", "Those with random mutations" },
+                    CorrectAnswers = new List<string> { "Those best adapted to environment" }
+                }
+            },
+
+            // ===== High School/College (Grades 9-10): Advanced Concepts =====
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "stoichiometry-balancing",
+                Difficulty = 9,
+                TargetTime = 150,
+                Content = new ProblemContent
+                {
+                    Question = "To balance: H₂ + O₂ → H₂O, you need:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "1 H₂, 1 O₂ → 1 H₂O", "2 H₂, 1 O₂ → 2 H₂O", "1 H₂, 2 O₂ → 2 H₂O", "Cannot be balanced" },
+                    CorrectAnswers = new List<string> { "2 H₂, 1 O₂ → 2 H₂O" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "thermodynamics-entropy",
+                Difficulty = 9,
+                TargetTime = 140,
+                Content = new ProblemContent
+                {
+                    Question = "The Second Law of Thermodynamics states that in a closed system, entropy (disorder):",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Decreases over time", "Stays constant", "Increases over time", "Oscillates randomly" },
+                    CorrectAnswers = new List<string> { "Increases over time" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "quantum-mechanics-intro",
+                Difficulty = 9,
+                TargetTime = 160,
+                Content = new ProblemContent
+                {
+                    Question = "In quantum mechanics, particles can behave as both:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Solids and liquids", "Matter and antimatter", "Waves and particles", "Mass and energy only" },
+                    CorrectAnswers = new List<string> { "Waves and particles" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "genetics-punnett-square",
+                Difficulty = 9,
+                TargetTime = 150,
+                Content = new ProblemContent
+                {
+                    Question = "Cross two heterozygous (Aa) parents. What % of offspring will be homozygous recessive (aa)?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "0%", "25%", "50%", "75%" },
+                    CorrectAnswers = new List<string> { "25%" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "ecological-succession",
+                Difficulty = 10,
+                TargetTime = 160,
+                Content = new ProblemContent
+                {
+                    Question = "After a forest fire, the sequence of plant regrowth (grasses → shrubs → trees) is called:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Primary succession", "Secondary succession", "Climax community only", "Ecological niche" },
+                    CorrectAnswers = new List<string> { "Secondary succession" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "relativity-basic",
+                Difficulty = 10,
+                TargetTime = 170,
+                Content = new ProblemContent
+                {
+                    Question = "Einstein's Special Relativity: As an object approaches the speed of light, its mass:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Decreases", "Stays the same", "Increases toward infinity", "Becomes negative" },
+                    CorrectAnswers = new List<string> { "Increases toward infinity" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "dna-structure",
+                Difficulty = 10,
+                TargetTime = 150,
+                Content = new ProblemContent
+                {
+                    Question = "In DNA, adenine (A) pairs with thymine (T), and cytosine (C) pairs with:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Adenine", "Thymine", "Guanine", "Uracil" },
+                    CorrectAnswers = new List<string> { "Guanine" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "climate-change-evidence",
+                Difficulty = 10,
+                TargetTime = 160,
+                Content = new ProblemContent
+                {
+                    Question = "Which is the STRONGEST evidence for human-caused climate change?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "One hot summer", "Correlation between CO₂ increase and temperature rise since industrialization", "Animal migration patterns", "One glacier melting" },
+                    CorrectAnswers = new List<string> { "Correlation between CO₂ increase and temperature rise since industrialization" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "scientific-consensus",
+                Difficulty = 10,
+                TargetTime = 155,
+                Content = new ProblemContent
+                {
+                    Question = "Scientific consensus means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Everyone agrees", "Majority of qualified scientists agree based on evidence", "Government decides", "One famous scientist's opinion" },
+                    CorrectAnswers = new List<string> { "Majority of qualified scientists agree based on evidence" }
+                }
+            },
+
+            // ===== Additional Challenging Science Topics =====
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "control-group",
+                Difficulty = 5,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "In an experiment testing a new drug, the control group:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Gets the drug", "Gets a placebo (fake treatment)", "Gets double dose", "Gets nothing" },
+                    CorrectAnswers = new List<string> { "Gets a placebo (fake treatment)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "sample-size",
+                Difficulty = 6,
+                TargetTime = 95,
+                Content = new ProblemContent
+                {
+                    Question = "Why is a LARGE sample size important in experiments?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Cheaper", "Faster", "Reduces effect of random variation", "Looks more impressive" },
+                    CorrectAnswers = new List<string> { "Reduces effect of random variation" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "peer-review",
+                Difficulty = 7,
+                TargetTime = 110,
+                Content = new ProblemContent
+                {
+                    Question = "Peer review in science means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Friends review your work", "Other experts check research before publication", "Government approval", "Public voting" },
+                    CorrectAnswers = new List<string> { "Other experts check research before publication" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "replication-crisis",
+                Difficulty = 8,
+                TargetTime = 125,
+                Content = new ProblemContent
+                {
+                    Question = "Why is it important that other scientists can REPLICATE your experiment?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Saves time", "Verifies results weren't due to chance or error", "Makes more money", "Required by law" },
+                    CorrectAnswers = new List<string> { "Verifies results weren't due to chance or error" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "statistical-significance",
+                Difficulty = 9,
+                TargetTime = 145,
+                Content = new ProblemContent
+                {
+                    Question = "A p-value of 0.03 (p < 0.05) suggests the result is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Definitely true", "Statistically significant (unlikely due to chance)", "Definitely false", "Meaningless" },
+                    CorrectAnswers = new List<string> { "Statistically significant (unlikely due to chance)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Science,
+                MicroTopic = "publication-bias",
+                Difficulty = 10,
+                TargetTime = 165,
+                Content = new ProblemContent
+                {
+                    Question = "Publication bias refers to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Journals rejecting bad grammar", "Positive results more likely to be published than negative/null results", "Political censorship", "Expensive publishing fees" },
+                    CorrectAnswers = new List<string> { "Positive results more likely to be published than negative/null results" }
+                }
             }
         };
     }
