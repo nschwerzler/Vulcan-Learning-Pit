@@ -6757,6 +6757,826 @@ public static List<Problem> GetAllProblems()
                     Options = new List<string> { "2 chunks", "4 chunks", "8 chunks", "12 chunks" },
                     CorrectAnswers = new List<string> { "8 chunks" }
                 }
+            },
+
+            // ===== Additional Elementary (Grades 1-5): Core Game Concepts =====
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "tools-basic",
+                Difficulty = 1,
+                TargetTime = 15,
+                Content = new ProblemContent
+                {
+                    Question = "Which tool do you use to mine wood faster?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Pickaxe", "Axe", "Shovel", "Sword" },
+                    CorrectAnswers = new List<string> { "Axe" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "health-system",
+                Difficulty = 1,
+                TargetTime = 15,
+                Content = new ProblemContent
+                {
+                    Question = "How many hearts of health does a player start with?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "5", "10", "15", "20" },
+                    CorrectAnswers = new List<string> { "10" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "food-basics",
+                Difficulty = 2,
+                TargetTime = 20,
+                Content = new ProblemContent
+                {
+                    Question = "What do you get when you cook raw porkchop in a furnace?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Cooked porkchop", "Bacon", "Leather", "Nothing" },
+                    CorrectAnswers = new List<string> { "Cooked porkchop" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "hostile-mobs",
+                Difficulty = 2,
+                TargetTime = 20,
+                Content = new ProblemContent
+                {
+                    Question = "Which mob explodes when it gets close to you?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Zombie", "Skeleton", "Creeper", "Enderman" },
+                    CorrectAnswers = new List<string> { "Creeper" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "day-night-cycle",
+                Difficulty = 2,
+                TargetTime = 20,
+                Content = new ProblemContent
+                {
+                    Question = "When do most hostile mobs spawn?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "During the day", "At night or in dark places", "Only underground", "Never" },
+                    CorrectAnswers = new List<string> { "At night or in dark places" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "crafting-recipes",
+                Difficulty = 3,
+                TargetTime = 25,
+                Content = new ProblemContent
+                {
+                    Question = "How many sticks do you need to craft a wooden pickaxe?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "1", "2", "3", "4" },
+                    CorrectAnswers = new List<string> { "2" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "ore-hierarchy",
+                Difficulty = 3,
+                TargetTime = 25,
+                Content = new ProblemContent
+                {
+                    Question = "What is the minimum pickaxe tier needed to mine diamond ore?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Wooden", "Stone", "Iron", "Diamond" },
+                    CorrectAnswers = new List<string> { "Iron" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "bed-mechanics",
+                Difficulty = 3,
+                TargetTime = 25,
+                Content = new ProblemContent
+                {
+                    Question = "What happens if you try to sleep in a bed in the Nether?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "You sleep normally", "The bed explodes", "Nothing happens", "You wake up in the Overworld" },
+                    CorrectAnswers = new List<string> { "The bed explodes" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "experience-points",
+                Difficulty = 4,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "What gives you experience points (XP)?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Breaking blocks only", "Killing mobs, mining ore, smelting, breeding", "Sleeping", "Walking" },
+                    CorrectAnswers = new List<string> { "Killing mobs, mining ore, smelting, breeding" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "water-mechanics",
+                Difficulty = 4,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "Water can turn into ice if:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "It rains", "It's in a cold biome under open sky", "You add ice blocks nearby", "It never turns to ice" },
+                    CorrectAnswers = new List<string> { "It's in a cold biome under open sky" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "anvil-mechanics",
+                Difficulty = 5,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "What can you use an anvil for?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Cooking food", "Repairing and renaming items", "Enchanting", "Smelting ore" },
+                    CorrectAnswers = new List<string> { "Repairing and renaming items" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "villager-trading",
+                Difficulty = 5,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "What do you trade with villagers?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Gold ingots", "Diamonds", "Emeralds", "Iron ingots" },
+                    CorrectAnswers = new List<string> { "Emeralds" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "netherite-upgrade",
+                Difficulty = 5,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "To upgrade diamond gear to netherite, you need:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Netherite ingot", "Netherite scrap", "Ancient debris", "Nether star" },
+                    CorrectAnswers = new List<string> { "Netherite ingot" }
+                }
+            },
+
+            // ===== Additional Middle School (Grades 6-8): Advanced Mechanics =====
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "enchantment-levels",
+                Difficulty = 6,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "What is the maximum level for the Sharpness enchantment?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "III", "IV", "V", "X" },
+                    CorrectAnswers = new List<string> { "V" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "boss-mobs",
+                Difficulty = 6,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "What do you need to summon the Wither?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "4 soul sand and 3 wither skeleton skulls", "9 obsidian blocks", "3 ender pearls", "A beacon" },
+                    CorrectAnswers = new List<string> { "4 soul sand and 3 wither skeleton skulls" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "end-dimension",
+                Difficulty = 6,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "To access the End dimension, you need to find and activate:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "A Nether portal", "An End portal with Eyes of Ender", "A beacon", "A conduit" },
+                    CorrectAnswers = new List<string> { "An End portal with Eyes of Ender" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "beacon-powers",
+                Difficulty = 7,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "A beacon requires a pyramid base made of which materials?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Stone only", "Iron, gold, diamond, emerald, or netherite blocks", "Obsidian", "Any blocks" },
+                    CorrectAnswers = new List<string> { "Iron, gold, diamond, emerald, or netherite blocks" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "hopper-mechanics",
+                Difficulty = 7,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "A hopper transfers items at what rate?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "1 item per tick", "1 item per second", "1 item every 8 ticks (0.4 seconds)", "Instant" },
+                    CorrectAnswers = new List<string> { "1 item every 8 ticks (0.4 seconds)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "comparator-function",
+                Difficulty = 7,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "A redstone comparator can measure:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Player position", "Container fullness, signal strength", "Time of day", "Mob count" },
+                    CorrectAnswers = new List<string> { "Container fullness, signal strength" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "ender-dragon",
+                Difficulty = 7,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "To defeat the Ender Dragon efficiently, you should first:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Attack it directly", "Destroy the End crystals healing it", "Run away", "Build a shelter" },
+                    CorrectAnswers = new List<string> { "Destroy the End crystals healing it" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "shulker-mechanics",
+                Difficulty = 8,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Shulker boxes are unique because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "They float", "They keep their contents when broken", "They explode", "They teleport" },
+                    CorrectAnswers = new List<string> { "They keep their contents when broken" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "elytra-mechanics",
+                Difficulty = 8,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "To fly longer distances with elytra, you should use:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Feathers", "Firework rockets", "Ender pearls", "Potions" },
+                    CorrectAnswers = new List<string> { "Firework rockets" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "trident-enchantments",
+                Difficulty = 8,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "The Riptide enchantment on a trident:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Makes it return when thrown", "Propels you forward in water/rain", "Deals more damage", "Shoots lightning" },
+                    CorrectAnswers = new List<string> { "Propels you forward in water/rain" }
+                }
+            },
+
+            // ===== Additional High School/College (Grades 9-12): Advanced Technical =====
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "observer-mechanics",
+                Difficulty = 9,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "An observer block detects:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Players only", "Block state changes in front of it", "Light levels", "Mob spawning" },
+                    CorrectAnswers = new List<string> { "Block state changes in front of it" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "item-sorting",
+                Difficulty = 9,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "An automatic item sorter uses hoppers and:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Furnaces", "Comparators to detect specific items", "Pistons", "Dispensers" },
+                    CorrectAnswers = new List<string> { "Comparators to detect specific items" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "mob-farm-efficiency",
+                Difficulty = 9,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "For maximum mob spawning rates, hostile mobs require minimum light level:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "0 (complete darkness)", "7 or less", "8 or less", "Any light level" },
+                    CorrectAnswers = new List<string> { "0 (complete darkness)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "slime-chunk-mechanics",
+                Difficulty = 9,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "Slimes spawn in specific 'slime chunks' determined by:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Random chance", "World seed algorithm", "Player location", "Moon phase" },
+                    CorrectAnswers = new List<string> { "World seed algorithm" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "villager-mechanics",
+                Difficulty = 10,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "Villager trading prices are affected by:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Time of day", "Demand (repeated trades), reputation, and curing zombie villagers", "Moon phase", "Nothing affects prices" },
+                    CorrectAnswers = new List<string> { "Demand (repeated trades), reputation, and curing zombie villagers" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "iron-farm-mechanics",
+                Difficulty = 10,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "Iron golems spawn near villagers when:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Random chance", "Village has 3+ villagers, beds, and workstations with specific conditions", "Full moon", "Player places iron blocks" },
+                    CorrectAnswers = new List<string> { "Village has 3+ villagers, beds, and workstations with specific conditions" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "world-generation",
+                Difficulty = 10,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "Minecraft's world height from bedrock to build limit (as of 1.18+) is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "256 blocks", "320 blocks", "384 blocks", "512 blocks" },
+                    CorrectAnswers = new List<string> { "384 blocks" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "nbt-data",
+                Difficulty = 10,
+                TargetTime = 95,
+                Content = new ProblemContent
+                {
+                    Question = "NBT (Named Binary Tag) data in Minecraft stores:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Player skins", "Complex data like inventory, entity properties, and world information", "Only player names", "Texture packs" },
+                    CorrectAnswers = new List<string> { "Complex data like inventory, entity properties, and world information" }
+                }
+            },
+
+            // ===== Additional Diverse Topics =====
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "sugar-cane-farming",
+                Difficulty = 4,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "Sugar cane must be planted:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "In any dirt", "On sand or dirt adjacent to water", "Only in swamps", "On stone" },
+                    CorrectAnswers = new List<string> { "On sand or dirt adjacent to water" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "book-crafting",
+                Difficulty = 4,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "To make a book, you need:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "3 paper only", "3 paper and 1 leather", "3 paper and ink", "6 paper" },
+                    CorrectAnswers = new List<string> { "3 paper and 1 leather" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "music-discs",
+                Difficulty = 5,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "How do you get music discs from creepers?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Kill them normally", "Have a skeleton kill the creeper", "Trade with villagers", "Find in chests only" },
+                    CorrectAnswers = new List<string> { "Have a skeleton kill the creeper" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "conduit-power",
+                Difficulty = 6,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "A fully powered conduit requires a frame of how many blocks?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "8 prismarine blocks", "16 prismarine/sea lantern blocks", "42 prismarine-type blocks", "64 blocks" },
+                    CorrectAnswers = new List<string> { "42 prismarine-type blocks" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "pumpkin-uses",
+                Difficulty = 3,
+                TargetTime = 25,
+                Content = new ProblemContent
+                {
+                    Question = "Wearing a carved pumpkin prevents which mob from attacking?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Zombies", "Skeletons", "Endermen", "Creepers" },
+                    CorrectAnswers = new List<string> { "Endermen" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "golden-apple-types",
+                Difficulty = 5,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "An Enchanted Golden Apple (notch apple) gives:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Only health", "Regeneration II, Absorption IV, Resistance, Fire Resistance", "Infinite health", "Speed boost only" },
+                    CorrectAnswers = new List<string> { "Regeneration II, Absorption IV, Resistance, Fire Resistance" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "tnt-mechanics",
+                Difficulty = 6,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "TNT can be activated by:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Punching it", "Fire, redstone, or another explosion", "Water", "Sunlight" },
+                    CorrectAnswers = new List<string> { "Fire, redstone, or another explosion" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "fishing-mechanics",
+                Difficulty = 5,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "The Luck of the Sea enchantment:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Makes fish bite faster", "Increases chance of treasure, decreases junk", "Increases fish size", "Does nothing" },
+                    CorrectAnswers = new List<string> { "Increases chance of treasure, decreases junk" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "phantom-spawning",
+                Difficulty = 6,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Phantoms spawn when:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "You don't sleep for 3+ in-game days", "At random", "Near water", "In the Nether" },
+                    CorrectAnswers = new List<string> { "You don't sleep for 3+ in-game days" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "turtle-eggs",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Turtle eggs will only hatch:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Anywhere", "On sand at night", "Underwater", "In the Nether" },
+                    CorrectAnswers = new List<string> { "On sand at night" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "raid-mechanics",
+                Difficulty = 7,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "A raid is triggered when:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Entering any village", "Entering a village with Bad Omen effect", "Killing villagers", "Building in a village" },
+                    CorrectAnswers = new List<string> { "Entering a village with Bad Omen effect" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "stonecutter-efficiency",
+                Difficulty = 5,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "Using a stonecutter instead of crafting table for stone recipes:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Gives more items per block", "Is exactly the same", "Is faster but same output", "Requires less XP" },
+                    CorrectAnswers = new List<string> { "Gives more items per block" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "loom-patterns",
+                Difficulty = 5,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "A loom is used to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Craft clothing", "Apply patterns to banners efficiently", "Repair cloth items", "Create carpets" },
+                    CorrectAnswers = new List<string> { "Apply patterns to banners efficiently" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "smithing-table",
+                Difficulty = 5,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "A smithing table is primarily used to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Craft tools", "Upgrade diamond gear to netherite", "Repair items", "Enchant weapons" },
+                    CorrectAnswers = new List<string> { "Upgrade diamond gear to netherite" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "blast-furnace",
+                Difficulty = 4,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "A blast furnace compared to a regular furnace:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Smelts everything faster", "Smelts ores and metals twice as fast", "Uses less fuel", "Produces more items" },
+                    CorrectAnswers = new List<string> { "Smelts ores and metals twice as fast" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "smoker-mechanics",
+                Difficulty = 4,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "A smoker is used to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Cook food twice as fast as furnace", "Smelt ore", "Craft items", "Store items" },
+                    CorrectAnswers = new List<string> { "Cook food twice as fast as furnace" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "composter-mechanics",
+                Difficulty = 5,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "A composter converts:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Food into XP", "Plant materials into bone meal", "Dirt into farmland", "Seeds into crops" },
+                    CorrectAnswers = new List<string> { "Plant materials into bone meal" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "grindstone-use",
+                Difficulty = 5,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "A grindstone can:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Add enchantments", "Remove enchantments and repair items", "Increase durability", "Craft weapons" },
+                    CorrectAnswers = new List<string> { "Remove enchantments and repair items" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "cartography-table",
+                Difficulty = 6,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "A cartography table is used to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Create new maps", "Clone, expand, and lock maps", "Find locations", "Teleport" },
+                    CorrectAnswers = new List<string> { "Clone, expand, and lock maps" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "game-modes",
+                Difficulty = 3,
+                TargetTime = 25,
+                Content = new ProblemContent
+                {
+                    Question = "In Creative mode, players:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Can take damage", "Have unlimited resources and can fly", "Must gather resources", "Can only build" },
+                    CorrectAnswers = new List<string> { "Have unlimited resources and can fly" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "spectator-mode",
+                Difficulty = 7,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Spectator mode allows players to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Build freely", "Fly through blocks and view from mob perspectives", "Fight mobs", "Mine faster" },
+                    CorrectAnswers = new List<string> { "Fly through blocks and view from mob perspectives" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "nether-transportation",
+                Difficulty = 8,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Travel in the Nether corresponds to Overworld at ratio:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "1:1", "1:4", "1:8", "1:16" },
+                    CorrectAnswers = new List<string> { "1:8" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "lightning-mechanics",
+                Difficulty = 6,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Lightning striking a villager turns it into:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Zombie", "Witch", "Illager", "Nothing changes" },
+                    CorrectAnswers = new List<string> { "Witch" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "mending-enchantment",
+                Difficulty = 7,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "The Mending enchantment:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Repairs items over time", "Uses XP orbs to repair items instead of enchanting", "Prevents breaking", "Doubles durability" },
+                    CorrectAnswers = new List<string> { "Uses XP orbs to repair items instead of enchanting" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "infinity-enchantment",
+                Difficulty = 6,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Infinity enchantment on a bow:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Never breaks", "Allows unlimited arrows (but requires 1 arrow in inventory)", "Shoots faster", "Does more damage" },
+                    CorrectAnswers = new List<string> { "Allows unlimited arrows (but requires 1 arrow in inventory)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "curse-enchantments",
+                Difficulty = 7,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Curse of Binding means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Item breaks faster", "Item cannot be removed except by death", "Item teleports", "Item disappears" },
+                    CorrectAnswers = new List<string> { "Item cannot be removed except by death" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Minecraft,
+                MicroTopic = "totem-of-undying",
+                Difficulty = 8,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "A Totem of Undying:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Prevents all damage", "Saves you from death once if held in hand/offhand", "Grants permanent health", "Summons mobs" },
+                    CorrectAnswers = new List<string> { "Saves you from death once if held in hand/offhand" }
+                }
             }
         };
     }
