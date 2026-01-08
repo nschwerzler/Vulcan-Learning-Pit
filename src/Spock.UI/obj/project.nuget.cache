@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8KLxvbpS20g=",
+  "dgSpecHash": "0F8CqIyjsv8=",
   "success": true,
-  "projectFilePath": "c:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.UI\\Spock.UI.csproj",
+  "projectFilePath": "C:\\Users\\nschw\\OneDrive\\Documents\\GitHub\\Spock\\src\\Spock.UI\\Spock.UI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nschw\\.nuget\\packages\\microsoft.data.sqlite.core\\10.0.1\\microsoft.data.sqlite.core.10.0.1.nupkg.sha512",
     "C:\\Users\\nschw\\.nuget\\packages\\microsoft.entityframeworkcore\\10.0.1\\microsoft.entityframeworkcore.10.0.1.nupkg.sha512",

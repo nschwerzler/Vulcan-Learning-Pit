@@ -1,6 +1,8 @@
 ﻿using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Windows;
+using System.Windows.Threading;
 using Spock.Engine;
 
 namespace Spock.UI;
@@ -11,12 +13,32 @@ namespace Spock.UI;
 public partial class App : Application
 {
     private DebugServer? _debugServer;
+    private static string _logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "spock-debug.log");
 
     // Public property so MainWindow can access it
     public static DebugServer? DebugServerInstance { get; private set; }
 
+    public static void Log(string message)
+    {
+        try
+        {
+            var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            var logMessage = $"[{timestamp}] {message}";
+            File.AppendAllText(_logFilePath, logMessage + Environment.NewLine);
+            System.Diagnostics.Debug.WriteLine(logMessage);
+        }
+        catch { /* Ignore logging errors */ }
+    }
+
     protected override async void OnStartup(StartupEventArgs e)
     {
+        // Set up global exception handlers
+        DispatcherUnhandledException += OnDispatcherUnhandledException;
+        AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
+        
+        Log("========== APPLICATION STARTING ==========");
+        Log($"Log file: {_logFilePath}");
+        
         base.OnStartup(e);
 
 #if DEBUG
@@ -43,6 +65,7 @@ public partial class App : Application
 
     protected override async void OnExit(ExitEventArgs e)
     {
+        Log("========== APPLICATION EXITING ==========");
 #if DEBUG
         if (_debugServer != null)
         {
@@ -53,5 +76,33 @@ public partial class App : Application
 #endif
         base.OnExit(e);
     }
-}
 
+    private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    {
+        Log($"UNHANDLED DISPATCHER EXCEPTION: {e.Exception.GetType().Name}");
+        Log($"Message: {e.Exception.Message}");
+        Log($"StackTrace: {e.Exception.StackTrace}");
+        if (e.Exception.InnerException != null)
+        {
+            Log($"InnerException: {e.Exception.InnerException.Message}");
+            Log($"InnerException StackTrace: {e.Exception.InnerException.StackTrace}");
+        }
+        
+        MessageBox.Show(
+            $"Application Error:\n\n{e.Exception.Message}\n\nSee {_logFilePath} for details.",
+            "Error",
+            MessageBoxButton.OK,
+            MessageBoxImage.Error);
+        
+        e.Handled = true;
+    }
+
+    private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        var exception = e.ExceptionObject as Exception;
+        Log($"UNHANDLED EXCEPTION: {exception?.GetType().Name ?? "Unknown"}");
+        Log($"Message: {exception?.Message ?? "Unknown"}");
+        Log($"StackTrace: {exception?.StackTrace ?? "Unknown"}");
+        Log($"IsTerminating: {e.IsTerminating}");
+    }
+}

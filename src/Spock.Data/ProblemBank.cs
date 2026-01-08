@@ -2933,6 +2933,819 @@ public static List<Problem> GetAllProblems()
                     Options = new List<string> { "Density is always good", "Density is always bad", "Density has efficiency benefits but psychological costs", "The sources contradict completely" },
                     CorrectAnswers = new List<string> { "Density has efficiency benefits but psychological costs" }
                 }
+            },
+
+            // ===== EXPANDED: Elementary (Grades 1-3) - Foundational Reading =====
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "main-idea-basic",
+                Difficulty = 1,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Text: 'Dogs are friendly animals. They wag their tails when happy. Dogs like to play fetch.' What is this text mostly about?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Tails", "Dogs", "Playing", "Being happy" },
+                    CorrectAnswers = new List<string> { "Dogs" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "sequencing-events",
+                Difficulty = 1,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Story: 'First, Sarah put on her coat. Then she grabbed her backpack. Finally, she walked to school.' What did Sarah do SECOND?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Put on her coat", "Grabbed her backpack", "Walked to school", "Got dressed" },
+                    CorrectAnswers = new List<string> { "Grabbed her backpack" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "character-feelings",
+                Difficulty = 2,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Text: 'Tom frowned and stomped his foot. He crossed his arms and turned away.' How does Tom feel?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Happy", "Angry", "Sleepy", "Excited" },
+                    CorrectAnswers = new List<string> { "Angry" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "making-predictions",
+                Difficulty = 2,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Text: 'Dark clouds filled the sky. The wind started blowing hard. People grabbed umbrellas.' What will likely happen next?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "It will be sunny", "It will rain", "It will snow", "Nothing will happen" },
+                    CorrectAnswers = new List<string> { "It will rain" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "details-recall",
+                Difficulty = 2,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Story: 'The blue bird sat on a branch. It sang a beautiful song. A cat watched from below.' What color is the bird?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "blue", "Blue" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "cause-effect-simple",
+                Difficulty = 2,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Text: 'It rained all day. The soccer game was canceled.' Why was the game canceled?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Too many players", "Because it rained", "The field was too big", "Nobody wanted to play" },
+                    CorrectAnswers = new List<string> { "Because it rained" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "vocabulary-context",
+                Difficulty = 3,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Sentence: 'The enormous elephant was bigger than all the other animals.' What does 'enormous' mean?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Tiny", "Gray", "Very large", "Fast" },
+                    CorrectAnswers = new List<string> { "Very large" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "comparing-characters",
+                Difficulty = 3,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "Text: 'Ann is quiet and likes to read. Ben is loud and likes to run.' How are Ann and Ben different?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "They like the same things", "Ann is quiet, Ben is loud", "They both like reading", "They are the same" },
+                    CorrectAnswers = new List<string> { "Ann is quiet, Ben is loud" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "story-problem-solution",
+                Difficulty = 3,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "Story: 'Max lost his toy. He looked under his bed. He found it!' What was Max's problem?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "His bed was messy", "He lost his toy", "He was tired", "He couldn't sleep" },
+                    CorrectAnswers = new List<string> { "He lost his toy" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "text-structure-basic",
+                Difficulty = 3,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "Text: 'First, gather ingredients. Next, mix them together. Then, bake for 20 minutes. Finally, let it cool.' What type of text is this?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "A story", "Instructions/How-to", "A poem", "A letter" },
+                    CorrectAnswers = new List<string> { "Instructions/How-to" }
+                }
+            },
+
+            // ===== Upper Elementary (Grades 4-5) - Developing Comprehension =====
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "theme-identification",
+                Difficulty = 4,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "Story: 'Maya practiced piano every day. At first, she made mistakes. But she kept trying. By the concert, she played perfectly.' What is the theme?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Pianos are hard", "Practice leads to improvement", "Concerts are fun", "Making mistakes is bad" },
+                    CorrectAnswers = new List<string> { "Practice leads to improvement" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "inference-motivations",
+                Difficulty = 4,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "Text: 'Jake saw his neighbor carrying heavy groceries. He put down his basketball and ran over to help.' Why did Jake help?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "He was forced to", "He is kind and helpful", "He wanted groceries", "He was bored" },
+                    CorrectAnswers = new List<string> { "He is kind and helpful" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "point-of-view",
+                Difficulty = 4,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "Text: 'I walked to the store. I bought milk and bread. Then I went home.' What point of view is this?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "First person (I)", "Second person (you)", "Third person (he/she)", "No point of view" },
+                    CorrectAnswers = new List<string> { "First person (I)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "context-clues-meaning",
+                Difficulty = 4,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "Sentence: 'The arid desert had no water for miles. Plants could barely survive in such dry conditions.' What does 'arid' mean?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Wet", "Very dry", "Hot", "Sandy" },
+                    CorrectAnswers = new List<string> { "Very dry" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "fact-vs-opinion",
+                Difficulty = 4,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "Which sentence is a FACT, not an opinion?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Pizza is the best food", "The Earth orbits the Sun", "Summer is better than winter", "Dogs are nicer than cats" },
+                    CorrectAnswers = new List<string> { "The Earth orbits the Sun" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "summarizing",
+                Difficulty = 5,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "Passage: 'Ancient Egyptians built pyramids as tombs for pharaohs. These massive structures took decades to build. Workers used simple tools like ropes and ramps. The pyramids still stand today.' Best summary?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Egyptians used ropes", "Pyramids were pharaoh tombs that took decades to build", "Workers had simple tools", "Pyramids still exist" },
+                    CorrectAnswers = new List<string> { "Pyramids were pharaoh tombs that took decades to build" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "compare-contrast-texts",
+                Difficulty = 5,
+                TargetTime = 110,
+                Content = new ProblemContent
+                {
+                    Question = "Text A: 'Lions hunt in groups called prides.' Text B: 'Tigers hunt alone.' What's the main difference?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Lions are bigger", "Lions hunt in groups, tigers alone", "Tigers are faster", "Lions eat more" },
+                    CorrectAnswers = new List<string> { "Lions hunt in groups, tigers alone" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "text-features",
+                Difficulty = 5,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "In a nonfiction book, what is the purpose of a glossary?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "To tell the main story", "To show pictures", "To define important words", "To list chapters" },
+                    CorrectAnswers = new List<string> { "To define important words" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "figurative-language-simile",
+                Difficulty = 5,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "Sentence: 'The snow was like a white blanket covering the ground.' This is an example of:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "A simile", "Alliteration", "A metaphor", "Personification" },
+                    CorrectAnswers = new List<string> { "A simile" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "drawing-conclusions",
+                Difficulty = 5,
+                TargetTime = 95,
+                Content = new ProblemContent
+                {
+                    Question = "Text: 'Maria checked her watch for the tenth time. She paced back and forth. Her hands were shaking.' What can you conclude?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Maria is relaxed", "Maria is nervous or anxious", "Maria is angry", "Maria is lost" },
+                    CorrectAnswers = new List<string> { "Maria is nervous or anxious" }
+                }
+            },
+
+            // ===== Middle School (Grades 6-8) - Analytical Reading =====
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "authors-purpose-persuade",
+                Difficulty = 6,
+                TargetTime = 110,
+                Content = new ProblemContent
+                {
+                    Question = "Text: 'Recycling saves energy and reduces waste. Everyone should recycle to protect our planet. Make the right choice today!' Author's purpose?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "To entertain", "To inform only", "To persuade", "To confuse" },
+                    CorrectAnswers = new List<string> { "To persuade" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "tone-mood",
+                Difficulty = 6,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "Text: 'The dark hallway stretched endlessly. Shadows flickered. A door creaked slowly open.' What mood does this create?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Joyful", "Suspenseful/scary", "Peaceful", "Exciting" },
+                    CorrectAnswers = new List<string> { "Suspenseful/scary" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "identifying-bias",
+                Difficulty = 6,
+                TargetTime = 120,
+                Content = new ProblemContent
+                {
+                    Question = "Article: 'The brilliant mayor solved every problem. She never made mistakes.' What indicates bias?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "It mentions the mayor", "Only positive words, no balanced view", "It's too short", "It talks about problems" },
+                    CorrectAnswers = new List<string> { "Only positive words, no balanced view" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "figurative-language-metaphor",
+                Difficulty = 6,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "Sentence: 'Time is a thief stealing our youth.' This is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "A simile", "A metaphor", "Hyperbole", "Personification only" },
+                    CorrectAnswers = new List<string> { "A metaphor" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "central-idea-support",
+                Difficulty = 6,
+                TargetTime = 115,
+                Content = new ProblemContent
+                {
+                    Question = "Passage argues: 'Exercise improves health.' Which evidence BEST supports this?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "My friend exercises", "Studies show exercise reduces disease risk", "Gyms are expensive", "Exercise is popular" },
+                    CorrectAnswers = new List<string> { "Studies show exercise reduces disease risk" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "irony-situational",
+                Difficulty = 7,
+                TargetTime = 105,
+                Content = new ProblemContent
+                {
+                    Question = "Story: 'The fire chief's house burned down because he forgot to replace his smoke detector batteries.' This is ironic because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Fire is hot", "The person who knows fire safety made that mistake", "Houses burn", "He's a chief" },
+                    CorrectAnswers = new List<string> { "The person who knows fire safety made that mistake" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "analyzing-arguments",
+                Difficulty = 7,
+                TargetTime = 130,
+                Content = new ProblemContent
+                {
+                    Question = "Argument: 'Students should have longer recess because they need exercise.' What would strengthen this argument?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "A personal story", "Data showing exercise improves learning", "A statement that recess is fun", "Saying everyone agrees" },
+                    CorrectAnswers = new List<string> { "Data showing exercise improves learning" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "rhetorical-devices",
+                Difficulty = 7,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "Speech: 'Are we going to stand by and do nothing? Are we going to ignore this problem?' What rhetorical device is used?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Metaphor", "Rhetorical questions", "Alliteration", "Hyperbole" },
+                    CorrectAnswers = new List<string> { "Rhetorical questions" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "implied-theme",
+                Difficulty = 7,
+                TargetTime = 140,
+                Content = new ProblemContent
+                {
+                    Question = "Story: 'Rico always took shortcuts and barely passed. Leah studied hard and excelled. When both applied to college, Leah got in.' Implied theme?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Shortcuts are good", "Hard work pays off", "College is hard", "Grades don't matter" },
+                    CorrectAnswers = new List<string> { "Hard work pays off" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "propaganda-techniques",
+                Difficulty = 7,
+                TargetTime = 125,
+                Content = new ProblemContent
+                {
+                    Question = "Ad: '9 out of 10 celebrities use this product!' What propaganda technique is this?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Bandwagon/Testimonial", "Logic", "Facts only", "Statistics" },
+                    CorrectAnswers = new List<string> { "Bandwagon/Testimonial" }
+                }
+            },
+
+            // ===== High School (Grades 9-10) - Critical Analysis =====
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "diction-analysis",
+                Difficulty = 8,
+                TargetTime = 150,
+                Content = new ProblemContent
+                {
+                    Question = "Compare: 'The leader spoke calmly' vs 'The dictator barked orders.' How does word choice affect meaning?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "No difference", "'Dictator' and 'barked' create negative tone", "Both are neutral", "Second is more positive" },
+                    CorrectAnswers = new List<string> { "'Dictator' and 'barked' create negative tone" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "logical-fallacies",
+                Difficulty = 8,
+                TargetTime = 140,
+                Content = new ProblemContent
+                {
+                    Question = "Argument: 'We can't trust his climate research - he drives an SUV!' What fallacy is this?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Ad hominem (attacking person, not argument)", "Straw man", "False cause", "Appeal to authority" },
+                    CorrectAnswers = new List<string> { "Ad hominem (attacking person, not argument)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "satire-recognition",
+                Difficulty = 8,
+                TargetTime = 160,
+                Content = new ProblemContent
+                {
+                    Question = "Article: 'To solve traffic, we should ban all cars and only use unicycles!' This is likely:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "A serious proposal", "Satire mocking simple solutions", "Scientific fact", "A news report" },
+                    CorrectAnswers = new List<string> { "Satire mocking simple solutions" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "rhetorical-appeals-ethos",
+                Difficulty = 8,
+                TargetTime = 135,
+                Content = new ProblemContent
+                {
+                    Question = "Speaker: 'As a doctor for 30 years, I've seen the effects of smoking.' This appeals to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Ethos (credibility/authority)", "Pathos (emotion)", "Logos (logic)", "None" },
+                    CorrectAnswers = new List<string> { "Ethos (credibility/authority)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "parallel-structure-rhetoric",
+                Difficulty = 8,
+                TargetTime = 145,
+                Content = new ProblemContent
+                {
+                    Question = "Speech: 'We shall fight on beaches, we shall fight on landing grounds, we shall fight in fields...' What makes this effective?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Random words", "Parallel structure/repetition builds emphasis", "It's short", "It uses metaphors" },
+                    CorrectAnswers = new List<string> { "Parallel structure/repetition builds emphasis" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "subtext-analysis",
+                Difficulty = 9,
+                TargetTime = 170,
+                Content = new ProblemContent
+                {
+                    Question = "Dialogue: A: 'Nice weather today.' B: 'Sure is.' (Both avoiding eye contact, tension clear). What's the subtext?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "They love weather", "Unresolved conflict beneath small talk", "They're weather experts", "Nothing implied" },
+                    CorrectAnswers = new List<string> { "Unresolved conflict beneath small talk" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "deconstruction-assumptions",
+                Difficulty = 9,
+                TargetTime = 180,
+                Content = new ProblemContent
+                {
+                    Question = "Text assumes: 'Real success means a high-paying job.' What assumption should we question?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Jobs exist", "That success can only be defined by money", "People work", "Payments happen" },
+                    CorrectAnswers = new List<string> { "That success can only be defined by money" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "evaluating-credibility",
+                Difficulty = 9,
+                TargetTime = 155,
+                Content = new ProblemContent
+                {
+                    Question = "Source: Anonymous blog post with no citations vs peer-reviewed journal article. Which is more credible for research?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Blog post", "Peer-reviewed journal", "Both equal", "Neither" },
+                    CorrectAnswers = new List<string> { "Peer-reviewed journal" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "historical-context-interpretation",
+                Difficulty = 9,
+                TargetTime = 190,
+                Content = new ProblemContent
+                {
+                    Question = "When reading a 1950s text about gender roles, why is historical context important?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "It's not important", "To understand the values and assumptions of that era", "To prove it's wrong", "To copy those values" },
+                    CorrectAnswers = new List<string> { "To understand the values and assumptions of that era" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "intertextuality",
+                Difficulty = 10,
+                TargetTime = 200,
+                Content = new ProblemContent
+                {
+                    Question = "Modern novel references Shakespeare's Hamlet through similar themes and character names. This is called:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Plagiarism", "Intertextuality/allusion", "Coincidence", "Bad writing" },
+                    CorrectAnswers = new List<string> { "Intertextuality/allusion" }
+                }
+            },
+
+            // ===== Additional Elementary (1-3) Problems =====
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "word-recognition",
+                Difficulty = 1,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "Which word rhymes with 'cat'?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Dog", "Hat", "Fish", "Book" },
+                    CorrectAnswers = new List<string> { "Hat" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "picture-text-match",
+                Difficulty = 1,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Text: 'The sun is bright yellow.' Which describes the sun?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Blue and small", "Bright yellow", "Dark and cold", "Green" },
+                    CorrectAnswers = new List<string> { "Bright yellow" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "sentence-completion",
+                Difficulty = 2,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Complete: 'A fish lives in ____.'",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Water", "Trees", "Sky", "House" },
+                    CorrectAnswers = new List<string> { "Water" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "basic-inference",
+                Difficulty = 2,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Text: 'Kim put on her raincoat and boots.' What is Kim getting ready for?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Swimming", "Rainy weather", "Sleeping", "Eating" },
+                    CorrectAnswers = new List<string> { "Rainy weather" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "story-beginning-middle-end",
+                Difficulty = 3,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "Story: 'A seed was planted. It grew into a tall tree. Birds made nests in it.' What happened in the MIDDLE?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Seed planted", "It grew tall", "Birds made nests", "Nothing" },
+                    CorrectAnswers = new List<string> { "It grew tall" }
+                }
+            },
+
+            // ===== Additional Upper Elementary (4-5) Problems =====
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "author-craft-dialogue",
+                Difficulty = 4,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "Text uses quotation marks like: 'Hello,' said Tom. What is this called?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "A mistake", "Dialogue", "A title", "Bold text" },
+                    CorrectAnswers = new List<string> { "Dialogue" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "making-connections",
+                Difficulty = 4,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "Story about teamwork reminds you of when your class worked together. This is a:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Text-to-self connection", "Text-to-text connection", "Text-to-world connection", "No connection" },
+                    CorrectAnswers = new List<string> { "Text-to-self connection" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "text-evidence",
+                Difficulty = 5,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "Claim: 'The character is brave.' Which quote is the best evidence?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "'He liked ice cream'", "'He ran into the burning building to save the cat'", "'He was tall'", "'He went to school'" },
+                    CorrectAnswers = new List<string> { "'He ran into the burning building to save the cat'" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "plot-elements",
+                Difficulty = 5,
+                TargetTime = 95,
+                Content = new ProblemContent
+                {
+                    Question = "In a story, the most exciting part where the main problem reaches its peak is called:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Introduction", "Climax", "Resolution", "Setting" },
+                    CorrectAnswers = new List<string> { "Climax" }
+                }
+            },
+
+            // ===== Additional Middle School (6-8) Problems =====
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "connotation-denotation",
+                Difficulty = 6,
+                TargetTime = 105,
+                Content = new ProblemContent
+                {
+                    Question = "'Cheap' and 'inexpensive' have similar meanings but different feelings. This is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Denotation vs connotation", "Synonyms only", "Opposites", "Spelling differences" },
+                    CorrectAnswers = new List<string> { "Denotation vs connotation" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "paraphrasing",
+                Difficulty = 6,
+                TargetTime = 110,
+                Content = new ProblemContent
+                {
+                    Question = "Original: 'The precipitation was excessive.' Paraphrase:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "The precipitation was excessive", "It rained a lot", "Water fell", "Weather happened" },
+                    CorrectAnswers = new List<string> { "It rained a lot" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "symbolism-basic",
+                Difficulty = 7,
+                TargetTime = 120,
+                Content = new ProblemContent
+                {
+                    Question = "In a story, a dove often symbolizes:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "War", "Peace", "Anger", "Confusion" },
+                    CorrectAnswers = new List<string> { "Peace" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "chronological-order",
+                Difficulty = 6,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "Text organized by time sequence (first, next, then, finally) uses what structure?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Cause-effect", "Chronological order", "Compare-contrast", "Problem-solution" },
+                    CorrectAnswers = new List<string> { "Chronological order" }
+                }
+            },
+
+            // ===== Additional High School/College (8-10) Problems =====
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "allusion-literary",
+                Difficulty = 8,
+                TargetTime = 140,
+                Content = new ProblemContent
+                {
+                    Question = "Text: 'He was a modern-day Hercules.' This references Greek mythology. This is an:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Allusion", "Metaphor only", "Simile", "Fact" },
+                    CorrectAnswers = new List<string> { "Allusion" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "rhetorical-question-purpose",
+                Difficulty = 8,
+                TargetTime = 130,
+                Content = new ProblemContent
+                {
+                    Question = "Essay asks: 'Can we really afford to ignore climate change?' The question's purpose is to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Get an answer", "Make readers think critically", "Confuse readers", "End the essay" },
+                    CorrectAnswers = new List<string> { "Make readers think critically" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "narrative-perspective-unreliable",
+                Difficulty = 9,
+                TargetTime = 175,
+                Content = new ProblemContent
+                {
+                    Question = "Narrator says 'I'm the smartest person ever' but makes obvious mistakes. This is an 'unreliable narrator' because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "They lie deliberately", "Their self-perception contradicts evidence", "They use first person", "They're fictional" },
+                    CorrectAnswers = new List<string> { "Their self-perception contradicts evidence" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Reading,
+                MicroTopic = "discourse-analysis",
+                Difficulty = 10,
+                TargetTime = 200,
+                Content = new ProblemContent
+                {
+                    Question = "A political speech repeats 'freedom' 20 times but never defines it. This linguistic strategy:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Is accidental", "Uses emotional appeal without concrete meaning", "Defines the term clearly", "Has no effect" },
+                    CorrectAnswers = new List<string> { "Uses emotional appeal without concrete meaning" }
+                }
             }
         };
     }

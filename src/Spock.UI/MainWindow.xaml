@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Spock.UI"
         xmlns:converters="clr-namespace:Spock.UI.Converters"
         mc:Ignorable="d"
-        Title="Vulcan Learning Pit" Height="1000" Width="1400"
+        Title="Vulcan Learning Pit" Height="1200" Width="1600"
         MinHeight="800" MinWidth="1100"
         Background="#1A1A1A"
         FontFamily="Segoe UI"

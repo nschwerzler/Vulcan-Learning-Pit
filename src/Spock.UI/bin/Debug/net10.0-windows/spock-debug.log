@@ -1,0 +1,190 @@
+[2026-01-06 09:10:33.064] ========== APPLICATION STARTING ==========
+[2026-01-06 09:10:33.070] Log file: C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net10.0-windows\spock-debug.log
+[2026-01-06 09:10:33.375] UNHANDLED DISPATCHER EXCEPTION: XamlParseException
+[2026-01-06 09:10:33.376] Message: 'Provide value on 'System.Windows.Baml2006.TypeConverterMarkupExtension' threw an exception.' Line number '14' and line position '9'.
+[2026-01-06 09:10:33.381] StackTrace:    at System.Windows.Markup.XamlReader.RewrapException(Exception e, IXamlLineInfo lineInfo, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.Load(XamlReader xamlReader, IXamlObjectWriterFactory writerFactory, Boolean skipJournaledProperties, Object rootObject, XamlObjectWriterSettings settings, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.LoadBaml(XamlReader xamlReader, Boolean skipJournaledProperties, Object rootObject, XamlAccessLevel accessLevel, Uri baseUri)
+   at System.Windows.Markup.XamlReader.LoadBaml(Stream stream, ParserContext parserContext, Object parent, Boolean closeStream)
+   at System.Windows.Application.LoadBamlStreamWithSyncInfo(Stream stream, ParserContext pc)
+   at System.Windows.Application.DoStartup()
+   at System.Windows.Application.<.ctor>b__1_0(Object unused)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+[2026-01-06 09:10:33.386] InnerException: Cannot locate resource 'resources/spock-icon.ico'.
+[2026-01-06 09:10:33.391] InnerException StackTrace:    at MS.Internal.AppModel.ResourcePart.GetStreamCore(FileMode mode, FileAccess access)
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode, FileAccess access)
+   at MS.Internal.IO.Packaging.PackagePartExtensions.GetSeekableStream(PackagePart packPart, FileMode mode, FileAccess access)
+   at System.IO.Packaging.PackWebResponse.CachedResponse.GetResponseStream()
+   at System.Windows.Media.Imaging.BitmapDecoder.SetupDecoderFromUriOrStream(Uri uri, Stream stream, BitmapCacheOption cacheOption, Guid& clsId, Boolean& isOriginalWritable, Stream& uriStream, UnmanagedMemoryStream& unmanagedMemoryStream, SafeFileHandle& safeFilehandle)
+   at System.Windows.Media.Imaging.BitmapDecoder.CreateFromUriOrStream(Uri baseUri, Uri uri, Stream stream, BitmapCreateOptions createOptions, BitmapCacheOption cacheOption, RequestCachePolicy uriCachePolicy, Boolean insertInDecoderCache)
+   at System.Windows.Media.Imaging.BitmapFrame.CreateFromUriOrStream(Uri baseUri, Uri uri, Stream stream, BitmapCreateOptions createOptions, BitmapCacheOption cacheOption, RequestCachePolicy uriCachePolicy)
+   at System.Windows.Media.ImageSourceConverter.ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, Object value)
+   at MS.Internal.Xaml.Runtime.ClrObjectRuntime.CallProvideValue(MarkupExtension me, IServiceProvider serviceProvider)
+[2026-01-07 18:32:18.784] ========== APPLICATION STARTING ==========
+[2026-01-07 18:32:18.791] Log file: C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net10.0-windows\spock-debug.log
+[2026-01-07 18:32:18.968] UNHANDLED DISPATCHER EXCEPTION: XamlParseException
+[2026-01-07 18:32:18.969] Message: 'Provide value on 'System.Windows.Baml2006.TypeConverterMarkupExtension' threw an exception.' Line number '14' and line position '9'.
+[2026-01-07 18:32:18.971] StackTrace:    at System.Windows.Markup.XamlReader.RewrapException(Exception e, IXamlLineInfo lineInfo, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.Load(XamlReader xamlReader, IXamlObjectWriterFactory writerFactory, Boolean skipJournaledProperties, Object rootObject, XamlObjectWriterSettings settings, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.LoadBaml(XamlReader xamlReader, Boolean skipJournaledProperties, Object rootObject, XamlAccessLevel accessLevel, Uri baseUri)
+   at System.Windows.Markup.XamlReader.LoadBaml(Stream stream, ParserContext parserContext, Object parent, Boolean closeStream)
+   at System.Windows.Application.LoadBamlStreamWithSyncInfo(Stream stream, ParserContext pc)
+   at System.Windows.Application.DoStartup()
+   at System.Windows.Application.<.ctor>b__1_0(Object unused)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+[2026-01-07 18:32:18.971] InnerException: Cannot locate resource 'resources/spock-icon.ico'.
+[2026-01-07 18:32:18.972] InnerException StackTrace:    at MS.Internal.AppModel.ResourcePart.GetStreamCore(FileMode mode, FileAccess access)
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode, FileAccess access)
+   at MS.Internal.IO.Packaging.PackagePartExtensions.GetSeekableStream(PackagePart packPart, FileMode mode, FileAccess access)
+   at System.IO.Packaging.PackWebResponse.CachedResponse.GetResponseStream()
+   at System.Windows.Media.Imaging.BitmapDecoder.SetupDecoderFromUriOrStream(Uri uri, Stream stream, BitmapCacheOption cacheOption, Guid& clsId, Boolean& isOriginalWritable, Stream& uriStream, UnmanagedMemoryStream& unmanagedMemoryStream, SafeFileHandle& safeFilehandle)
+   at System.Windows.Media.Imaging.BitmapDecoder.CreateFromUriOrStream(Uri baseUri, Uri uri, Stream stream, BitmapCreateOptions createOptions, BitmapCacheOption cacheOption, RequestCachePolicy uriCachePolicy, Boolean insertInDecoderCache)
+   at System.Windows.Media.Imaging.BitmapFrame.CreateFromUriOrStream(Uri baseUri, Uri uri, Stream stream, BitmapCreateOptions createOptions, BitmapCacheOption cacheOption, RequestCachePolicy uriCachePolicy)
+   at System.Windows.Media.ImageSourceConverter.ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, Object value)
+   at MS.Internal.Xaml.Runtime.ClrObjectRuntime.CallProvideValue(MarkupExtension me, IServiceProvider serviceProvider)
+[2026-01-07 18:32:32.613] ========== APPLICATION STARTING ==========
+[2026-01-07 18:32:32.619] Log file: C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net10.0-windows\spock-debug.log
+[2026-01-07 18:32:32.727] UNHANDLED DISPATCHER EXCEPTION: XamlParseException
+[2026-01-07 18:32:32.727] Message: 'Provide value on 'System.Windows.Baml2006.TypeConverterMarkupExtension' threw an exception.' Line number '14' and line position '9'.
+[2026-01-07 18:32:32.728] StackTrace:    at System.Windows.Markup.XamlReader.RewrapException(Exception e, IXamlLineInfo lineInfo, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.Load(XamlReader xamlReader, IXamlObjectWriterFactory writerFactory, Boolean skipJournaledProperties, Object rootObject, XamlObjectWriterSettings settings, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.LoadBaml(XamlReader xamlReader, Boolean skipJournaledProperties, Object rootObject, XamlAccessLevel accessLevel, Uri baseUri)
+   at System.Windows.Markup.XamlReader.LoadBaml(Stream stream, ParserContext parserContext, Object parent, Boolean closeStream)
+   at System.Windows.Application.LoadBamlStreamWithSyncInfo(Stream stream, ParserContext pc)
+   at System.Windows.Application.DoStartup()
+   at System.Windows.Application.<.ctor>b__1_0(Object unused)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+[2026-01-07 18:32:32.729] InnerException: Cannot locate resource 'resources/spock-icon.ico'.
+[2026-01-07 18:32:32.730] InnerException StackTrace:    at MS.Internal.AppModel.ResourcePart.GetStreamCore(FileMode mode, FileAccess access)
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode, FileAccess access)
+   at MS.Internal.IO.Packaging.PackagePartExtensions.GetSeekableStream(PackagePart packPart, FileMode mode, FileAccess access)
+   at System.IO.Packaging.PackWebResponse.CachedResponse.GetResponseStream()
+   at System.Windows.Media.Imaging.BitmapDecoder.SetupDecoderFromUriOrStream(Uri uri, Stream stream, BitmapCacheOption cacheOption, Guid& clsId, Boolean& isOriginalWritable, Stream& uriStream, UnmanagedMemoryStream& unmanagedMemoryStream, SafeFileHandle& safeFilehandle)
+   at System.Windows.Media.Imaging.BitmapDecoder.CreateFromUriOrStream(Uri baseUri, Uri uri, Stream stream, BitmapCreateOptions createOptions, BitmapCacheOption cacheOption, RequestCachePolicy uriCachePolicy, Boolean insertInDecoderCache)
+   at System.Windows.Media.Imaging.BitmapFrame.CreateFromUriOrStream(Uri baseUri, Uri uri, Stream stream, BitmapCreateOptions createOptions, BitmapCacheOption cacheOption, RequestCachePolicy uriCachePolicy)
+   at System.Windows.Media.ImageSourceConverter.ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, Object value)
+   at MS.Internal.Xaml.Runtime.ClrObjectRuntime.CallProvideValue(MarkupExtension me, IServiceProvider serviceProvider)
+[2026-01-07 18:36:49.157] ========== APPLICATION STARTING ==========
+[2026-01-07 18:36:49.186] Log file: C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net10.0-windows\spock-debug.log
+[2026-01-07 18:59:16.738] [MainWindow] OpenDashboard_Click: Starting...
+[2026-01-07 18:59:16.738] [MainWindow] Calling ParentDashboard.ShowDashboard...
+[2026-01-07 18:59:16.738] [ParentDashboard] ShowDashboard: Creating new dashboard...
+[2026-01-07 18:59:16.739] [ParentDashboard] Constructor: Starting...
+[2026-01-07 18:59:16.739] [ParentDashboard] Calling InitializeComponent()...
+[2026-01-07 18:59:16.756] [ParentDashboard] InitializeComponent() completed
+[2026-01-07 18:59:16.756] [ParentDashboard] Creating ParentDashboardViewModel...
+[2026-01-07 18:59:16.757] [ParentDashboardViewModel] Constructor: Starting...
+[2026-01-07 18:59:16.757] [ParentDashboardViewModel] Initializing commands...
+[2026-01-07 18:59:16.757] [ParentDashboardViewModel] Commands initialized
+[2026-01-07 18:59:16.757] [ParentDashboardViewModel] Starting InitializeAsync...
+[2026-01-07 18:59:16.757] [ParentDashboardViewModel] InitializeAsync: Starting...
+[2026-01-07 18:59:16.758] [ParentDashboardViewModel] IsLoading set to true
+[2026-01-07 18:59:16.758] [ParentDashboardViewModel] Starting LoadDashboardData on background thread...
+[2026-01-07 18:59:16.758] [ParentDashboardViewModel] Constructor completed successfully
+[2026-01-07 18:59:16.758] [ParentDashboard] DataContext set successfully
+[2026-01-07 18:59:16.758] [ParentDashboard] Constructor completed successfully
+[2026-01-07 18:59:16.758] [ParentDashboardViewModel] LoadDashboardData: Starting...
+[2026-01-07 18:59:16.758] [ParentDashboard] ShowDashboard: Calling Show()...
+[2026-01-07 18:59:16.759] [ParentDashboardViewModel] Setting simple properties...
+[2026-01-07 18:59:16.759] [ParentDashboardViewModel] Marshaling data to UI thread...
+[2026-01-07 18:59:16.775] [ParentDashboard] ERROR in ShowDashboard: InvalidOperationException
+[2026-01-07 18:59:16.775] [ParentDashboard] Message: A TwoWay or OneWayToSource binding cannot work on the read-only property 'MathProgress' of type 'Spock.UI.ViewModels.ParentDashboardViewModel'.
+[2026-01-07 18:59:16.794] [ParentDashboard] StackTrace:    at MS.Internal.Data.PropertyPathWorker.CheckReadOnly(Object item, Object info)
+   at MS.Internal.Data.PropertyPathWorker.ReplaceItem(Int32 k, Object newO, Object parent)
+   at System.Windows.Data.BindingExpression.Activate(Object item)
+   at System.Windows.Data.BindingExpression.AttachToContext(AttachAttempt attempt)
+   at MS.Internal.Data.DataBindEngine.Task.Run(Boolean lastChance)
+   at MS.Internal.Data.DataBindEngine.OnLayoutUpdated(Object sender, EventArgs e)
+   at System.Windows.ContextLayoutManager.fireLayoutUpdateEvent()
+   at System.Windows.ContextLayoutManager.UpdateLayout()
+   at System.Windows.Interop.HwndSource.SetLayoutSize()
+   at System.Windows.Interop.HwndSource.set_RootVisualInternal(Visual value)
+   at System.Windows.Window.SetRootVisualAndUpdateSTC()
+   at System.Windows.Window.SetupInitialState(Double requestedTop, Double requestedLeft, Double requestedWidth, Double requestedHeight)
+   at System.Windows.Window.CreateSourceWindow(Boolean duringShow)
+   at System.Windows.Window.ShowHelper(Object booleanBox)
+   at System.Windows.Window.Show()
+   at Spock.UI.ParentDashboard.ShowDashboard(Window owner) in C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\ParentDashboard.xaml.cs:line 61
+[2026-01-07 18:59:16.795] [MainWindow] ERROR in OpenDashboard_Click: InvalidOperationException
+[2026-01-07 18:59:16.795] [MainWindow] Message: A TwoWay or OneWayToSource binding cannot work on the read-only property 'MathProgress' of type 'Spock.UI.ViewModels.ParentDashboardViewModel'.
+[2026-01-07 18:59:16.795] [MainWindow] StackTrace:    at MS.Internal.Data.PropertyPathWorker.CheckReadOnly(Object item, Object info)
+   at MS.Internal.Data.PropertyPathWorker.ReplaceItem(Int32 k, Object newO, Object parent)
+   at System.Windows.Data.BindingExpression.Activate(Object item)
+   at System.Windows.Data.BindingExpression.AttachToContext(AttachAttempt attempt)
+   at MS.Internal.Data.DataBindEngine.Task.Run(Boolean lastChance)
+   at MS.Internal.Data.DataBindEngine.OnLayoutUpdated(Object sender, EventArgs e)
+   at System.Windows.ContextLayoutManager.fireLayoutUpdateEvent()
+   at System.Windows.ContextLayoutManager.UpdateLayout()
+   at System.Windows.Interop.HwndSource.SetLayoutSize()
+   at System.Windows.Interop.HwndSource.set_RootVisualInternal(Visual value)
+   at System.Windows.Window.SetRootVisualAndUpdateSTC()
+   at System.Windows.Window.SetupInitialState(Double requestedTop, Double requestedLeft, Double requestedWidth, Double requestedHeight)
+   at System.Windows.Window.CreateSourceWindow(Boolean duringShow)
+   at System.Windows.Window.ShowHelper(Object booleanBox)
+   at System.Windows.Window.Show()
+   at Spock.UI.ParentDashboard.ShowDashboard(Window owner) in C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\ParentDashboard.xaml.cs:line 61
+   at Spock.UI.MainWindow.OpenDashboard_Click(Object sender, RoutedEventArgs e) in C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\MainWindow.xaml.cs:line 28
+[2026-01-07 18:59:16.803] [ParentDashboardViewModel] Updating RecentSessions...
+[2026-01-07 18:59:16.804] [ParentDashboardViewModel] Updating ActiveWeaknesses...
+[2026-01-07 18:59:16.804] [ParentDashboardViewModel] Updating RecentConquests...
+[2026-01-07 18:59:16.804] [ParentDashboardViewModel] Collections updated successfully
+[2026-01-07 18:59:16.804] [ParentDashboardViewModel] LoadDashboardData completed successfully
+[2026-01-07 18:59:16.805] UNHANDLED DISPATCHER EXCEPTION: InvalidOperationException
+[2026-01-07 18:59:16.805] Message: A TwoWay or OneWayToSource binding cannot work on the read-only property 'LogicProgress' of type 'Spock.UI.ViewModels.ParentDashboardViewModel'.
+[2026-01-07 18:59:16.805] StackTrace:    at MS.Internal.Data.PropertyPathWorker.CheckReadOnly(Object item, Object info)
+   at MS.Internal.Data.PropertyPathWorker.ReplaceItem(Int32 k, Object newO, Object parent)
+   at System.Windows.Data.BindingExpression.Activate(Object item)
+   at System.Windows.Data.BindingExpression.AttachToContext(AttachAttempt attempt)
+   at MS.Internal.Data.DataBindEngine.Task.Run(Boolean lastChance)
+   at MS.Internal.Data.DataBindEngine.Run(Object arg)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+[2026-01-07 18:59:16.810] [ParentDashboardViewModel] LoadDashboardData completed
+[2026-01-07 18:59:16.810] [ParentDashboardViewModel] Setting IsLoading to false
+[2026-01-07 18:59:16.820] UNHANDLED DISPATCHER EXCEPTION: InvalidOperationException
+[2026-01-07 18:59:16.820] Message: A TwoWay or OneWayToSource binding cannot work on the read-only property 'ReadingProgress' of type 'Spock.UI.ViewModels.ParentDashboardViewModel'.
+[2026-01-07 18:59:16.820] StackTrace:    at MS.Internal.Data.PropertyPathWorker.CheckReadOnly(Object item, Object info)
+   at MS.Internal.Data.PropertyPathWorker.ReplaceItem(Int32 k, Object newO, Object parent)
+   at System.Windows.Data.BindingExpression.Activate(Object item)
+   at System.Windows.Data.BindingExpression.AttachToContext(AttachAttempt attempt)
+   at MS.Internal.Data.DataBindEngine.Task.Run(Boolean lastChance)
+   at MS.Internal.Data.DataBindEngine.Run(Object arg)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+[2026-01-07 18:59:22.274] UNHANDLED DISPATCHER EXCEPTION: InvalidOperationException
+[2026-01-07 18:59:22.274] Message: A TwoWay or OneWayToSource binding cannot work on the read-only property 'MathProgress' of type 'Spock.UI.ViewModels.ParentDashboardViewModel'.
+[2026-01-07 18:59:22.279] StackTrace:    at MS.Internal.Data.PropertyPathWorker.CheckReadOnly(Object item, Object info)
+   at MS.Internal.Data.PropertyPathWorker.ReplaceItem(Int32 k, Object newO, Object parent)
+   at System.Windows.Data.BindingExpression.Activate(Object item)
+   at System.Windows.Data.BindingExpression.AttachToContext(AttachAttempt attempt)
+   at MS.Internal.Data.DataBindEngine.Task.Run(Boolean lastChance)
+   at MS.Internal.Data.DataBindEngine.OnLayoutUpdated(Object sender, EventArgs e)
+   at System.Windows.ContextLayoutManager.fireLayoutUpdateEvent()
+   at System.Windows.ContextLayoutManager.UpdateLayout()
+   at System.Windows.Interop.HwndSource.SetLayoutSize()
+   at System.Windows.Interop.HwndSource.set_RootVisualInternal(Visual value)
+   at System.Windows.Window.SetRootVisualAndUpdateSTC()
+   at System.Windows.Window.SetupInitialState(Double requestedTop, Double requestedLeft, Double requestedWidth, Double requestedHeight)
+   at System.Windows.Window.CreateSourceWindow(Boolean duringShow)
+   at System.Windows.Window.ShowHelper(Object booleanBox)
+   at System.Windows.Window.Show()
+   at Spock.UI.ParentDashboard.ShowDashboard(Window owner) in C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\ParentDashboard.xaml.cs:line 61
+   at Spock.UI.MainWindow.OpenDashboard_Click(Object sender, RoutedEventArgs e) in C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\MainWindow.xaml.cs:line 28
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.Controls.Button.OnClick()
+   at System.Windows.Controls.Primitives.ButtonBase.OnMouseLeftButtonUp(MouseButtonEventArgs e)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.ReRaiseEventAs(DependencyObject sender, RoutedEventArgs args, RoutedEvent newEvent)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+[2026-01-07 19:12:51.531] ========== APPLICATION EXITING ==========

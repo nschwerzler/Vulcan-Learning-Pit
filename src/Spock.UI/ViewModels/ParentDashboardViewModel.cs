@@ -26,13 +26,30 @@ public class ParentDashboardViewModel : INotifyPropertyChanged
 
     public ParentDashboardViewModel()
     {
-        // Initialize commands
-        RefreshCommand = new RelayCommand(RefreshData);
-        SettingsCommand = new RelayCommand(OpenSettings);
-        SaveSettingsCommand = new RelayCommand(SaveSettings);
+        try
+        {
+            Spock.UI.App.Log("[ParentDashboardViewModel] Constructor: Starting...");
+            
+            // Initialize commands
+            Spock.UI.App.Log("[ParentDashboardViewModel] Initializing commands...");
+            RefreshCommand = new RelayCommand(RefreshData);
+            SettingsCommand = new RelayCommand(OpenSettings);
+            SaveSettingsCommand = new RelayCommand(SaveSettings);
+            Spock.UI.App.Log("[ParentDashboardViewModel] Commands initialized");
 
-        // Load initial data asynchronously off the UI thread
-        _ = InitializeAsync();
+            // Load initial data asynchronously off the UI thread
+            Spock.UI.App.Log("[ParentDashboardViewModel] Starting InitializeAsync...");
+            _ = InitializeAsync();
+            
+            Spock.UI.App.Log("[ParentDashboardViewModel] Constructor completed successfully");
+        }
+        catch (Exception ex)
+        {
+            Spock.UI.App.Log($"[ParentDashboardViewModel] ERROR in Constructor: {ex.GetType().Name}");
+            Spock.UI.App.Log($"[ParentDashboardViewModel] Message: {ex.Message}");
+            Spock.UI.App.Log($"[ParentDashboardViewModel] StackTrace: {ex.StackTrace}");
+            throw;
+        }
     }
 
     /// <summary>
@@ -40,13 +57,26 @@ public class ParentDashboardViewModel : INotifyPropertyChanged
     /// </summary>
     private async Task InitializeAsync()
     {
-        IsLoading = true;
         try
         {
+            Spock.UI.App.Log("[ParentDashboardViewModel] InitializeAsync: Starting...");
+            IsLoading = true;
+            Spock.UI.App.Log("[ParentDashboardViewModel] IsLoading set to true");
+            
+            Spock.UI.App.Log("[ParentDashboardViewModel] Starting LoadDashboardData on background thread...");
             await Task.Run(() => LoadDashboardData());
+            Spock.UI.App.Log("[ParentDashboardViewModel] LoadDashboardData completed");
+        }
+        catch (Exception ex)
+        {
+            Spock.UI.App.Log($"[ParentDashboardViewModel] ERROR in InitializeAsync: {ex.GetType().Name}");
+            Spock.UI.App.Log($"[ParentDashboardViewModel] Message: {ex.Message}");
+            Spock.UI.App.Log($"[ParentDashboardViewModel] StackTrace: {ex.StackTrace}");
+            throw;
         }
         finally
         {
+            Spock.UI.App.Log("[ParentDashboardViewModel] Setting IsLoading to false");
             IsLoading = false;
         }
     }
@@ -143,11 +173,16 @@ public class ParentDashboardViewModel : INotifyPropertyChanged
 
     private void LoadDashboardData()
     {
-        // Load sample data - in production, this would query the database
-        // This method runs off the UI thread for performance
+        try
+        {
+            Spock.UI.App.Log("[ParentDashboardViewModel] LoadDashboardData: Starting...");
+            
+            // Load sample data - in production, this would query the database
+            // This method runs off the UI thread for performance
 
-        // Update simple properties (thread-safe)
-        SessionsThisWeek = 8;
+            // Update simple properties (thread-safe)
+            Spock.UI.App.Log("[ParentDashboardViewModel] Setting simple properties...");
+            SessionsThisWeek = 8;
         AverageAccuracy = 78.5;
         FocusScore = 7.2;
         WeaknessesResolved = 3;
@@ -234,26 +269,41 @@ public class ParentDashboardViewModel : INotifyPropertyChanged
         };
 
         // Marshal back to UI thread for ObservableCollection updates
-        System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            Spock.UI.App.Log("[ParentDashboardViewModel] Marshaling data to UI thread...");
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                Spock.UI.App.Log("[ParentDashboardViewModel] Updating RecentSessions...");
+                RecentSessions.Clear();
+                foreach (var session in sessions)
+                {
+                    RecentSessions.Add(session);
+                }
+
+                Spock.UI.App.Log("[ParentDashboardViewModel] Updating ActiveWeaknesses...");
+                ActiveWeaknesses.Clear();
+                foreach (var weakness in weaknesses)
+                {
+                    ActiveWeaknesses.Add(weakness);
+                }
+
+                Spock.UI.App.Log("[ParentDashboardViewModel] Updating RecentConquests...");
+                RecentConquests.Clear();
+                foreach (var conquest in conquests)
+                {
+                    RecentConquests.Add(conquest);
+                }
+                Spock.UI.App.Log("[ParentDashboardViewModel] Collections updated successfully");
+            });
+            
+            Spock.UI.App.Log("[ParentDashboardViewModel] LoadDashboardData completed successfully");
+        }
+        catch (Exception ex)
         {
-            RecentSessions.Clear();
-            foreach (var session in sessions)
-            {
-                RecentSessions.Add(session);
-            }
-
-            ActiveWeaknesses.Clear();
-            foreach (var weakness in weaknesses)
-            {
-                ActiveWeaknesses.Add(weakness);
-            }
-
-            RecentConquests.Clear();
-            foreach (var conquest in conquests)
-            {
-                RecentConquests.Add(conquest);
-            }
-        });
+            Spock.UI.App.Log($"[ParentDashboardViewModel] ERROR in LoadDashboardData: {ex.GetType().Name}");
+            Spock.UI.App.Log($"[ParentDashboardViewModel] Message: {ex.Message}");
+            Spock.UI.App.Log($"[ParentDashboardViewModel] StackTrace: {ex.StackTrace}");
+            throw;
+        }
     }
 
     private async void RefreshData()

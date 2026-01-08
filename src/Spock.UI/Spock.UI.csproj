@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <!-- <ApplicationIcon>Resources\spock-icon.ico</ApplicationIcon> -->
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,5 +14,12 @@
     <ProjectReference Include="..\Spock.Data\Spock.Data.csproj" />
     <ProjectReference Include="..\Spock.Engine\Spock.Engine.csproj" />
   </ItemGroup>
+
+  <!--
+  <ItemGroup>
+    <Resource Include="Resources\spock-icon.ico" />
+    <Resource Include="Resources\spock-icon.svg" />
+  </ItemGroup>
+  -->
 
 </Project>
