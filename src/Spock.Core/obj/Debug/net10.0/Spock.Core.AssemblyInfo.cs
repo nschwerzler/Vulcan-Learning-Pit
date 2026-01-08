@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Spock.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc745278cde964f4523e55a973f6de7422daaf22")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af52e4b029f5fc9d3a5dd916bd48f6c70014f585")]
 [assembly: System.Reflection.AssemblyProductAttribute("Spock.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Spock.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -4854,6 +4854,684 @@ public static List<Problem> GetAllProblems()
                     Options = new List<string> { "Individual workers are powerless", "Collective labor action can exert significant economic pressure", "Strikes never work", "Only government can change working conditions" },
                     CorrectAnswers = new List<string> { "Collective labor action can exert significant economic pressure" }
                 }
+            },
+
+            // ===== Additional Elementary (Grades 4-5): Foundational Knowledge =====
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "state-symbols",
+                Difficulty = 2,
+                TargetTime = 20,
+                Content = new ProblemContent
+                {
+                    Question = "What is Washington's state nickname?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "The Sunshine State", "The Evergreen State", "The Golden State", "The Lone Star State" },
+                    CorrectAnswers = new List<string> { "The Evergreen State" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "major-cities",
+                Difficulty = 2,
+                TargetTime = 25,
+                Content = new ProblemContent
+                {
+                    Question = "What is Washington's largest city?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Olympia", "Spokane", "Seattle", "Tacoma" },
+                    CorrectAnswers = new List<string> { "Seattle" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "geography-borders",
+                Difficulty = 3,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "Which country borders Washington to the north?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Mexico", "Canada", "Russia", "Alaska" },
+                    CorrectAnswers = new List<string> { "Canada" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "water-features",
+                Difficulty = 3,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "What major body of water lies to the west of Washington?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Atlantic Ocean", "Gulf of Mexico", "Pacific Ocean", "Arctic Ocean" },
+                    CorrectAnswers = new List<string> { "Pacific Ocean" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "volcanoes",
+                Difficulty = 3,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "Which famous volcano erupted in Washington in 1980?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Mount Rainier", "Mount St. Helens", "Mount Baker", "Mount Hood" },
+                    CorrectAnswers = new List<string> { "Mount St. Helens" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "state-flag",
+                Difficulty = 3,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "Washington's state flag features which U.S. President?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Abraham Lincoln", "George Washington", "Thomas Jefferson", "Theodore Roosevelt" },
+                    CorrectAnswers = new List<string> { "George Washington" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "rivers",
+                Difficulty = 4,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "Which major river forms part of Washington's southern border with Oregon?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Mississippi River", "Columbia River", "Colorado River", "Missouri River" },
+                    CorrectAnswers = new List<string> { "Columbia River" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "climate-zones",
+                Difficulty = 4,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "Western Washington is known for being:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Very dry and desert-like", "Rainy and mild", "Extremely hot", "Always snowy" },
+                    CorrectAnswers = new List<string> { "Rainy and mild" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "agriculture",
+                Difficulty = 4,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "Eastern Washington is famous for growing:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Pineapples", "Apples and wheat", "Oranges", "Cotton" },
+                    CorrectAnswers = new List<string> { "Apples and wheat" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "islands",
+                Difficulty = 4,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "The San Juan Islands are located between Washington and:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Vancouver Island (Canada)", "Hawaii", "Alaska", "California" },
+                    CorrectAnswers = new List<string> { "Vancouver Island (Canada)" }
+                }
+            },
+
+            // ===== Additional Middle School (Grades 6-8): Historical Depth =====
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "fur-trade",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Before American settlement, which companies dominated the fur trade in the Pacific Northwest?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Spanish trading companies", "Hudson's Bay Company and others", "Dutch East India Company", "French fur traders only" },
+                    CorrectAnswers = new List<string> { "Hudson's Bay Company and others" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "boundary-disputes",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "The '54-40 or Fight' slogan referred to a dispute between the U.S. and Britain over:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Gold mining rights", "The northern boundary of Oregon Territory (including Washington)", "Texas independence", "California statehood" },
+                    CorrectAnswers = new List<string> { "The northern boundary of Oregon Territory (including Washington)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "territorial-creation",
+                Difficulty = 6,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Washington Territory was officially created in what year?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "1776", "1853", "1889", "1912" },
+                    CorrectAnswers = new List<string> { "1853" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "yakima-war",
+                Difficulty = 6,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "The Yakima War (1855-1858) was fought between:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Spain and Britain", "Native American tribes and U.S. forces", "Settlers and miners", "North and South states" },
+                    CorrectAnswers = new List<string> { "Native American tribes and U.S. forces" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "railroads",
+                Difficulty = 7,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "The Northern Pacific Railway reaching Washington in 1883 was significant because it:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Had no impact", "Connected the region to eastern markets and spurred population growth", "Only carried passengers", "Was abandoned immediately" },
+                    CorrectAnswers = new List<string> { "Connected the region to eastern markets and spurred population growth" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "cannery-industry",
+                Difficulty = 7,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "In the late 1800s, salmon canneries in Washington employed many:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Only white Americans", "Chinese and Native American workers", "European nobility", "No workers (fully automated)" },
+                    CorrectAnswers = new List<string> { "Chinese and Native American workers" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "populist-movement",
+                Difficulty = 7,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "Washington's early populist and progressive movements focused on:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Protecting big business interests", "Workers' rights, women's suffrage, and railroad regulation", "Maintaining the status quo", "Preventing all immigration" },
+                    CorrectAnswers = new List<string> { "Workers' rights, women's suffrage, and railroad regulation" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "great-fire",
+                Difficulty = 6,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "The Great Seattle Fire of 1889 destroyed much of downtown. What was the result?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Seattle was abandoned", "The city was rebuilt with brick and stone buildings at a higher elevation", "Nothing changed", "Seattle moved to a new location" },
+                    CorrectAnswers = new List<string> { "The city was rebuilt with brick and stone buildings at a higher elevation" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "prohibition",
+                Difficulty = 7,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "During Prohibition (1920-1933), Seattle was known for:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Strictly enforcing alcohol bans", "Widespread bootlegging and speakeasies", "Having no alcohol culture", "Exporting all alcohol" },
+                    CorrectAnswers = new List<string> { "Widespread bootlegging and speakeasies" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "world-fairs",
+                Difficulty = 7,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "The 1962 Seattle World's Fair left behind which iconic structure?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "The Space Needle", "The Statue of Liberty", "The Golden Gate Bridge", "The Eiffel Tower" },
+                    CorrectAnswers = new List<string> { "The Space Needle" }
+                }
+            },
+
+            // ===== Additional High School (Grades 9-12): Complex Analysis =====
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "mining-frontier",
+                Difficulty = 8,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "Mining booms in Washington (silver, copper, gold) created 'boomtowns' that often:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Lasted forever", "Grew rapidly then declined when resources depleted", "Had no environmental impact", "Prevented all settlement" },
+                    CorrectAnswers = new List<string> { "Grew rapidly then declined when resources depleted" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "statehood-debate",
+                Difficulty = 8,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "Washington's path to statehood was delayed partly because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Nobody lived there", "Debates over slavery, population requirements, and political balance in Congress", "It was already a state", "Canada claimed it" },
+                    CorrectAnswers = new List<string> { "Debates over slavery, population requirements, and political balance in Congress" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "grand-coulee-dam",
+                Difficulty = 8,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "The Grand Coulee Dam (completed 1942) provided:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "No benefits", "Hydroelectric power, irrigation, and jobs during Great Depression", "Only tourism", "Only flood damage" },
+                    CorrectAnswers = new List<string> { "Hydroelectric power, irrigation, and jobs during Great Depression" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "military-bases",
+                Difficulty = 8,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "Washington's military bases (like Fort Lewis, Naval Base Kitsap) became important during:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "The Revolutionary War", "World Wars I and II, continuing through Cold War", "Only peacetime", "No significant period" },
+                    CorrectAnswers = new List<string> { "World Wars I and II, continuing through Cold War" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "immigration-history",
+                Difficulty = 8,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "Scandinavian immigration to Washington in the late 1800s influenced:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Nothing", "Logging, fishing industries, and cultural traditions", "Only political systems", "Military strategy" },
+                    CorrectAnswers = new List<string> { "Logging, fishing industries, and cultural traditions" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "asian-immigration",
+                Difficulty = 9,
+                TargetTime = 95,
+                Content = new ProblemContent
+                {
+                    Question = "Chinese Exclusion Act (1882) and anti-Asian riots in Washington demonstrated:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Universal tolerance", "Racial discrimination and violence against immigrant workers", "Economic prosperity for all", "No social tensions" },
+                    CorrectAnswers = new List<string> { "Racial discrimination and violence against immigrant workers" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "wobblies-iww",
+                Difficulty = 9,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "The Industrial Workers of the World (IWW/'Wobblies') organized timber workers in Washington for:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Owner profits only", "Better wages, safer conditions, and workers' solidarity", "Preventing unionization", "Maintaining dangerous conditions" },
+                    CorrectAnswers = new List<string> { "Better wages, safer conditions, and workers' solidarity" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "initiative-referendum",
+                Difficulty = 9,
+                TargetTime = 95,
+                Content = new ProblemContent
+                {
+                    Question = "Washington's initiative and referendum process (adopted 1912) allows citizens to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Have no voice", "Propose and vote on laws directly, bypassing legislature", "Only elect officials", "Overthrow government" },
+                    CorrectAnswers = new List<string> { "Propose and vote on laws directly, bypassing legislature" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "native-fishing-rights",
+                Difficulty = 9,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "The 'fish-ins' of the 1960s-70s were protests by Native Americans asserting:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "No rights at all", "Treaty-guaranteed fishing rights against state restrictions", "Opposition to all fishing", "Support for commercial overfishing" },
+                    CorrectAnswers = new List<string> { "Treaty-guaranteed fishing rights against state restrictions" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "redlining-segregation",
+                Difficulty = 10,
+                TargetTime = 110,
+                Content = new ProblemContent
+                {
+                    Question = "Redlining and restrictive covenants in Seattle created:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Equal housing for all", "Racially segregated neighborhoods, with lasting economic impacts", "Integrated communities", "No housing patterns" },
+                    CorrectAnswers = new List<string> { "Racially segregated neighborhoods, with lasting economic impacts" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "boeing-economy",
+                Difficulty = 10,
+                TargetTime = 105,
+                Content = new ProblemContent
+                {
+                    Question = "Boeing's boom-bust cycles taught economists about:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Economic stability", "Dangers of over-reliance on single industry (economic diversification needed)", "Perfect markets", "No economic patterns" },
+                    CorrectAnswers = new List<string> { "Dangers of over-reliance on single industry (economic diversification needed)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "treaty-interpretation",
+                Difficulty = 10,
+                TargetTime = 120,
+                Content = new ProblemContent
+                {
+                    Question = "Modern courts interpreting 1850s treaties must consider:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Only literal text", "Original intent, Native understanding, and ongoing sovereign rights", "Treaties don't matter anymore", "Only state law" },
+                    CorrectAnswers = new List<string> { "Original intent, Native understanding, and ongoing sovereign rights" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "environmental-movement",
+                Difficulty = 10,
+                TargetTime = 115,
+                Content = new ProblemContent
+                {
+                    Question = "Washington's environmental activism (spotted owl controversy, orca protection) demonstrates tension between:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "No tensions exist", "Economic development and environmental conservation", "City and rural harmony", "Complete agreement" },
+                    CorrectAnswers = new List<string> { "Economic development and environmental conservation" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "tech-transformation",
+                Difficulty = 10,
+                TargetTime = 110,
+                Content = new ProblemContent
+                {
+                    Question = "Seattle's transformation from manufacturing/resource extraction to tech hub reflects:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "No economic change", "Broader shift to information/service economy in late 20th century", "Return to pre-industrial economy", "Decline of all industry" },
+                    CorrectAnswers = new List<string> { "Broader shift to information/service economy in late 20th century" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "housing-inequality",
+                Difficulty = 10,
+                TargetTime = 120,
+                Content = new ProblemContent
+                {
+                    Question = "Seattle's rapid growth and tech boom created housing affordability crisis, demonstrating:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Perfect market balance", "Tension between economic growth and social equity/affordability", "No social impact", "Universal prosperity" },
+                    CorrectAnswers = new List<string> { "Tension between economic growth and social equity/affordability" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "sovereignty-issues",
+                Difficulty = 10,
+                TargetTime = 125,
+                Content = new ProblemContent
+                {
+                    Question = "Native tribes operating casinos on reservations demonstrates principle of:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "No legal authority", "Tribal sovereignty and self-governance within treaty frameworks", "Complete state control", "Federal micromanagement" },
+                    CorrectAnswers = new List<string> { "Tribal sovereignty and self-governance within treaty frameworks" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "climate-policy",
+                Difficulty = 10,
+                TargetTime = 120,
+                Content = new ProblemContent
+                {
+                    Question = "Washington's carbon tax debates and clean energy initiatives show states can:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Do nothing about climate", "Enact environmental policy beyond federal requirements", "Only follow federal law exactly", "Ignore environmental concerns" },
+                    CorrectAnswers = new List<string> { "Enact environmental policy beyond federal requirements" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "maritime-heritage",
+                Difficulty = 6,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Seattle's deep-water port made it important for trade with:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Only neighboring states", "Alaska and Asian-Pacific countries", "Europe only", "No international trade" },
+                    CorrectAnswers = new List<string> { "Alaska and Asian-Pacific countries" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "music-culture",
+                Difficulty = 8,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "Seattle's grunge music movement (1990s, Nirvana, Pearl Jam) became:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Unknown outside city", "Internationally influential cultural phenomenon", "Only country music", "Classical music only" },
+                    CorrectAnswers = new List<string> { "Internationally influential cultural phenomenon" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "coffee-culture",
+                Difficulty = 7,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "Starbucks, founded in Seattle in 1971, helped popularize:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Tea culture only", "Specialty coffee culture globally", "Fast food", "Soft drinks" },
+                    CorrectAnswers = new List<string> { "Specialty coffee culture globally" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "aerospace-innovation",
+                Difficulty = 9,
+                TargetTime = 95,
+                Content = new ProblemContent
+                {
+                    Question = "Washington's aerospace industry contributed to space exploration through:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "No involvement", "Boeing/NASA partnerships building spacecraft components", "Only military aircraft", "Preventing space programs" },
+                    CorrectAnswers = new List<string> { "Boeing/NASA partnerships building spacecraft components" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "agriculture-technology",
+                Difficulty = 8,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "Irrigation projects in Eastern Washington transformed what was once:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Already fertile farmland", "Arid shrub-steppe into productive agricultural land", "Ocean floor", "Dense forest" },
+                    CorrectAnswers = new List<string> { "Arid shrub-steppe into productive agricultural land" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "nuclear-legacy",
+                Difficulty = 9,
+                TargetTime = 105,
+                Content = new ProblemContent
+                {
+                    Question = "Hanford Site cleanup challenges demonstrate:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Nuclear waste is harmless", "Long-term environmental costs of nuclear weapons production", "No cleanup needed", "Immediate solutions exist" },
+                    CorrectAnswers = new List<string> { "Long-term environmental costs of nuclear weapons production" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "salmon-restoration",
+                Difficulty = 9,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "Salmon recovery efforts require coordinating:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Only one agency", "Tribal, federal, state, and local governments plus environmentalists", "No coordination", "Only commercial fishing" },
+                    CorrectAnswers = new List<string> { "Tribal, federal, state, and local governments plus environmentalists" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "border-economy",
+                Difficulty = 8,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "Washington's proximity to Canada creates:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "No economic relationship", "Cross-border trade, tourism, and cultural exchange", "Only military tensions", "Complete isolation" },
+                    CorrectAnswers = new List<string> { "Cross-border trade, tourism, and cultural exchange" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "ferry-system",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Washington State Ferries is important because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Only for tourism", "Connects islands and communities across Puget Sound", "No longer operates", "Only carries cars" },
+                    CorrectAnswers = new List<string> { "Connects islands and communities across Puget Sound" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "earthquake-preparedness",
+                Difficulty = 7,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "Washington sits on the Cascadia Subduction Zone, meaning:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "No earthquake risk", "Potential for major earthquakes and tsunamis", "Only minor tremors", "Complete stability" },
+                    CorrectAnswers = new List<string> { "Potential for major earthquakes and tsunamis" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WashingtonHistory,
+                MicroTopic = "regional-identity",
+                Difficulty = 8,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "The 'Cascadia' regional identity (WA, OR, BC) emphasizes:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "No shared characteristics", "Shared environmental values, progressive politics, and Pacific Rim orientation", "Only state differences", "Isolation from each other" },
+                    CorrectAnswers = new List<string> { "Shared environmental values, progressive politics, and Pacific Rim orientation" }
+                }
             }
         };
     }
