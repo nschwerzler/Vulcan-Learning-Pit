@@ -2801,6 +2801,874 @@ public static List<Problem> GetAllProblems()
                         CommonMistake = "Not recognizing this as factorial, or calculating F(5)=5×5=25. Must follow the recursive rule: F(5)=5×F(4), not 5×5!"
                     }
                 }
+            },
+
+            // ===== Additional Elementary Logic (Grades 1-5) =====
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "patterns-shapes",
+                Difficulty = 1,
+                TargetTime = 20,
+                Content = new ProblemContent
+                {
+                    Question = "What comes next? Circle, Square, Circle, Square, Circle, __",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Circle", "Square", "Triangle" },
+                    CorrectAnswers = new List<string> { "Square" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "counting-patterns",
+                Difficulty = 1,
+                TargetTime = 25,
+                Content = new ProblemContent
+                {
+                    Question = "What comes next? 1, 2, 3, 4, __",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "5", "five" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "opposites",
+                Difficulty = 2,
+                TargetTime = 20,
+                Content = new ProblemContent
+                {
+                    Question = "If 'up' is the opposite of 'down', what is the opposite of 'hot'?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Warm", "Cold", "Fire", "Ice" },
+                    CorrectAnswers = new List<string> { "Cold" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "comparisons",
+                Difficulty = 2,
+                TargetTime = 25,
+                Content = new ProblemContent
+                {
+                    Question = "An elephant is bigger than a mouse. A mouse is bigger than an ant. What is biggest?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Elephant", "Mouse", "Ant" },
+                    CorrectAnswers = new List<string> { "Elephant" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "simple-analogies",
+                Difficulty = 3,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "Bird is to sky as fish is to __",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Tree", "Water", "Land", "Air" },
+                    CorrectAnswers = new List<string> { "Water" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "skip-counting",
+                Difficulty = 3,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "What comes next? 5, 10, 15, 20, __",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "25", "twenty-five" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "missing-numbers",
+                Difficulty = 3,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "Fill in the blank: 10, __, 30, 40",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "20", "twenty" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "odd-one-out-numbers",
+                Difficulty = 3,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "Which doesn't belong? 2, 4, 6, 7, 8",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "2", "4", "7", "8" },
+                    CorrectAnswers = new List<string> { "7" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "cause-effect",
+                Difficulty = 4,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "If you don't water a plant, it will __",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Grow taller", "Wilt/die", "Change color to blue", "Fly away" },
+                    CorrectAnswers = new List<string> { "Wilt/die" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "time-sequences",
+                Difficulty = 4,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "What comes after breakfast?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Midnight", "Lunch", "Dinner", "Sleep" },
+                    CorrectAnswers = new List<string> { "Lunch" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "negative-numbers-intro",
+                Difficulty = 5,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "What comes next? 3, 2, 1, 0, __",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "-1", "negative one", "negative 1" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "logic-grid-simple",
+                Difficulty = 5,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "Tom is taller than Sue. Sue is taller than Jan. Who is shortest?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Tom", "Sue", "Jan" },
+                    CorrectAnswers = new List<string> { "Jan" }
+                }
+            },
+
+            // ===== Additional Middle School Logic (Grades 6-8) =====
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "venn-diagrams",
+                Difficulty = 6,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "20 students: 12 play soccer, 10 play basketball, 5 play both. How many play neither?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "3", "three" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "logical-or-vs-and",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Statement: 'To pass, you need A grade OR perfect attendance.' Can you pass with B grade and perfect attendance?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Yes", "No", "Cannot determine" },
+                    CorrectAnswers = new List<string> { "Yes" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "percentages-logic",
+                Difficulty = 6,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "If 50% of students passed, and there are 40 students, how many passed?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "20", "twenty" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "ratio-reasoning",
+                Difficulty = 7,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "If 3 apples cost $2, how much do 9 apples cost?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "6", "$6", "6 dollars" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "proof-by-contradiction-intro",
+                Difficulty = 7,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "Prove: Not all birds can fly. Which example proves this?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Eagles fly", "Most birds fly", "Penguins cannot fly", "Birds have wings" },
+                    CorrectAnswers = new List<string> { "Penguins cannot fly" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "necessary-vs-sufficient",
+                Difficulty = 8,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "Having flour is necessary to bake bread. Is having flour sufficient to bake bread?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Yes - flour is enough", "No - you need other ingredients too", "Flour is not necessary" },
+                    CorrectAnswers = new List<string> { "No - you need other ingredients too" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "logical-equivalence",
+                Difficulty = 8,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "Which is logically equivalent to 'If it rains, I bring an umbrella'?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "If I don't bring umbrella, it's not raining", "If I bring umbrella, it's raining", "It always rains" },
+                    CorrectAnswers = new List<string> { "If I don't bring umbrella, it's not raining" }
+                }
+            },
+
+            // ===== Additional High School/College Logic (Grades 9-12) =====
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "propositional-logic",
+                Difficulty = 8,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "If P→Q and Q→R, which is valid?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "P→R", "R→P", "P→Q→R means nothing", "Cannot determine" },
+                    CorrectAnswers = new List<string> { "P→R" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "de-morgans-laws",
+                Difficulty = 9,
+                TargetTime = 110,
+                Content = new ProblemContent
+                {
+                    Question = "NOT(A AND B) is equivalent to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "(NOT A) OR (NOT B)", "(NOT A) AND (NOT B)", "A OR B", "Cannot simplify" },
+                    CorrectAnswers = new List<string> { "(NOT A) OR (NOT B)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "universal-quantifiers",
+                Difficulty = 9,
+                TargetTime = 120,
+                Content = new ProblemContent
+                {
+                    Question = "Statement: 'All X are Y' is FALSE. What must be true?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "No X are Y", "At least one X is not Y", "All X are not Y", "Cannot determine" },
+                    CorrectAnswers = new List<string> { "At least one X is not Y" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "pigeon-hole-principle",
+                Difficulty = 9,
+                TargetTime = 110,
+                Content = new ProblemContent
+                {
+                    Question = "If 10 pigeons occupy 9 holes, what must be true?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "One pigeon has no hole", "At least one hole has 2+ pigeons", "All holes are full", "Impossible scenario" },
+                    CorrectAnswers = new List<string> { "At least one hole has 2+ pigeons" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "induction-principle",
+                Difficulty = 10,
+                TargetTime = 150,
+                Content = new ProblemContent
+                {
+                    Question = "Mathematical induction requires proving:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Base case only", "Inductive step only", "Both base case AND inductive step (if P(k) then P(k+1))", "All cases individually" },
+                    CorrectAnswers = new List<string> { "Both base case AND inductive step (if P(k) then P(k+1))" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "existential-quantifiers",
+                Difficulty = 10,
+                TargetTime = 130,
+                Content = new ProblemContent
+                {
+                    Question = "NOT('There exists an X such that P(X)') is equivalent to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "For all X, NOT P(X)", "There exists X where NOT P(X)", "No X exists", "P(X) is always true" },
+                    CorrectAnswers = new List<string> { "For all X, NOT P(X)" }
+                }
+            },
+
+            // ===== Additional Diverse Topics =====
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "transitive-relations",
+                Difficulty = 5,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "If A>B and B>C, what is the relationship between A and C?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "A>C", "A<C", "A=C", "Cannot determine" },
+                    CorrectAnswers = new List<string> { "A>C" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "symmetry",
+                Difficulty = 4,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "If Alex is Brenda's sibling, what is Brenda to Alex?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Parent", "Sibling", "Child", "No relation" },
+                    CorrectAnswers = new List<string> { "Sibling" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "probability-basic-logic",
+                Difficulty = 6,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "If you flip a fair coin, what is the probability it lands on heads?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "0%", "25%", "50%", "100%" },
+                    CorrectAnswers = new List<string> { "50%" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "combinatorics-simple",
+                Difficulty = 7,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "How many ways can you arrange 3 books on a shelf?",
+                    Format = ProblemFormat.FreeResponse,
+                    CorrectAnswers = new List<string> { "6", "six" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "false-dichotomy",
+                Difficulty = 7,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "Statement: 'Either you're with us or against us.' What logical fallacy is this?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Ad hominem", "False dichotomy (ignoring middle options)", "Circular reasoning", "No fallacy" },
+                    CorrectAnswers = new List<string> { "False dichotomy (ignoring middle options)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "ad-hominem",
+                Difficulty = 7,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "Statement: 'Your argument is wrong because you're not an expert.' What fallacy?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Ad hominem (attacking person, not argument)", "Straw man", "False dichotomy", "No fallacy" },
+                    CorrectAnswers = new List<string> { "Ad hominem (attacking person, not argument)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "straw-man",
+                Difficulty = 7,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "Person A: 'We should have some gun regulations.' Person B: 'You want to ban all guns!' What fallacy?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Ad hominem", "Straw man (misrepresenting argument)", "Slippery slope", "No fallacy" },
+                    CorrectAnswers = new List<string> { "Straw man (misrepresenting argument)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "slippery-slope",
+                Difficulty = 8,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "'If we allow students to redo tests, soon they'll demand to redo everything, then stop trying.' What fallacy?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Ad hominem", "False dichotomy", "Slippery slope (assumes chain reaction without evidence)", "No fallacy" },
+                    CorrectAnswers = new List<string> { "Slippery slope (assumes chain reaction without evidence)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "circular-reasoning",
+                Difficulty = 8,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "'The Bible is true because it says it's the word of God, and God wouldn't lie.' What fallacy?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Ad hominem", "Circular reasoning (conclusion is premise)", "Straw man", "No fallacy" },
+                    CorrectAnswers = new List<string> { "Circular reasoning (conclusion is premise)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "appeal-to-authority",
+                Difficulty = 8,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "'This diet works because a celebrity endorses it.' What fallacy?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Ad hominem", "Appeal to authority (unqualified authority)", "False dichotomy", "No fallacy" },
+                    CorrectAnswers = new List<string> { "Appeal to authority (unqualified authority)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "appeal-to-emotion",
+                Difficulty = 8,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "'You should support this policy because think of the children!' (no evidence given). What fallacy?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Appeal to emotion (manipulating feelings instead of logic)", "Ad hominem", "Circular reasoning", "No fallacy" },
+                    CorrectAnswers = new List<string> { "Appeal to emotion (manipulating feelings instead of logic)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "red-herring",
+                Difficulty = 8,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "Debate about tax policy, opponent responds: 'But what about the border crisis?' What fallacy?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Ad hominem", "Red herring (introducing irrelevant topic to distract)", "Straw man", "No fallacy" },
+                    CorrectAnswers = new List<string> { "Red herring (introducing irrelevant topic to distract)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "bandwagon-fallacy",
+                Difficulty = 6,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "'Everyone believes this, so it must be true.' What fallacy?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Bandwagon (appeal to popularity)", "Ad hominem", "False dichotomy", "No fallacy" },
+                    CorrectAnswers = new List<string> { "Bandwagon (appeal to popularity)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "hasty-generalization",
+                Difficulty = 7,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "'I met two rude people from that city, so everyone there must be rude.' What fallacy?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Hasty generalization (insufficient evidence)", "Ad hominem", "Slippery slope", "No fallacy" },
+                    CorrectAnswers = new List<string> { "Hasty generalization (insufficient evidence)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "post-hoc-fallacy",
+                Difficulty = 8,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "'I wore my lucky socks and won the game, so the socks caused the win.' What fallacy?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Post hoc ergo propter hoc (false cause: correlation ≠ causation)", "Circular reasoning", "Ad hominem", "No fallacy" },
+                    CorrectAnswers = new List<string> { "Post hoc ergo propter hoc (false cause: correlation ≠ causation)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "tu-quoque",
+                Difficulty = 8,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "'You say I shouldn't smoke, but you smoke too!' What fallacy?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Tu quoque (you too - deflecting by pointing out hypocrisy)", "Ad hominem", "Straw man", "No fallacy" },
+                    CorrectAnswers = new List<string> { "Tu quoque (you too - deflecting by pointing out hypocrisy)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "no-true-scotsman",
+                Difficulty = 9,
+                TargetTime = 110,
+                Content = new ProblemContent
+                {
+                    Question = "'No scientist denies this.' 'But Dr. X denies it.' 'Well, no TRUE scientist denies it.' What fallacy?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "No true Scotsman (redefining category to exclude counterexamples)", "Circular reasoning", "Ad hominem", "No fallacy" },
+                    CorrectAnswers = new List<string> { "No true Scotsman (redefining category to exclude counterexamples)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "burden-of-proof",
+                Difficulty = 9,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "'Invisible unicorns exist. Prove they don't!' Who has the burden of proof?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Person claiming unicorns exist", "Person denying unicorns exist", "Both equally", "Neither" },
+                    CorrectAnswers = new List<string> { "Person claiming unicorns exist" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "begging-the-question",
+                Difficulty = 9,
+                TargetTime = 110,
+                Content = new ProblemContent
+                {
+                    Question = "'Reading is important because it's essential.' This is circular reasoning called:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Begging the question (assuming what you're trying to prove)", "Ad hominem", "Slippery slope", "No fallacy" },
+                    CorrectAnswers = new List<string> { "Begging the question (assuming what you're trying to prove)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "middle-excluded",
+                Difficulty = 10,
+                TargetTime = 120,
+                Content = new ProblemContent
+                {
+                    Question = "Law of Excluded Middle states:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Every statement is either true or false (no middle)", "Some statements are neither true nor false", "All statements are true", "Logic doesn't apply to middle values" },
+                    CorrectAnswers = new List<string> { "Every statement is either true or false (no middle)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "non-contradiction",
+                Difficulty = 10,
+                TargetTime = 110,
+                Content = new ProblemContent
+                {
+                    Question = "Law of Non-Contradiction states:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Never disagree", "A statement cannot be both true and false simultaneously", "All contradictions are false", "Contradictions don't exist" },
+                    CorrectAnswers = new List<string> { "A statement cannot be both true and false simultaneously" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "identity-law",
+                Difficulty = 10,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "Law of Identity states:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Everything is identical", "A thing is identical to itself (A=A)", "Identity can change", "A=B always" },
+                    CorrectAnswers = new List<string> { "A thing is identical to itself (A=A)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "boolean-algebra",
+                Difficulty = 9,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "In Boolean algebra, A OR (NOT A) always equals:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "TRUE", "FALSE", "A", "NOT A" },
+                    CorrectAnswers = new List<string> { "TRUE" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "boolean-simplification",
+                Difficulty = 9,
+                TargetTime = 110,
+                Content = new ProblemContent
+                {
+                    Question = "A AND (NOT A) always equals:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "TRUE", "FALSE", "A", "NOT A" },
+                    CorrectAnswers = new List<string> { "FALSE" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "xor-exclusive-or",
+                Difficulty = 9,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "A XOR B (exclusive or) is true when:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Both are true", "Exactly one is true", "Both are false", "At least one is true" },
+                    CorrectAnswers = new List<string> { "Exactly one is true" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "implies-truth-table",
+                Difficulty = 10,
+                TargetTime = 120,
+                Content = new ProblemContent
+                {
+                    Question = "In logic, 'False implies anything' means: If A is false, then 'A implies B' is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Always true (vacuously true)", "Always false", "Depends on B", "Undefined" },
+                    CorrectAnswers = new List<string> { "Always true (vacuously true)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "biconditional",
+                Difficulty = 10,
+                TargetTime = 110,
+                Content = new ProblemContent
+                {
+                    Question = "'A if and only if B' (A ↔ B) is true when:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "A and B have the same truth value", "A is true", "B is true", "A implies B" },
+                    CorrectAnswers = new List<string> { "A and B have the same truth value" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "predicate-logic-intro",
+                Difficulty = 10,
+                TargetTime = 130,
+                Content = new ProblemContent
+                {
+                    Question = "In predicate logic, ∀x P(x) means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "For all x, P(x) is true", "There exists an x where P(x) is true", "P(x) is always false", "x is variable" },
+                    CorrectAnswers = new List<string> { "For all x, P(x) is true" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "existential-intro",
+                Difficulty = 10,
+                TargetTime = 130,
+                Content = new ProblemContent
+                {
+                    Question = "In predicate logic, ∃x P(x) means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "For all x, P(x) is true", "There exists at least one x where P(x) is true", "P(x) is never true", "x must be unique" },
+                    CorrectAnswers = new List<string> { "There exists at least one x where P(x) is true" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "russell-paradox-intro",
+                Difficulty = 10,
+                TargetTime = 150,
+                Content = new ProblemContent
+                {
+                    Question = "Russell's Paradox: 'The set of all sets that don't contain themselves' creates a paradox because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "It's too big", "If it contains itself, it shouldn't; if it doesn't, it should (contradiction)", "Sets can't contain sets", "No paradox exists" },
+                    CorrectAnswers = new List<string> { "If it contains itself, it shouldn't; if it doesn't, it should (contradiction)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "soundness-vs-validity",
+                Difficulty = 10,
+                TargetTime = 140,
+                Content = new ProblemContent
+                {
+                    Question = "A valid argument with true premises is called:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Sound", "Strong", "Cogent", "Complete" },
+                    CorrectAnswers = new List<string> { "Sound" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "formal-systems",
+                Difficulty = 10,
+                TargetTime = 150,
+                Content = new ProblemContent
+                {
+                    Question = "Gödel's Incompleteness Theorem (simplified) states that in any consistent formal system:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Everything is provable", "Some true statements cannot be proven within the system", "Nothing is provable", "The system is complete" },
+                    CorrectAnswers = new List<string> { "Some true statements cannot be proven within the system" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "halting-problem",
+                Difficulty = 10,
+                TargetTime = 150,
+                Content = new ProblemContent
+                {
+                    Question = "The Halting Problem proves:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "All programs halt", "No programs halt", "No general algorithm can determine if any program halts", "All algorithms are solvable" },
+                    CorrectAnswers = new List<string> { "No general algorithm can determine if any program halts" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "occams-razor",
+                Difficulty = 7,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "Occam's Razor principle states:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Always use complicated explanations", "The simplest explanation is usually correct (given equal evidence)", "Cut all assumptions", "Never simplify" },
+                    CorrectAnswers = new List<string> { "The simplest explanation is usually correct (given equal evidence)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "tautology",
+                Difficulty = 9,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "A tautology in logic is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Always false", "Always true regardless of truth values of components", "Sometimes true", "Redundant statement" },
+                    CorrectAnswers = new List<string> { "Always true regardless of truth values of components" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "contradiction-logic",
+                Difficulty = 9,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "A logical contradiction (like 'A AND NOT A') is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Always true", "Always false", "Sometimes true", "Undefined" },
+                    CorrectAnswers = new List<string> { "Always false" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Logic,
+                MicroTopic = "contingency",
+                Difficulty = 9,
+                TargetTime = 100,
+                Content = new ProblemContent
+                {
+                    Question = "A contingent statement in logic is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Always true", "Always false", "Can be either true or false depending on circumstances", "Contradictory" },
+                    CorrectAnswers = new List<string> { "Can be either true or false depending on circumstances" }
+                }
             }
         };
     }
