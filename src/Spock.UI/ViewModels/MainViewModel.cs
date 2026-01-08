@@ -15,13 +15,15 @@ public class MainViewModel : INotifyPropertyChanged
     private readonly ApprovalEngine _approvalEngine;
     private readonly SpockDialogueEngine _dialogueEngine;
     private readonly WeaknessTracker _weaknessTracker;
-    private readonly Random _random = new();
+    private readonly Random _random;
     private readonly DebugServer? _debugServer;
+    private int _randomSeedCounter = 0; // Counter for additional entropy
     
     // Comprehensive problem bank - 150+ problems across all domains
     private readonly List<Problem> _problemBank;
     private int _currentProblemIndex = -1; // Start at -1 so first LoadNextProblem goes to 0
     private Problem? _currentProblem;
+    private string? _lastProblemId = null; // Track last problem to prevent immediate repeats
     private Dictionary<string, int> _problemAttempts = new(); // Track attempts per problem
     
     private string _currentQuestion = "";
@@ -50,6 +52,10 @@ public class MainViewModel : INotifyPropertyChanged
         _approvalEngine = new ApprovalEngine();
         _dialogueEngine = new SpockDialogueEngine();
         _weaknessTracker = new WeaknessTracker();
+        
+        // Initialize Random with strong seed (timestamp + process ID + counter)
+        int seed = unchecked((int)((DateTime.Now.Ticks & 0xFFFFFFFF) ^ (Environment.ProcessId << 16)));
+        _random = new Random(seed);
         
         // Load comprehensive problem bank from ProblemBank class
         _problemBank = ProblemBank.GetAllProblems();
@@ -401,8 +407,21 @@ public class MainViewModel : INotifyPropertyChanged
             return;
         }
         
+        // Advance to next problem
         _currentProblemIndex = (_currentProblemIndex + 1) % _filteredProblems.Count;
         _currentProblem = _filteredProblems[_currentProblemIndex];
+        
+        // If we have more than one problem and got the same one as last time, skip it
+        // This prevents the same question appearing twice in a row
+        if (_filteredProblems.Count > 1 && _lastProblemId != null && _currentProblem.Id == _lastProblemId)
+        {
+            // Move to next problem
+            _currentProblemIndex = (_currentProblemIndex + 1) % _filteredProblems.Count;
+            _currentProblem = _filteredProblems[_currentProblemIndex];
+        }
+        
+        // Track this problem to prevent immediate repeats
+        _lastProblemId = _currentProblem.Id;
         
         // Update current domain for color/emoji display
         CurrentDomain = _currentProblem.Domain;
@@ -499,13 +518,32 @@ public class MainViewModel : INotifyPropertyChanged
         // Convert to list and shuffle
         _filteredProblems = filtered.ToList();
         
-        // Shuffle using Fisher-Yates algorithm
+        // Strong shuffle using Fisher-Yates algorithm with enhanced randomness
+        // Add entropy from counter to ensure different order each time
+        _randomSeedCounter++;
+        var shuffleRandom = new Random(unchecked((int)((DateTime.Now.Ticks & 0xFFFFFFFF) ^ _randomSeedCounter)));
+        
         for (int i = _filteredProblems.Count - 1; i > 0; i--)
         {
-            int j = _random.Next(i + 1);
+            int j = shuffleRandom.Next(i + 1);
             var temp = _filteredProblems[i];
             _filteredProblems[i] = _filteredProblems[j];
             _filteredProblems[j] = temp;
+        }
+        
+        // If we had a last problem and it's in the filtered list, make sure it's not first
+        // This prevents same question appearing when switching filters
+        if (_lastProblemId != null && _filteredProblems.Count > 1)
+        {
+            var lastProblemNewIndex = _filteredProblems.FindIndex(p => p.Id == _lastProblemId);
+            if (lastProblemNewIndex == 0)
+            {
+                // Swap it with a random position (not first)
+                int swapIndex = shuffleRandom.Next(1, _filteredProblems.Count);
+                var temp = _filteredProblems[0];
+                _filteredProblems[0] = _filteredProblems[swapIndex];
+                _filteredProblems[swapIndex] = temp;
+            }
         }
         
         // Reset current problem index and state when filters change
