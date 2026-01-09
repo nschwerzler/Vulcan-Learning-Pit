@@ -9196,6 +9196,450 @@ public static class ProblemBank
                     CorrectAnswers = new List<string> { "Back and neck pain" }
                 }
             },
+
+            // ===== Additional Middle School (Grades 6-8): Health Literacy & Systems =====
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "circulatory-system",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Blood carries oxygen to cells and removes which waste product?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Oxygen", "Carbon dioxide", "Water only", "Nutrients" },
+                    CorrectAnswers = new List<string> { "Carbon dioxide" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "hormones-basics",
+                Difficulty = 6,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Which gland is known as the 'master gland' that controls other hormones?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Thyroid", "Pituitary", "Adrenal", "Pancreas" },
+                    CorrectAnswers = new List<string> { "Pituitary" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "stress-management",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Which technique is proven to reduce stress?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Avoiding all challenges", "Deep breathing and meditation", "Sleeping all day", "Ignoring problems" },
+                    CorrectAnswers = new List<string> { "Deep breathing and meditation" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "food-safety",
+                Difficulty = 6,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Raw chicken should be cooked to what internal temperature to be safe?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "120°F", "145°F", "165°F", "180°F" },
+                    CorrectAnswers = new List<string> { "165°F" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "antibiotic-awareness",
+                Difficulty = 7,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Antibiotics are effective against:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Viruses only", "Bacteria only", "Both viruses and bacteria", "Neither" },
+                    CorrectAnswers = new List<string> { "Bacteria only" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "bmi-understanding",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "BMI (Body Mass Index) is calculated using:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Only weight", "Only height", "Weight and height", "Age only" },
+                    CorrectAnswers = new List<string> { "Weight and height" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "concussion-awareness",
+                Difficulty = 7,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "If someone hits their head hard and feels dizzy or confused, they should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Keep playing sports", "Take a nap immediately", "See a doctor right away", "Ignore it" },
+                    CorrectAnswers = new List<string> { "See a doctor right away" }
+                }
+            },
+
+            // ===== Additional High School (Grades 9-12): Advanced Topics =====
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "cardiovascular-health",
+                Difficulty = 8,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "Which factor is most controllable in preventing heart disease?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Age", "Genetics", "Diet and exercise", "Gender" },
+                    CorrectAnswers = new List<string> { "Diet and exercise" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "sleep-stages",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "REM sleep is important for:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Only muscle repair", "Memory consolidation and learning", "Digestion only", "Temperature regulation" },
+                    CorrectAnswers = new List<string> { "Memory consolidation and learning" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "metabolism-basics",
+                Difficulty = 8,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "Basal Metabolic Rate (BMR) is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Calories burned during exercise", "Calories needed at rest", "Only digestion calories", "Maximum heart rate" },
+                    CorrectAnswers = new List<string> { "Calories needed at rest" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "infectious-diseases",
+                Difficulty = 9,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "Herd immunity occurs when:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "One person is immune", "Only sick people are immune", "Enough population is immune to stop spread", "Everyone gets sick" },
+                    CorrectAnswers = new List<string> { "Enough population is immune to stop spread" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "neuroscience-basics",
+                Difficulty = 9,
+                TargetTime = 80,
+                Content = new ProblemContent
+                {
+                    Question = "The prefrontal cortex, which handles decision-making, fully develops around age:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "12", "18", "25", "30" },
+                    CorrectAnswers = new List<string> { "25" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "cancer-biology",
+                Difficulty = 9,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "Cancer develops when cells:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Stop dividing", "Divide uncontrollably", "Die too quickly", "Only grow in one area" },
+                    CorrectAnswers = new List<string> { "Divide uncontrollably" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "epidemiology-basics",
+                Difficulty = 10,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "The R0 (R-naught) value of a disease represents:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Death rate", "Average infections from one case", "Cure rate", "Vaccine effectiveness" },
+                    CorrectAnswers = new List<string> { "Average infections from one case" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "pharmacology-intro",
+                Difficulty = 10,
+                TargetTime = 85,
+                Content = new ProblemContent
+                {
+                    Question = "The half-life of a drug refers to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Time to work", "Time for 50% to leave body", "Duration of effect", "Storage life" },
+                    CorrectAnswers = new List<string> { "Time for 50% to leave body" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "genetics-health",
+                Difficulty = 10,
+                TargetTime = 90,
+                Content = new ProblemContent
+                {
+                    Question = "BRCA1 and BRCA2 gene mutations increase risk for:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Diabetes", "Breast and ovarian cancer", "Heart disease", "Alzheimer's" },
+                    CorrectAnswers = new List<string> { "Breast and ovarian cancer" }
+                }
+            },
+
+            // ===== Practical Health Skills (Grades 4-8) =====
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "cpr-awareness",
+                Difficulty = 5,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "If someone collapses and isn't breathing, what should you do first?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Give them water", "Call 911 immediately", "Wait and watch", "Move them around" },
+                    CorrectAnswers = new List<string> { "Call 911 immediately" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "choking-response",
+                Difficulty = 6,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "If someone is choking but can still cough, you should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Hit their back hard", "Encourage them to keep coughing", "Give abdominal thrusts immediately", "Give them water" },
+                    CorrectAnswers = new List<string> { "Encourage them to keep coughing" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "burn-treatment",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "For a minor burn, you should immediately:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Apply ice directly", "Run cool (not cold) water over it", "Put butter on it", "Pop any blisters" },
+                    CorrectAnswers = new List<string> { "Run cool (not cold) water over it" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "allergic-reactions",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Severe allergic reactions (anaphylaxis) are treated with:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Aspirin", "Epinephrine (EpiPen)", "Antacids", "Cough syrup" },
+                    CorrectAnswers = new List<string> { "Epinephrine (EpiPen)" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "heat-illness",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Signs of heat exhaustion include:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Feeling cold only", "Heavy sweating, weakness, nausea", "Dry skin only", "Increased energy" },
+                    CorrectAnswers = new List<string> { "Heavy sweating, weakness, nausea" }
+                }
+            },
+
+            // ===== Mental Health & Wellness (Grades 6-12) =====
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "anxiety-management",
+                Difficulty = 7,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Which is a healthy coping strategy for anxiety?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Avoiding all stressful situations", "Progressive muscle relaxation and exercise", "Substance use", "Isolating from friends" },
+                    CorrectAnswers = new List<string> { "Progressive muscle relaxation and exercise" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "self-esteem",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Healthy self-esteem comes from:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Only external approval", "Comparing yourself to others constantly", "Self-acceptance and achievable goals", "Being perfect at everything" },
+                    CorrectAnswers = new List<string> { "Self-acceptance and achievable goals" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "social-media-health",
+                Difficulty = 7,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Excessive social media use has been linked to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Better sleep", "Increased anxiety and depression", "Improved focus", "Better relationships" },
+                    CorrectAnswers = new List<string> { "Increased anxiety and depression" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "bullying-prevention",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "If you witness bullying, you should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Join in", "Ignore it", "Tell a trusted adult and support the victim", "Film it for social media" },
+                    CorrectAnswers = new List<string> { "Tell a trusted adult and support the victim" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "resilience-building",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "Resilience is the ability to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Never face problems", "Bounce back from challenges", "Avoid all stress", "Be happy always" },
+                    CorrectAnswers = new List<string> { "Bounce back from challenges" }
+                }
+            },
+
+            // ===== Nutrition Deep Dive (Grades 7-12) =====
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "protein-sources",
+                Difficulty = 7,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Which is a complete protein source containing all essential amino acids?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "White rice only", "Quinoa", "Corn only", "Lettuce" },
+                    CorrectAnswers = new List<string> { "Quinoa" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "vitamins-function",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "Vitamin D is essential for:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Only vision", "Calcium absorption and bone health", "Only hair growth", "Taste sensation" },
+                    CorrectAnswers = new List<string> { "Calcium absorption and bone health" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "fiber-benefits",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Dietary fiber helps with:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Only taste", "Digestion and blood sugar regulation", "Only calories", "Muscle building" },
+                    CorrectAnswers = new List<string> { "Digestion and blood sugar regulation" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "hydration-science",
+                Difficulty = 8,
+                TargetTime = 70,
+                Content = new ProblemContent
+                {
+                    Question = "Dehydration affects the body by:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Improving performance", "Reducing blood volume and cognitive function", "Increasing energy", "Having no effect" },
+                    CorrectAnswers = new List<string> { "Reducing blood volume and cognitive function" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "eating-disorders-awareness",
+                Difficulty = 9,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "Eating disorders are:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Just about food", "Serious mental health conditions requiring treatment", "Only affect appearance", "Easily fixed with willpower" },
+                    CorrectAnswers = new List<string> { "Serious mental health conditions requiring treatment" }
+                }
+            },
             new Problem
             {
                 Domain = Domain.Health,
