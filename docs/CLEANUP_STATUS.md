@@ -48,14 +48,14 @@ All hardcoded problem generation methods:
 ## Next Steps Required
 
 ### Option 1: Import Existing Database (Recommended)
-If you have a populated `spock.db` file from before the cleanup:
+If you have a populated `VulcanKnowledge.db` file from before the cleanup:
 
 ```powershell
 # Copy to development location
-Copy-Item path\to\populated\spock.db bin\Debug\net10.0-windows\spock.db
+Copy-Item path\to\populated\VulcanKnowledge.db bin\Debug\net10.0-windows\VulcanKnowledge.db
 
 # Export for version control
-sqlite3 spock.db ".dump Problems SolutionGuidances" > db_seed.sql
+sqlite3 VulcanKnowledge.db ".dump Problems SolutionGuidances" > db_seed.sql
 ```
 
 ### Option 2: Recreate 100 Health Problems
@@ -107,7 +107,7 @@ Modify `ProblemBankTests.cs` to create minimal test seed data directly in the te
 
 Before proceeding with test fixes or adding more problems, you should:
 
-1. ✅ Decide if you have an existing populated `spock.db` file to use as baseline
+1. ✅ Decide if you have an existing populated `VulcanKnowledge.db` file to use as baseline
 2. ✅ If yes: Export it to SQL for version control (`db_seed.sql`)
 3. ✅ If no: Determine if the 100 health problems are critical to recreate
 4. ✅ Update tests to either use exported SQL data or create minimal test fixtures

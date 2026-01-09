@@ -12,7 +12,7 @@ As of January 2026, the Vulcan Learning Pit project uses **SQLite as the single 
 ## Database Location
 
 The SQLite database file is located at:
-- **Development & Production:** `database/spock.db` (workspace root)
+- **Development & Production:** `database/VulcanKnowledge.db` (workspace root)
 
 The application automatically creates the `database\` folder if it doesn't exist.
 
@@ -23,18 +23,18 @@ If you need to set up a fresh database instance, you have several options:
 ### Option 1: Copy Existing Database (Recommended)
 ```powershell
 # Copy the populated database file to workspace root
-Copy-Item "path/to/populated/spock.db" -Destination "database/spock.db"
+Copy-Item "path/to/populated/VulcanKnowledge.db" -Destination "database/VulcanKnowledge.db"
 ```
 
 ### Option 2: SQL Import
 1. Export problems from existing database:
    ```powershell
-   sqlite3 spock.db ".dump Problems SolutionGuidances" > problems_export.sql
+   sqlite3 VulcanKnowledge.db ".dump Problems SolutionGuidances" > problems_export.sql
    ```
 
 2. Import to new database:
    ```powershell
-   sqlite3 new_spock.db < problems_export.sql
+   sqlite3 new_VulcanKnowledge.db < problems_export.sql
    ```
 
 ### Option 3: EF Core Migrations (Future Enhancement)
@@ -102,7 +102,7 @@ The `GetAllProblemsFromCode()` method remains but throws `NotSupportedException`
 ```powershell
 # Create dated backup
 $date = Get-Date -Format "yyyyMMdd_HHmmss"
-Copy-Item "database/spock.db" -Destination "database/backups/spock_$date.db"
+Copy-Item "database/VulcanKnowledge.db" -Destination "database/backups/VulcanKnowledge_$date.db"
 ```
 
 ## Future Enhancements
@@ -118,7 +118,7 @@ Consider implementing:
 
 ### Database Not Found
 If the application can't find the database:
-1. Check that `database/spock.db` exists in the workspace root
+1. Check that `database/VulcanKnowledge.db` exists in the workspace root
 2. Copy from backup or another environment
 3. Ensure proper file permissions
 
@@ -131,7 +131,7 @@ If database has no problems:
 ### Database Corruption
 If database is corrupted:
 1. Restore from backup
-2. Run SQLite integrity check: `sqlite3 database/spock.db "PRAGMA integrity_check;"`
+2. Run SQLite integrity check: `sqlite3 database/VulcanKnowledge.db "PRAGMA integrity_check;"`
 3. Export and reimport data if recoverable
 
 ## Contact

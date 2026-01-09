@@ -6,14 +6,14 @@ namespace Spock.Data;
 /// <summary>
 /// Database seeding and management utilities.
 /// NOTE: Legacy hardcoded problem seeding has been removed.
-/// Database should be populated from existing spock.db file or SQL import scripts.
+/// Database should be populated from existing VulcanKnowledge.db file or SQL import scripts.
 /// </summary>
 public static class DatabaseSeeder
 {
     /// <summary>
     /// Ensures database is created. Does NOT seed problems from code (legacy method removed).
     /// For fresh database setup:
-    /// 1. Copy an existing populated spock.db file to the application directory
+    /// 1. Copy an existing populated VulcanKnowledge.db file to the application directory
     /// 2. Import problems from SQL export file
     /// 3. Use EF Core migrations with seed data
     /// 
@@ -35,7 +35,7 @@ public static class DatabaseSeeder
         // No problems in database - user needs to populate it
         Console.WriteLine("WARNING: Database is empty. No problems found.");
         Console.WriteLine("To populate the database:");
-        Console.WriteLine("  1. Copy an existing spock.db file to the application directory");
+        Console.WriteLine("  1. Copy an existing VulcanKnowledge.db file to the application directory");
         Console.WriteLine("  2. Import problems from SQL export file");
         Console.WriteLine("  3. Use EF Core migrations with seed data");
         Console.WriteLine();

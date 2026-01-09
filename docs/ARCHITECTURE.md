@@ -68,7 +68,7 @@ Vulcan Learning Pit is an adaptive educational platform that uses psychological 
                        │
                   ┌────▼─────┐
                   │  SQLite  │
-                  │ spock.db │
+                  │ VulcanKnowledge.db │
                   └──────────┘
 ```
 
@@ -162,7 +162,7 @@ Vulcan Learning Pit is an adaptive educational platform that uses psychological 
 
 **Technology**: Entity Framework Core 10.0.1 + SQLite
 
-**Database**: `spock.db` created in application directory on first run
+**Database**: `VulcanKnowledge.db` created in application directory on first run
 
 **Responsibilities**:
 - Database schema management
@@ -727,7 +727,7 @@ new Problem {
 │  └───────────────────────────┘  │
 │                                  │
 │  Local Storage:                  │
-│  [AppDir]/spock.db (552+ problems)│
+│  [AppDir]/VulcanKnowledge.db (552+ problems)│
 │  %APPDATA%/Spock/ (future sessions)│
 └─────────────────────────────────┘
 ```

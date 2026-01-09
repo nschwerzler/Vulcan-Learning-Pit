@@ -134,7 +134,7 @@ public static class ProblemBank
     /// All hardcoded problem definitions have been removed to reduce codebase from ~11,800 to ~130 lines.
     /// 
     /// For fresh database setup:
-    /// 1. Copy an existing populated spock.db file
+    /// 1. Copy an existing populated VulcanKnowledge.db file
     /// 2. Use SQL export/import scripts
     /// 3. Use EF Core migrations with seed data
     /// 
