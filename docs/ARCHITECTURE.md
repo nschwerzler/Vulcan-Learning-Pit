@@ -1,7 +1,7 @@
 # Vulcan Learning Pit - Architecture Documentation
 
-**Last Updated**: 2026-01-02
-**Version**: 1.0
+**Last Updated**: 2026-01-09
+**Version**: 1.1
 **Status**: Production Ready
 
 ## Table of Contents
@@ -61,14 +61,14 @@ Vulcan Learning Pit is an adaptive educational platform that uses psychological 
 ┌──────────────────────┴──────────────────────────────────────┐
 │                    Data Access Layer                        │
 │  ┌──────────────┐  ┌─────────────────┐  ┌──────────────┐  │
-│  │ StudentData  │  │ SessionService  │  │ SpockDbCtx   │  │
-│  │ Service      │  │                 │  │ (EF Core)    │  │
+│  │ StudentData  │  │ ProblemBank     │  │ SpockDbCtx   │  │
+│  │ Service      │  │ (552+ problems) │  │ (EF Core)    │  │
 │  └──────────────┘  └─────────────────┘  └──────────────┘  │
 └──────────────────────┬──────────────────────────────────────┘
                        │
                   ┌────▼─────┐
                   │  SQLite  │
-                  │ Database │
+                  │ spock.db │
                   └──────────┘
 ```
 
@@ -153,19 +153,24 @@ Vulcan Learning Pit is an adaptive educational platform that uses psychological 
 **Purpose**: Database operations and persistence
 
 **Components**:
-- `SpockDbContext` - Entity Framework DbContext
+- `SpockDbContext` - Entity Framework DbContext with student data and problem entities
 - `StudentDataService` - Student CRUD operations
-- `SessionService` - Session management
+- `ProblemBank` - Async problem query interface (552+ problems)
+- `DatabaseSeeder` - Auto-seeds problem bank from legacy code on first run
 
 **Patterns**: Repository, Unit of Work
 
 **Technology**: Entity Framework Core 10.0.1 + SQLite
 
+**Database**: `spock.db` created in application directory on first run
+
 **Responsibilities**:
 - Database schema management
-- CRUD operations
-- Query optimization
+- CRUD operations for student data and sessions
+- **Problem bank queries**: Indexed by Domain, Difficulty, MicroTopic
+- Query optimization with async/await
 - Transaction management
+- Automatic database seeding
 
 ---
 
@@ -248,6 +253,46 @@ int CurrentStreak          // Current correct streak
 int CurrentThreshold       // Target for next approval (3-7)
 List<ApprovalEvent> History // All approvals
 ```
+
+### ProblemBank
+
+**File**: `src/Spock.Data/ProblemBank.cs`
+
+**Purpose**: Async problem query interface for 552+ problems in SQLite database
+
+**Database**: Problems stored in `ProblemEntity` table with indexes on Domain, Difficulty, MicroTopic
+
+**Key Methods**:
+```csharp
+// Get all problems from database
+Task<List<Problem>> GetAllProblemsAsync(CancellationToken ct)
+
+// Get problems by domain (Math, Logic, Reading, Science, etc.)
+Task<List<Problem>> GetProblemsByDomainAsync(string domain, CancellationToken ct)
+
+// Get problems by difficulty (1-5)
+Task<List<Problem>> GetProblemsByDifficultyAsync(int difficulty, CancellationToken ct)
+
+// Get problems by micro-topic (e.g., "fractions-addition", "modus-ponens")
+Task<List<Problem>> GetProblemsByMicroTopicAsync(string microTopic, CancellationToken ct)
+```
+
+**Initialization**:
+```csharp
+// Called from App.xaml.cs on startup
+ProblemBank.Initialize(dbContext);
+await DatabaseSeeder.SeedDatabaseAsync(dbContext, ct);
+```
+
+**Performance**:
+- Indexed queries for fast lookups
+- Async/await prevents UI blocking
+- In-memory caching for test scenarios
+
+**Content Migration**:
+- Original 11,400-line hardcoded file migrated to structured database
+- `DatabaseSeeder.cs` preserves legacy data as fallback
+- Future content additions via SQL inserts or admin tool
 
 ### WeaknessTracker
 
@@ -602,8 +647,53 @@ Currently uses manual instantiation; DI recommended for production
 
 ### Adding New Domains
 1. Add enum value to `Domain.cs`
-2. Create problem content for new domain
+2. Create problem content for new domain (see Problem Content Management below)
 3. Update `TopicScheduler` interleaving logic
+
+### Problem Content Management
+
+**Adding Problems to Database**:
+
+**Option 1: SQL Insert**
+```sql
+INSERT INTO Problems (Id, Domain, MicroTopic, Difficulty, QuestionText, Options, CorrectAnswer)
+VALUES (
+    'new-problem-id',
+    'Math',
+    'algebra-equations',
+    3,
+    'Solve for x: 2x + 5 = 15',
+    'A) 5|B) 10|C) 15|D) 20',
+    'A) 5'
+);
+```
+
+**Option 2: DatabaseSeeder Extension**
+```csharp
+// Add to DatabaseSeeder.cs GetAllProblemsFromCode() method
+new Problem {
+    Id = "new-problem-id",
+    Domain = Domain.Math,
+    MicroTopic = "algebra-equations",
+    Difficulty = 3,
+    QuestionText = "Solve for x: 2x + 5 = 15",
+    Options = ["A) 5", "B) 10", "C) 15", "D) 20"],
+    CorrectAnswer = "A) 5"
+}
+```
+
+**Option 3: Admin Tool (Future)**
+- GUI for adding/editing problems
+- CSV import for bulk content
+- Preview and validation
+
+**Content Expansion Roadmap**:
+- ✅ Math: 100+ problems (Grade 4-12)
+- ✅ Logic: 50+ problems (propositional, syllogisms)
+- ✅ Reading: 20+ comprehension passages
+- ✅ Science: 30+ questions (physics, biology, chemistry)
+- 🚧 WinPants, Washington History, Bitcoin, Minecraft, Health (planned)
+- 📋 College-level advanced content (calculus, discrete math, etc.)
 
 ### Custom Approval Strategies
 1. Extend `ApprovalEngine` or create new engine
@@ -633,13 +723,19 @@ Currently uses manual instantiation; DI recommended for production
 │  │  ├─ Spock.Engine.dll      │  │
 │  │  ├─ Spock.Core.dll        │  │
 │  │  ├─ Spock.Data.dll        │  │
-│  │  └─ SQLite DB files       │  │
+│  │  └─ SQLite dependencies   │  │
 │  └───────────────────────────┘  │
 │                                  │
 │  Local Storage:                  │
-│  %APPDATA%/Spock/spock.db       │
+│  [AppDir]/spock.db (552+ problems)│
+│  %APPDATA%/Spock/ (future sessions)│
 └─────────────────────────────────┘
 ```
+
+**Database Location**:
+- Development: `bin/Debug/net10.0-windows/spock.db`
+- Production: Same directory as executable
+- Auto-created on first run with full problem bank seeded
 
 ### Recommended Packaging
 - **ClickOnce**: Auto-updating .NET deployment
@@ -721,6 +817,49 @@ Aggregate anonymized metrics for research:
 - Common error patterns
 - Optimal approval frequency
 
+### 6. Problem Bank Content Expansion
+Continue expanding the SQLite problem bank:
+- Add more domains (History, Bitcoin, Minecraft, Health)
+- Increase difficulty range (currently Grade 4-College)
+- Add solution guidance for all problems
+- Community-contributed content pipeline
+
+---
+
+## Database Schema
+
+### Problem Bank Tables
+
+**ProblemEntity** (552+ problems):
+```sql
+CREATE TABLE Problems (
+    Id TEXT PRIMARY KEY,
+    Domain TEXT NOT NULL,
+    MicroTopic TEXT NOT NULL,
+    Difficulty INTEGER NOT NULL,
+    QuestionText TEXT NOT NULL,
+    Options TEXT NULL,
+    CorrectAnswer TEXT NOT NULL,
+    SolutionGuidances TEXT NULL
+);
+CREATE INDEX IX_Problems_Domain ON Problems (Domain);
+CREATE INDEX IX_Problems_Difficulty ON Problems (Difficulty);
+CREATE INDEX IX_Problems_MicroTopic ON Problems (MicroTopic);
+```
+
+**SolutionGuidanceEntity**:
+- `HintMinimal` - Gentle nudge
+- `StepsDetailed` - Step-by-step walkthrough
+- `WorkedExample` - Complete solution
+- `KeyPrinciple` - Underlying concept
+- `CommonMistake` - What to avoid
+
+### Student Data Tables
+
+**StudentProfiles, Sessions, ProblemAttempts, WeaknessRecords, ApprovalEvents**
+- See EF Core entities in `src/Spock.Core/Models/`
+- Automatically migrated and maintained by EF Core
+
 ---
 
 ## Conclusion
@@ -729,7 +868,7 @@ The Vulcan Learning Pit architecture is designed for:
 - **Reliability**: Thread-safe, async-first, fully tested
 - **Maintainability**: Clear separation of concerns, well-documented
 - **Extensibility**: Plugin points for new engines and domains
-- **Performance**: Efficient algorithms, optimized queries
+- **Performance**: Efficient algorithms, optimized database queries
 - **Scalability**: Handles hundreds of students on single machine
 
 **Key Strengths**:
@@ -737,6 +876,7 @@ The Vulcan Learning Pit architecture is designed for:
 2. SemaphoreSlim provides thread-safe state management
 3. Facade pattern simplifies engine coordination
 4. Comprehensive test coverage (178 passing tests)
+5. **SQLite problem bank**: Fast indexed queries, easy content updates
 
 **Next Steps**:
 1. Implement dependency injection

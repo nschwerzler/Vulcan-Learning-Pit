@@ -30,11 +30,12 @@ When the user says:
 
 1. **.NET 10 C# WPF Only**: All implementation uses .NET 10 C# with WPF for desktop UI
 2. **Data-Driven**: All decisions based on performance metrics and mastery thresholds
-3. **Rapid Spiral Learning**: Master → Unlock → Advance cycle with automatic level progression
-4. **Weakness Tracking**: Persistent identification and targeted remediation of struggling concepts
-5. **Session State Management**: Track multi-problem sequences, approvals, and narrative echoes
-6. **MSTest with Timeouts**: All tests use MSTest framework with mandatory [Timeout] attributes
-7. **CancellationToken Pattern**: All async/wait operations must use CancellationToken with timeouts
+3. **SQLite Problem Bank**: 552+ problems stored in SQLite database (src/Spock.Data/) - indexed by domain, difficulty, micro-topic
+4. **Rapid Spiral Learning**: Master → Unlock → Advance cycle with automatic level progression
+5. **Weakness Tracking**: Persistent identification and targeted remediation of struggling concepts
+6. **Session State Management**: Track multi-problem sequences, approvals, and narrative echoes
+7. **MSTest with Timeouts**: All tests use MSTest framework with mandatory [Timeout] attributes
+8. **CancellationToken Pattern**: All async/wait operations must use CancellationToken with timeouts
 
 ## Code Generation Guidelines
 
@@ -113,8 +114,11 @@ When the user says:
 ## Key Files & Documentation
 
 - **docs/plan.md**: Complete motivation model and curriculum specification
+- **docs/ARCHITECTURE.md**: System architecture and component details
 - **README.md**: Project overview and next steps
-- **src/**: Implementation code (structure TBD)
+- **src/Spock.Data/**: SQLite database layer with EF Core (ProblemBank, SpockDbContext, DatabaseSeeder)
+- **src/Spock.Data/ProblemBank.cs**: Async problem query interface (by domain, difficulty, micro-topic)
+- **src/Spock.Data/DatabaseSeeder.cs**: Seeds database from legacy hardcoded problems on first run
 - **.github/copilot-instructions.md**: This file - your working context
 
 ## Questions to Ask Before Implementing

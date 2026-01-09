@@ -59,6 +59,7 @@ Invoke-RestMethod http://localhost:5555/health
 - StudentDataService for profile and session management
 - Session history and aggregate metrics
 - Weakness trend tracking
+- **ProblemBank in SQLite**: 552+ problems migrated from 11,400-line file to indexed database
 
 **🚧 Phase 5: Enhancement & Content** (Next)
 - Visual enhancements and animations
@@ -108,7 +109,13 @@ Try answering multiple problems correctly to trigger Spock's rare approval!
 ### UI Layer (src/Spock.UI/)
 - `MainViewModel.cs` - MVVM pattern with engine integration
 - `MainWindow.xaml` - Dark-themed WPF interface
-- Sample problem bank with math, logic, science domains
+- `App.xaml.cs` - Database initialization on startup
+
+### Data Layer (src/Spock.Data/)
+- `SpockDbContext.cs` - EF Core context with student data and problem bank
+- `ProblemBank.cs` - Async problem queries (552+ problems indexed by domain/difficulty/micro-topic)
+- `DatabaseSeeder.cs` - Auto-seeds problems on first run
+- `StudentDataService.cs` - Student profile and session persistence
 
 ### Data Models (src/Spock.Core/Models/)
 - `StudentProfile.cs` - Student state and preferences
@@ -168,7 +175,9 @@ dotnet test --list-tests
 - **UI**: WPF with MVVM pattern
 - **Backend**: .NET 10 C# class libraries
 - **Database**: Entity Framework Core 10.0.1 with SQLite
-- **Testing**: MSTest + Moq + FluentAssertions
+  - Student profiles, sessions, weaknesses
+  - **Problem bank**: 552+ problems with indexed queries
+- **Testing**: MSTest + Moq + FluentAssertions (in-memory database for tests)
 - **State Management**: Stateless 5.20.0
 - **Distribution**: MSIX packaging or ClickOnce (planned)
 
