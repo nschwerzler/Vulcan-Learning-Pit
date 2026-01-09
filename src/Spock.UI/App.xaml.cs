@@ -49,7 +49,13 @@ public partial class App : Application
         try
         {
             Log("Initializing SQLite database...");
-            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "spock.db");
+            
+            // Database in workspace root database\ folder
+            var workspaceRoot = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\..\..\"));
+            var databaseFolder = Path.Combine(workspaceRoot, "database");
+            Directory.CreateDirectory(databaseFolder); // Ensure folder exists
+            var dbPath = Path.Combine(databaseFolder, "spock.db");
+            
             var optionsBuilder = new DbContextOptionsBuilder<SpockDbContext>();
             optionsBuilder.UseSqlite($"Data Source={dbPath}");
             

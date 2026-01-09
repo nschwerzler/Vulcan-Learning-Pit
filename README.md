@@ -59,7 +59,8 @@ Invoke-RestMethod http://localhost:5555/health
 - StudentDataService for profile and session management
 - Session history and aggregate metrics
 - Weakness trend tracking
-- **ProblemBank in SQLite**: 552+ problems migrated from 11,400-line file to indexed database
+- **ProblemBank in SQLite**: 652+ problems (database is source of truth)
+- **Codebase Optimization**: Removed 11,700 lines of legacy hardcoded problems (98.7% reduction in ProblemBank.cs)
 
 **🚧 Phase 5: Enhancement & Content** (Next)
 - Visual enhancements and animations
