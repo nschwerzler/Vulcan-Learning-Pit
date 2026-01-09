@@ -9,7 +9,7 @@ public enum Domain
     Logic,
     Reading,
     Science,
-    Executive,
+    WinPants,
     WashingtonHistory,
     Bitcoin,
     Minecraft,

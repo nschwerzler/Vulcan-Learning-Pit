@@ -1,53 +1,108 @@
+using Microsoft.EntityFrameworkCore;
 using Spock.Core.Models;
 
 namespace Spock.Data;
 
 /// <summary>
 /// Comprehensive problem bank for adaptive learning across domains.
-/// Problems are structured for ADD-friendly variety and weakness targeting.
+/// Problems are read from SQLite database for performance and maintainability.
+/// Legacy hardcoded problems remain for seeding purposes.
 /// </summary>
 public static class ProblemBank
 {
-    /// <summary>
-    /// Gets all available problems across all domains.
-/// Total: 500+ problems covering Grade 1 through College level.
-/// Includes: Math, Logic, Reading, Science, Washington History, Minecraft, Health, and Bitcoin.
-/// Problems are shuffled randomly to prevent repetition.
-/// </summary>
-public static List<Problem> GetAllProblems()
-{
-    var problems = new List<Problem>();
-    
-    problems.AddRange(GetMathProblems());
-    problems.AddRange(GetLogicProblems());
-    problems.AddRange(GetReadingProblems());
-    problems.AddRange(GetScienceProblems());
-    problems.AddRange(GetWashingtonHistoryProblems());
-    problems.AddRange(GetBitcoinProblems());
-    problems.AddRange(GetMinecraftProblems());
-    problems.AddRange(GetHealthProblems());
-    
-    // Shuffle to prevent seeing same questions in same order
-    var random = new Random();
-    return problems.OrderBy(p => random.Next()).ToList();
-}
+    private static SpockDbContext? _context;
 
-/// <summary>
-/// Gets problems filtered by domain.
-/// </summary>
-    public static List<Problem> GetProblemsByDomain(Domain domain)
+    /// <summary>
+    /// Initializes the problem bank with a database context.
+    /// Must be called before using GetAllProblems() or other query methods.
+    /// </summary>
+    public static void Initialize(SpockDbContext context)
     {
-        return GetAllProblems().Where(p => p.Domain == domain).ToList();
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+    }
+
+    /// <summary>
+    /// Gets all available problems from the database.
+    /// Total: 552+ problems covering Grade 1 through College level.
+    /// Includes: Math, Logic, Reading, Science, Win Pants (Dale Carnegie + Sun Tzu), 
+    /// Washington History, Bitcoin (including Mises principles), Minecraft, and Health.
+    /// Problems are shuffled randomly to prevent repetition.
+    /// </summary>
+    public static async Task<List<Problem>> GetAllProblemsAsync(CancellationToken cancellationToken = default)
+    {
+        if (_context == null)
+            throw new InvalidOperationException("ProblemBank must be initialized with Initialize() before use.");
+
+        var entities = await _context.Problems
+            .Include(p => p.Guidance)
+            .ToListAsync(cancellationToken);
+
+        var problems = entities.Select(e => e.ToProblem()).ToList();
+
+        // Shuffle to prevent seeing same questions in same order
+        var random = new Random();
+        return problems.OrderBy(p => random.Next()).ToList();
+    }
+
+    /// <summary>
+    /// Gets problems filtered by domain.
+    /// </summary>
+    public static async Task<List<Problem>> GetProblemsByDomainAsync(Domain domain, CancellationToken cancellationToken = default)
+    {
+        if (_context == null)
+            throw new InvalidOperationException("ProblemBank must be initialized with Initialize() before use.");
+
+        var entities = await _context.Problems
+            .Include(p => p.Guidance)
+            .Where(p => p.Domain == domain)
+            .ToListAsync(cancellationToken);
+
+        var problems = entities.Select(e => e.ToProblem()).ToList();
+
+        // Shuffle to prevent seeing same questions in same order
+        var random = new Random();
+        return problems.OrderBy(p => random.Next()).ToList();
     }
 
     /// <summary>
     /// Gets problems filtered by difficulty level (1-10).
     /// </summary>
-    public static List<Problem> GetProblemsByDifficulty(int minDifficulty, int maxDifficulty)
+    public static async Task<List<Problem>> GetProblemsByDifficultyAsync(int minDifficulty, int maxDifficulty, CancellationToken cancellationToken = default)
     {
-        return GetAllProblems()
+        if (_context == null)
+            throw new InvalidOperationException("ProblemBank must be initialized with Initialize() before use.");
+
+        var entities = await _context.Problems
+            .Include(p => p.Guidance)
             .Where(p => p.Difficulty >= minDifficulty && p.Difficulty <= maxDifficulty)
-            .ToList();
+            .ToListAsync(cancellationToken);
+
+        var problems = entities.Select(e => e.ToProblem()).ToList();
+
+        // Shuffle to prevent seeing same questions in same order
+        var random = new Random();
+        return problems.OrderBy(p => random.Next()).ToList();
+    }
+
+    /// <summary>
+    /// Legacy method for seeding database. Gets hardcoded problems from code.
+    /// Used by DatabaseSeeder only - not for runtime queries.
+    /// </summary>
+    internal static List<Problem> GetAllProblemsFromCode()
+    {
+        var problems = new List<Problem>();
+        
+        problems.AddRange(GetMathProblems());
+        problems.AddRange(GetLogicProblems());
+        problems.AddRange(GetReadingProblems());
+        problems.AddRange(GetScienceProblems());
+        problems.AddRange(GetWinPantsProblems());
+        problems.AddRange(GetWashingtonHistoryProblems());
+        problems.AddRange(GetBitcoinProblems());
+        problems.AddRange(GetMinecraftProblems());
+        problems.AddRange(GetHealthProblems());
+        
+        return problems;
     }
 
     #region Math Problems (Grade 1 - College)
@@ -3047,8 +3102,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Having flour is necessary to bake bread. Is having flour sufficient to bake bread?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Yes - flour is enough", "No - you need other ingredients too", "Flour is not necessary" },
-                    CorrectAnswers = new List<string> { "No - you need other ingredients too" }
+                    Options = new List<string> { "Yes, flour alone bakes bread", "No, requires other ingredients", "Flour isn't a requirement" },
+                    CorrectAnswers = new List<string> { "No, requires other ingredients" }
                 }
             },
             new Problem
@@ -3218,8 +3273,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Statement: 'Either you're with us or against us.' What logical fallacy is this?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Ad hominem", "False dichotomy (ignoring middle options)", "Circular reasoning", "No fallacy" },
-                    CorrectAnswers = new List<string> { "False dichotomy (ignoring middle options)" }
+                    Options = new List<string> { "Attacking the person directly", "False dichotomy fallacy here", "Circular reasoning pattern", "This is not a fallacy" },
+                    CorrectAnswers = new List<string> { "False dichotomy fallacy here" }
                 }
             },
             new Problem
@@ -3232,8 +3287,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Statement: 'Your argument is wrong because you're not an expert.' What fallacy?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Ad hominem (attacking person, not argument)", "Straw man", "False dichotomy", "No fallacy" },
-                    CorrectAnswers = new List<string> { "Ad hominem (attacking person, not argument)" }
+                    Options = new List<string> { "Attacking person not argument", "Misrepresenting the argument", "Presenting only two options", "This is not a fallacy" },
+                    CorrectAnswers = new List<string> { "Attacking person not argument" }
                 }
             },
             new Problem
@@ -3246,8 +3301,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Person A: 'We should have some gun regulations.' Person B: 'You want to ban all guns!' What fallacy?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Ad hominem", "Straw man (misrepresenting argument)", "Slippery slope", "No fallacy" },
-                    CorrectAnswers = new List<string> { "Straw man (misrepresenting argument)" }
+                    Options = new List<string> { "Attacking the person directly", "Misrepresenting the argument", "Assuming a chain reaction", "This is not a fallacy" },
+                    CorrectAnswers = new List<string> { "Misrepresenting the argument" }
                 }
             },
             new Problem
@@ -3260,8 +3315,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "'If we allow students to redo tests, soon they'll demand to redo everything, then stop trying.' What fallacy?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Ad hominem", "False dichotomy", "Slippery slope (assumes chain reaction without evidence)", "No fallacy" },
-                    CorrectAnswers = new List<string> { "Slippery slope (assumes chain reaction without evidence)" }
+                    Options = new List<string> { "Attacking the person directly", "Presenting only two options", "Assuming unproven chain reaction", "This is not a fallacy" },
+                    CorrectAnswers = new List<string> { "Assuming unproven chain reaction" }
                 }
             },
             new Problem
@@ -3274,8 +3329,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "'The Bible is true because it says it's the word of God, and God wouldn't lie.' What fallacy?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Ad hominem", "Circular reasoning (conclusion is premise)", "Straw man", "No fallacy" },
-                    CorrectAnswers = new List<string> { "Circular reasoning (conclusion is premise)" }
+                    Options = new List<string> { "Attacking the person directly", "Using conclusion as premise", "Misrepresenting the argument", "This is not a fallacy" },
+                    CorrectAnswers = new List<string> { "Using conclusion as premise" }
                 }
             },
             new Problem
@@ -3288,8 +3343,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "'This diet works because a celebrity endorses it.' What fallacy?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Ad hominem", "Appeal to authority (unqualified authority)", "False dichotomy", "No fallacy" },
-                    CorrectAnswers = new List<string> { "Appeal to authority (unqualified authority)" }
+                    Options = new List<string> { "Attacking the person directly", "Citing irrelevant credentials", "Presenting only two options", "This is not a fallacy" },
+                    CorrectAnswers = new List<string> { "Citing irrelevant credentials" }
                 }
             },
             new Problem
@@ -3302,8 +3357,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "'You should support this policy because think of the children!' (no evidence given). What fallacy?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Appeal to emotion (manipulating feelings instead of logic)", "Ad hominem", "Circular reasoning", "No fallacy" },
-                    CorrectAnswers = new List<string> { "Appeal to emotion (manipulating feelings instead of logic)" }
+                    Options = new List<string> { "Using feelings not logic", "Attacking the person directly", "Using conclusion as premise", "This is not a fallacy" },
+                    CorrectAnswers = new List<string> { "Using feelings not logic" }
                 }
             },
             new Problem
@@ -3316,8 +3371,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Debate about tax policy, opponent responds: 'But what about the border crisis?' What fallacy?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Ad hominem", "Red herring (introducing irrelevant topic to distract)", "Straw man", "No fallacy" },
-                    CorrectAnswers = new List<string> { "Red herring (introducing irrelevant topic to distract)" }
+                    Options = new List<string> { "Attacking the person directly", "Introducing irrelevant topic", "Misrepresenting the argument", "This is not a fallacy" },
+                    CorrectAnswers = new List<string> { "Introducing irrelevant topic" }
                 }
             },
             new Problem
@@ -3330,8 +3385,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "'Everyone believes this, so it must be true.' What fallacy?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Bandwagon (appeal to popularity)", "Ad hominem", "False dichotomy", "No fallacy" },
-                    CorrectAnswers = new List<string> { "Bandwagon (appeal to popularity)" }
+                    Options = new List<string> { "Following popular opinion", "Attacking the person directly", "Presenting only two options", "This is not a fallacy" },
+                    CorrectAnswers = new List<string> { "Following popular opinion" }
                 }
             },
             new Problem
@@ -3344,8 +3399,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "'I met two rude people from that city, so everyone there must be rude.' What fallacy?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Hasty generalization (insufficient evidence)", "Ad hominem", "Slippery slope", "No fallacy" },
-                    CorrectAnswers = new List<string> { "Hasty generalization (insufficient evidence)" }
+                    Options = new List<string> { "Broad claim from small sample", "Attacking the person directly", "Assuming a chain reaction", "This is not a fallacy" },
+                    CorrectAnswers = new List<string> { "Broad claim from small sample" }
                 }
             },
             new Problem
@@ -3358,8 +3413,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "'I wore my lucky socks and won the game, so the socks caused the win.' What fallacy?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Post hoc ergo propter hoc (false cause: correlation ≠ causation)", "Circular reasoning", "Ad hominem", "No fallacy" },
-                    CorrectAnswers = new List<string> { "Post hoc ergo propter hoc (false cause: correlation ≠ causation)" }
+                    Options = new List<string> { "False cause: correlation≠causation", "Using conclusion as premise", "Attacking the person directly", "This is not a fallacy" },
+                    CorrectAnswers = new List<string> { "False cause: correlation≠causation" }
                 }
             },
             new Problem
@@ -3372,8 +3427,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "'You say I shouldn't smoke, but you smoke too!' What fallacy?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Tu quoque (you too - deflecting by pointing out hypocrisy)", "Ad hominem", "Straw man", "No fallacy" },
-                    CorrectAnswers = new List<string> { "Tu quoque (you too - deflecting by pointing out hypocrisy)" }
+                    Options = new List<string> { "Deflecting by pointing out hypocrisy", "Attacking the person directly", "Misrepresenting the argument", "This is not a fallacy" },
+                    CorrectAnswers = new List<string> { "Deflecting by pointing out hypocrisy" }
                 }
             },
             new Problem
@@ -3386,8 +3441,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "'No scientist denies this.' 'But Dr. X denies it.' 'Well, no TRUE scientist denies it.' What fallacy?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "No true Scotsman (redefining category to exclude counterexamples)", "Circular reasoning", "Ad hominem", "No fallacy" },
-                    CorrectAnswers = new List<string> { "No true Scotsman (redefining category to exclude counterexamples)" }
+                    Options = new List<string> { "Redefining to exclude counterexamples", "Using conclusion as premise", "Attacking the person directly", "This is not a fallacy" },
+                    CorrectAnswers = new List<string> { "Redefining to exclude counterexamples" }
                 }
             },
             new Problem
@@ -3414,8 +3469,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "'Reading is important because it's essential.' This is circular reasoning called:",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Begging the question (assuming what you're trying to prove)", "Ad hominem", "Slippery slope", "No fallacy" },
-                    CorrectAnswers = new List<string> { "Begging the question (assuming what you're trying to prove)" }
+                    Options = new List<string> { "Assuming what you're proving", "Attacking the person directly", "Assuming a chain reaction", "This is not a fallacy" },
+                    CorrectAnswers = new List<string> { "Assuming what you're proving" }
                 }
             },
             new Problem
@@ -3738,8 +3793,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Advertisement: 'Up to 90% of users saw results!' What's misleading about this claim?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "It doesn't say what kind of results", "'Up to 90%' could mean much less", "Both A and B", "Nothing is misleading" },
-                    CorrectAnswers = new List<string> { "Both A and B" }
+                    Options = new List<string> { "Doesn't specify result type", "Could mean far less than 90%", "Both of the above issues", "Nothing misleading here" },
+                    CorrectAnswers = new List<string> { "Both of the above issues" }
                 }
             },
             new Problem
@@ -3768,8 +3823,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Argument: 'All great leaders are decisive. Maria is decisive. Therefore, Maria is a great leader.' What's the logical flaw?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Assumes decisive = great leader (converse error)", "Maria might not be decisive", "Great leaders don't need to be decisive", "No flaw exists" },
-                    CorrectAnswers = new List<string> { "Assumes decisive = great leader (converse error)" }
+                    Options = new List<string> { "Backwards logic error", "Maria isn't actually decisive", "Leaders need not be decisive", "There is no flaw" },
+                    CorrectAnswers = new List<string> { "Backwards logic error" }
                 }
             },
             new Problem
@@ -3782,8 +3837,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Claim: 'Screens cause nearsightedness.' Evidence: 'Children who use screens 4+ hours daily have higher rates of nearsightedness.' Does this prove causation?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Yes, the data is clear", "No, correlation ≠ causation", "Yes, if the study was large", "No, screens help eyesight" },
-                    CorrectAnswers = new List<string> { "No, correlation ≠ causation" }
+                    Options = new List<string> { "Yes, the data shows it", "No, correlation≠causation", "Yes, if study is large", "No, screens help vision" },
+                    CorrectAnswers = new List<string> { "No, correlation≠causation" }
                 }
             },
 
@@ -3798,8 +3853,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Source 1: 'Urban density increases efficiency.' Source 2: 'High density causes stress.' Synthesis that acknowledges both?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Density is always good", "Density is always bad", "Density has efficiency benefits but psychological costs", "The sources contradict completely" },
-                    CorrectAnswers = new List<string> { "Density has efficiency benefits but psychological costs" }
+                    Options = new List<string> { "Density is always beneficial", "Density is always harmful", "Efficiency benefits with psychological costs", "The sources contradict entirely" },
+                    CorrectAnswers = new List<string> { "Efficiency benefits with psychological costs" }
                 }
             },
 
@@ -4125,8 +4180,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Article: 'The brilliant mayor solved every problem. She never made mistakes.' What indicates bias?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "It mentions the mayor", "Only positive words, no balanced view", "It's too short", "It talks about problems" },
-                    CorrectAnswers = new List<string> { "Only positive words, no balanced view" }
+                    Options = new List<string> { "It mentions the mayor", "Only positive, no balance", "Article is too short", "It talks about problems" },
+                    CorrectAnswers = new List<string> { "Only positive, no balance" }
                 }
             },
             new Problem
@@ -4757,8 +4812,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Hypothesis: 'Magnetic fields affect plant growth.' Design the BEST experiment:",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Put one plant near magnet, observe", "10 plants near magnets, 10 without magnets (control), same conditions", "Ask people if magnets help plants", "Look up if others tried this" },
-                    CorrectAnswers = new List<string> { "10 plants near magnets, 10 without magnets (control), same conditions" }
+                    Options = new List<string> { "One plant near magnet", "Ten with magnets, ten control", "Ask people about magnets", "Look up past experiments" },
+                    CorrectAnswers = new List<string> { "Ten with magnets, ten control" }
                 }
             },
             new Problem
@@ -5593,8 +5648,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "During World War II, the Hanford Site in Washington played a crucial role in:",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Aircraft manufacturing", "Submarine construction", "The Manhattan Project (nuclear weapons development)", "Training military pilots" },
-                    CorrectAnswers = new List<string> { "The Manhattan Project (nuclear weapons development)" }
+                    Options = new List<string> { "Aircraft manufacturing", "Submarine construction", "Manhattan Project weapons", "Training military pilots" },
+                    CorrectAnswers = new List<string> { "Manhattan Project weapons" }
                 }
             },
             new Problem
@@ -5648,8 +5703,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "The removal of dams on the Elwha River (2011-2014) was significant because it:",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Increased hydroelectric power", "Was the largest dam removal project in U.S. history for ecosystem restoration", "Created new reservoirs", "Prevented all flooding" },
-                    CorrectAnswers = new List<string> { "Was the largest dam removal project in U.S. history for ecosystem restoration" }
+                    Options = new List<string> { "Increased power generation", "Largest ecosystem restoration", "Created new reservoirs", "Prevented all flooding" },
+                    CorrectAnswers = new List<string> { "Largest ecosystem restoration" }
                 }
             },
             
@@ -5677,8 +5732,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "The Boldt Decision (1974) affirmed Native American treaty rights to fish. What broader principle did this establish?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Treaties are temporary agreements", "Native tribes have no legal authority", "Treaty rights persist even after statehood and remain legally binding", "Only federal law matters" },
-                    CorrectAnswers = new List<string> { "Treaty rights persist even after statehood and remain legally binding" }
+                    Options = new List<string> { "Treaties are temporary", "Tribes have no authority", "Rights persist after statehood", "Only federal law matters" },
+                    CorrectAnswers = new List<string> { "Rights persist after statehood" }
                 }
             },
             new Problem
@@ -6451,7 +6506,7 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "What was the title of the original Bitcoin whitepaper published in 2008?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Digital Gold: The Future of Money", "Bitcoin: A Peer-to-Peer Electronic Cash System", "Cryptocurrency Revolution", "The Blockchain Manifesto" },
+                    Options = new List<string> { "Digital Gold: The Future of Money", "Bitcoin: A Peer-to-Peer Electronic Cash System", "The Cryptocurrency Revolution Manifesto", "The Blockchain Technology Manifesto" },
                     CorrectAnswers = new List<string> { "Bitcoin: A Peer-to-Peer Electronic Cash System" }
                 }
             },
@@ -6467,7 +6522,7 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "What is a blockchain in the context of Bitcoin?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A type of chain worn as jewelry", "A distributed ledger of all transactions", "A single computer that stores all data", "A password encryption method" },
+                    Options = new List<string> { "A type of chain worn as jewelry", "A distributed ledger of all transactions", "A single computer that stores all the data", "A password encryption and security method" },
                     CorrectAnswers = new List<string> { "A distributed ledger of all transactions" }
                 }
             },
@@ -6494,8 +6549,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "What is Bitcoin mining?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Digging for physical bitcoins underground", "Using computers to verify transactions and secure the network", "Trading bitcoins on exchanges", "Printing new bitcoins" },
-                    CorrectAnswers = new List<string> { "Using computers to verify transactions and secure the network" }
+                    Options = new List<string> { "Digging for physical bitcoins underground", "Verifying transactions and securing the network", "Trading bitcoins on centralized exchanges", "Printing new bitcoins with special machines" },
+                    CorrectAnswers = new List<string> { "Verifying transactions and securing the network" }
                 }
             },
 
@@ -6538,8 +6593,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Why is decentralization important to Bitcoin's design?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "It makes Bitcoin faster", "No single entity can control or censor transactions", "It reduces electricity costs", "It makes Bitcoin easier to use" },
-                    CorrectAnswers = new List<string> { "No single entity can control or censor transactions" }
+                    Options = new List<string> { "Makes Bitcoin faster", "No single control entity", "Reduces electricity", "Easier to use" },
+                    CorrectAnswers = new List<string> { "No single control entity" }
                 }
             },
 
@@ -6554,8 +6609,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "What is Proof-of-Work (PoW) in Bitcoin?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "A receipt showing you completed work", "A consensus mechanism requiring computational effort to validate transactions", "A certificate from miners", "A type of Bitcoin wallet" },
-                    CorrectAnswers = new List<string> { "A consensus mechanism requiring computational effort to validate transactions" }
+                    Options = new List<string> { "Receipt showing work done", "Computational validation consensus", "Certificate from the miners", "A type of Bitcoin wallet" },
+                    CorrectAnswers = new List<string> { "Computational validation consensus" }
                 }
             },
             new Problem
@@ -6568,8 +6623,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Bitcoin solves the 'Byzantine Generals Problem.' What does this mean?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "It prevents military attacks", "It allows agreement in a trustless network with potential bad actors", "It encrypts military communications", "It names transactions after generals" },
-                    CorrectAnswers = new List<string> { "It allows agreement in a trustless network with potential bad actors" }
+                    Options = new List<string> { "Prevents military attacks", "Agreement in trustless network", "Encrypts communications", "Names transactions" },
+                    CorrectAnswers = new List<string> { "Agreement in trustless network" }
                 }
             },
             new Problem
@@ -7363,6 +7418,176 @@ public static List<Problem> GetAllProblems()
                     Options = new List<string> { "Requires no rules", "Anyone can participate without needing approval from authority", "Only allowed people can use it", "Needs government permission" },
                     CorrectAnswers = new List<string> { "Anyone can participate without needing approval from authority" }
                 }
+            },
+
+            // ===== Mises Principles Applied to Bitcoin =====
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "mises-sound-money",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Ludwig von Mises taught: Sound money must:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Be issued by centralized government decree", "Emerge from the market voluntarily", "Have unlimited supply for flexibility", "Be controlled by banking institutions" },
+                    CorrectAnswers = new List<string> { "Emerge from the market voluntarily" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "mises-inflation",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Ludwig von Mises taught: Inflation is a hidden tax because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "It's literally a tax on everything", "Money expansion transfers wealth to early receivers", "People can't see it happening clearly", "It's optional and can be avoided" },
+                    CorrectAnswers = new List<string> { "Money expansion transfers wealth to early receivers" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "mises-money-neutrality",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Ludwig von Mises taught: Money is not neutral because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "It has color and physical properties", "Money changes distort production", "Everyone uses it in the same manner", "It doesn't affect the economy overall" },
+                    CorrectAnswers = new List<string> { "Money changes distort production" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "mises-economic-calculation",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Ludwig von Mises taught: Economic calculation requires:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Central planning by experts", "Real prices from honest signals", "Government mandates and controls", "Fixed wages set by authorities" },
+                    CorrectAnswers = new List<string> { "Real prices from honest signals" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "mises-credit-expansion",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Ludwig von Mises taught: Credit expansion causes boom-bust cycles because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "People borrow far too much money", "Artificial rates mislead entrepreneurs", "Banks are greedy profit-maximizers", "Markets are inherently irrational" },
+                    CorrectAnswers = new List<string> { "Artificial rates mislead entrepreneurs" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "mises-market-processes",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Ludwig von Mises taught: Market processes outperform central planning because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Markets are perfect information systems", "Decentralized coordination beats control", "Planners are stupid and incompetent", "Markets have more money and resources" },
+                    CorrectAnswers = new List<string> { "Decentralized coordination beats control" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "mises-private-property",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Ludwig von Mises taught: Private property is foundational because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Rich people need protection", "Ownership must be clear and enforceable", "It creates inequality", "Government says so" },
+                    CorrectAnswers = new List<string> { "Ownership must be clear and enforceable" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "mises-profit-loss",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Ludwig von Mises taught: Profit and loss discipline behavior because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "People are greedy", "Loss punishes error while profit rewards accuracy", "Winners deserve more", "Markets are competitive" },
+                    CorrectAnswers = new List<string> { "Loss punishes error while profit rewards accuracy" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "mises-intervention",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Ludwig von Mises taught: Intervention begets more intervention because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Politicians want power", "Controls create distortions that demand new controls", "People are dependent", "Bureaucrats need jobs" },
+                    CorrectAnswers = new List<string> { "Controls create distortions that demand new controls" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "mises-freedom",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Ludwig von Mises taught: Freedom is indivisible because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Everything is connected", "Economic freedom underpins all other freedoms", "Rights come in packages", "Society requires unity" },
+                    CorrectAnswers = new List<string> { "Economic freedom underpins all other freedoms" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "mises-entrepreneurship",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Ludwig von Mises taught: Entrepreneurship thrives under stable rules because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Rules protect big business", "Uncertainty should come from markets, not policy shifts", "Regulations are necessary", "Entrepreneurs need guidance" },
+                    CorrectAnswers = new List<string> { "Uncertainty should come from markets, not policy shifts" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Bitcoin,
+                MicroTopic = "mises-ideas",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Ludwig von Mises taught: Ideas precede institutions because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Thinkers are important", "Systems change when beliefs change", "Institutions are weak", "Ideas spread faster" },
+                    CorrectAnswers = new List<string> { "Systems change when beliefs change" }
+                }
             }
         };
     }
@@ -7864,8 +8089,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "A beacon requires a pyramid base made of which materials?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Stone only", "Iron, gold, diamond, emerald, or netherite blocks", "Obsidian", "Any blocks" },
-                    CorrectAnswers = new List<string> { "Iron, gold, diamond, emerald, or netherite blocks" }
+                    Options = new List<string> { "Stone only", "Precious blocks variety", "Obsidian", "Any blocks" },
+                    CorrectAnswers = new List<string> { "Precious blocks variety" }
                 }
             },
             new Problem
@@ -8020,8 +8245,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Villager trading prices are affected by:",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Time of day", "Demand (repeated trades), reputation, and curing zombie villagers", "Moon phase", "Nothing affects prices" },
-                    CorrectAnswers = new List<string> { "Demand (repeated trades), reputation, and curing zombie villagers" }
+                    Options = new List<string> { "Time of day", "Demand, reputation, curing", "Moon phase", "Nothing affects prices" },
+                    CorrectAnswers = new List<string> { "Demand, reputation, curing" }
                 }
             },
             new Problem
@@ -8540,8 +8765,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Regular exercise helps your body by doing what?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Only building muscles", "Only losing weight", "Strengthening heart, muscles, and improving mood", "Making you tired" },
-                    CorrectAnswers = new List<string> { "Strengthening heart, muscles, and improving mood" }
+                    Options = new List<string> { "Only muscles grow", "Only lose weight", "Heart, muscles, mood improve", "Makes you tired" },
+                    CorrectAnswers = new List<string> { "Heart, muscles, mood improve" }
                 }
             },
             new Problem
@@ -8584,8 +8809,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Feeling stressed or anxious sometimes is:",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Always a sign of mental illness", "Normal and happens to everyone", "Something to ignore", "Only happens to adults" },
-                    CorrectAnswers = new List<string> { "Normal and happens to everyone" }
+                    Options = new List<string> { "Always a sign of mental illness", "Normal, happens to everyone", "Something to always ignore", "Only happens to adults" },
+                    CorrectAnswers = new List<string> { "Normal, happens to everyone" }
                 }
             },
             new Problem
@@ -8598,8 +8823,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Which type of exercise strengthens your cardiovascular system?",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Weightlifting only", "Aerobic exercise like running or swimming", "Stretching only", "Standing still" },
-                    CorrectAnswers = new List<string> { "Aerobic exercise like running or swimming" }
+                    Options = new List<string> { "Weightlifting only", "Running or swimming", "Stretching only", "Standing still" },
+                    CorrectAnswers = new List<string> { "Running or swimming" }
                 }
             },
             new Problem
@@ -8612,8 +8837,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "Blue light from screens before bed can affect sleep by:",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Making you fall asleep faster", "Disrupting melatonin production", "Improving dream quality", "Having no effect" },
-                    CorrectAnswers = new List<string> { "Disrupting melatonin production" }
+                    Options = new List<string> { "Makes sleep come faster", "Disrupts melatonin", "Improves dream quality", "Has no effect" },
+                    CorrectAnswers = new List<string> { "Disrupts melatonin" }
                 }
             },
             new Problem
@@ -8711,8 +8936,8 @@ public static List<Problem> GetAllProblems()
                 {
                     Question = "When researching health information online, the most reliable sources include:",
                     Format = ProblemFormat.MultipleChoice,
-                    Options = new List<string> { "Social media influencers", "Random blogs", "CDC, WHO, peer-reviewed medical journals", "Product advertisements" },
-                    CorrectAnswers = new List<string> { "CDC, WHO, peer-reviewed medical journals" }
+                    Options = new List<string> { "Social media influencers", "Random blogs", "CDC, WHO, journals", "Product advertisements" },
+                    CorrectAnswers = new List<string> { "CDC, WHO, journals" }
                 }
             },
 
@@ -9295,6 +9520,1930 @@ public static List<Problem> GetAllProblems()
                     Format = ProblemFormat.MultipleChoice,
                     Options = new List<string> { "Personal anecdotes", "Randomized controlled trials and systematic reviews", "Celebrity endorsements", "Historical traditions" },
                     CorrectAnswers = new List<string> { "Randomized controlled trials and systematic reviews" }
+                }
+            },
+
+            // ===== Additional Health Topics: Comprehensive Coverage =====
+            
+            // Vitamins and Minerals
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "vitamin-c-benefits",
+                Difficulty = 3,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "Vitamin C helps your body:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "See in the dark", "Fight infections and heal wounds", "Grow taller quickly", "Sleep better" },
+                    CorrectAnswers = new List<string> { "Fight infections and heal wounds" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "iron-importance",
+                Difficulty = 4,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "Iron is important because it helps:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Red blood cells carry oxygen", "Bones grow stronger", "Teeth stay white", "Hair grow faster" },
+                    CorrectAnswers = new List<string> { "Red blood cells carry oxygen" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "vitamin-d-sources",
+                Difficulty = 4,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "Your body can make Vitamin D when:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "You eat vegetables", "Skin is exposed to sunlight", "You exercise vigorously", "You drink milk" },
+                    CorrectAnswers = new List<string> { "Skin is exposed to sunlight" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "potassium-function",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Potassium is essential for:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Muscle function and heart rhythm", "Vision clarity", "Hair color", "Skin smoothness" },
+                    CorrectAnswers = new List<string> { "Muscle function and heart rhythm" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "b-vitamins",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "B vitamins are primarily involved in:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Bone density", "Energy metabolism and red blood cell formation", "Wound healing only", "Immune suppression" },
+                    CorrectAnswers = new List<string> { "Energy metabolism and red blood cell formation" }
+                }
+            },
+
+            // Hydration and Fluids
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "dehydration-signs",
+                Difficulty = 3,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "A sign that you need to drink more water is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Clear urine", "Dark yellow urine", "Feeling energetic", "Cold hands" },
+                    CorrectAnswers = new List<string> { "Dark yellow urine" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "electrolytes-function",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Electrolytes like sodium and potassium help:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Build muscle tissue", "Regulate fluid balance and nerve signals", "Digest food faster", "Strengthen bones" },
+                    CorrectAnswers = new List<string> { "Regulate fluid balance and nerve signals" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "daily-water-intake",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "The recommended daily water intake for most adults is approximately:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "2-3 cups", "8 cups (64 oz)", "20 cups", "1 cup" },
+                    CorrectAnswers = new List<string> { "8 cups (64 oz)" }
+                }
+            },
+
+            // Food Safety and Preparation
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "food-poisoning-prevention",
+                Difficulty = 4,
+                TargetTime = 40,
+                Content = new ProblemContent
+                {
+                    Question = "To prevent food poisoning, you should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Eat food quickly", "Wash hands and cook food thoroughly", "Only eat cold foods", "Avoid all meats" },
+                    CorrectAnswers = new List<string> { "Wash hands and cook food thoroughly" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "refrigeration-importance",
+                Difficulty = 4,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "Refrigerating food helps:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Make food taste better", "Slow bacterial growth", "Add nutrients", "Cook food faster" },
+                    CorrectAnswers = new List<string> { "Slow bacterial growth" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "cross-contamination",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Cross-contamination occurs when:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "You mix different foods together", "Raw meat bacteria spread to ready-to-eat foods", "Food is overcooked", "You eat expired food" },
+                    CorrectAnswers = new List<string> { "Raw meat bacteria spread to ready-to-eat foods" }
+                }
+            },
+
+            // Exercise Physiology Details
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "aerobic-vs-anaerobic",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Aerobic exercise differs from anaerobic because it:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Uses oxygen for sustained energy", "Only works arms", "Requires no equipment", "Burns no calories" },
+                    CorrectAnswers = new List<string> { "Uses oxygen for sustained energy" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "stretching-benefits",
+                Difficulty = 3,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "Stretching before exercise helps:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Build bigger muscles", "Improve flexibility and prevent injury", "Lose weight quickly", "Increase appetite" },
+                    CorrectAnswers = new List<string> { "Improve flexibility and prevent injury" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "muscle-soreness",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Muscle soreness after exercise is caused by:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Dehydration only", "Microscopic muscle fiber damage and inflammation", "Lack of stretching only", "Permanent muscle injury" },
+                    CorrectAnswers = new List<string> { "Microscopic muscle fiber damage and inflammation" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "interval-training",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "High-intensity interval training (HIIT) alternates between:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Different muscle groups", "Intense bursts and rest periods", "Indoor and outdoor activities", "Upper and lower body" },
+                    CorrectAnswers = new List<string> { "Intense bursts and rest periods" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "recovery-importance",
+                Difficulty = 7,
+                TargetTime = 55,
+                Content = new ProblemContent
+                {
+                    Question = "Rest days are important for athletes because:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "They prevent any progress", "Muscles repair and grow stronger during rest", "Rest makes you weaker", "You should exercise every day" },
+                    CorrectAnswers = new List<string> { "Muscles repair and grow stronger during rest" }
+                }
+            },
+
+            // Injury Prevention and First Aid
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "rice-method",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "For a sprained ankle, RICE stands for:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Run, Ice, Cut, Elevate", "Rest, Ice, Compression, Elevation", "Relax, Ignore, Cool, Exercise", "Remove, Ice, Care, Emergency" },
+                    CorrectAnswers = new List<string> { "Rest, Ice, Compression, Elevation" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "heat-vs-ice",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Ice should be used for injuries that are:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Old and chronic", "Fresh and swollen", "Completely healed", "Never use ice" },
+                    CorrectAnswers = new List<string> { "Fresh and swollen" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "concussion-symptoms",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "A concussion may cause:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Only headache", "Confusion, dizziness, and memory problems", "Immediate death", "No symptoms at all" },
+                    CorrectAnswers = new List<string> { "Confusion, dizziness, and memory problems" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "choking-response",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "If someone is choking and can't breathe, you should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Give them water", "Perform the Heimlich maneuver", "Wait for it to pass", "Make them lie down" },
+                    CorrectAnswers = new List<string> { "Perform the Heimlich maneuver" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "burn-treatment",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "For a minor burn, you should first:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Apply butter", "Run cool water over it", "Pop any blisters", "Ignore it" },
+                    CorrectAnswers = new List<string> { "Run cool water over it" }
+                }
+            },
+
+            // Vision and Hearing Health
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "eye-protection",
+                Difficulty = 3,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "When working with chemicals or tools, you should protect your eyes with:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Sunglasses", "Safety goggles", "Regular glasses", "Nothing needed" },
+                    CorrectAnswers = new List<string> { "Safety goggles" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "hearing-protection",
+                Difficulty = 4,
+                TargetTime = 35,
+                Content = new ProblemContent
+                {
+                    Question = "Loud noise can cause permanent:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Hearing loss", "Better hearing", "Ear growth", "No effect" },
+                    CorrectAnswers = new List<string> { "Hearing loss" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "screen-eye-strain",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "The 20-20-20 rule for screen use means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Use screens 20 hours a day", "Every 20 minutes, look 20 feet away for 20 seconds", "Sit 20 feet from screen", "Use screens only 20 times daily" },
+                    CorrectAnswers = new List<string> { "Every 20 minutes, look 20 feet away for 20 seconds" }
+                }
+            },
+
+            // Skin Health
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "acne-causes",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Acne is primarily caused by:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Eating chocolate only", "Clogged pores, bacteria, and hormones", "Not washing enough", "Drinking soda" },
+                    CorrectAnswers = new List<string> { "Clogged pores, bacteria, and hormones" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "sunscreen-spf",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "SPF on sunscreen stands for:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Super Protection Factor", "Sun Protection Factor", "Skin Protection Formula", "Safe Protective Film" },
+                    CorrectAnswers = new List<string> { "Sun Protection Factor" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "skin-cancer-warning",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "A warning sign of skin cancer is a mole that:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Stays the same", "Changes in size, shape, or color", "Is small and round", "Is light colored" },
+                    CorrectAnswers = new List<string> { "Changes in size, shape, or color" }
+                }
+            },
+
+            // Infectious Disease Prevention
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "respiratory-etiquette",
+                Difficulty = 3,
+                TargetTime = 30,
+                Content = new ProblemContent
+                {
+                    Question = "When you cough or sneeze, you should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Cover with your hands", "Cover with your elbow", "Do nothing", "Hold it in" },
+                    CorrectAnswers = new List<string> { "Cover with your elbow" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "disease-transmission",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Most cold and flu viruses spread through:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Cold weather", "Respiratory droplets and touching surfaces", "Drinking cold water", "Not wearing a coat" },
+                    CorrectAnswers = new List<string> { "Respiratory droplets and touching surfaces" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "antibiotics-viruses",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Antibiotics are effective against:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Bacterial infections only", "All infections", "Viruses only", "Nothing" },
+                    CorrectAnswers = new List<string> { "Bacterial infections only" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "quarantine-purpose",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Quarantine helps prevent disease spread by:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Curing the disease", "Separating sick or exposed people", "Killing germs instantly", "Making people immune" },
+                    CorrectAnswers = new List<string> { "Separating sick or exposed people" }
+                }
+            },
+
+            // Mental Health Strategies
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "mindfulness-basics",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Mindfulness meditation involves:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Emptying your mind completely", "Focusing on the present moment non-judgmentally", "Thinking about the future", "Ignoring all thoughts" },
+                    CorrectAnswers = new List<string> { "Focusing on the present moment non-judgmentally" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "therapy-types",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "Cognitive Behavioral Therapy (CBT) focuses on:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Past childhood experiences only", "Changing thought patterns and behaviors", "Medication management", "Dream interpretation" },
+                    CorrectAnswers = new List<string> { "Changing thought patterns and behaviors" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "coping-mechanisms",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Healthy coping strategies for stress include:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Avoiding all problems", "Exercise, talking to friends, and deep breathing", "Skipping meals", "Isolating yourself" },
+                    CorrectAnswers = new List<string> { "Exercise, talking to friends, and deep breathing" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "anxiety-management",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Deep breathing helps anxiety by:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Distracting you", "Activating the parasympathetic nervous system", "Making you tired", "Lowering oxygen levels" },
+                    CorrectAnswers = new List<string> { "Activating the parasympathetic nervous system" }
+                }
+            },
+
+            // Nutrition Details
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "fiber-benefits",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Dietary fiber helps with:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Building muscle", "Digestion and feeling full", "Bone strength", "Vision" },
+                    CorrectAnswers = new List<string> { "Digestion and feeling full" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "protein-function",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Protein is essential for:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Quick energy only", "Building and repairing tissues", "Storing fat", "Immediate energy" },
+                    CorrectAnswers = new List<string> { "Building and repairing tissues" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "healthy-fats",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Unsaturated fats found in nuts and fish are:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Always unhealthy", "Heart-healthy in moderation", "Cause immediate weight gain", "Contain no calories" },
+                    CorrectAnswers = new List<string> { "Heart-healthy in moderation" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "added-sugar-limits",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Health experts recommend limiting added sugar because it:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Provides essential nutrients", "Contributes to obesity and dental issues", "Builds strong bones", "Improves focus" },
+                    CorrectAnswers = new List<string> { "Contributes to obesity and dental issues" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "whole-grains",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Whole grains are better than refined grains because they:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Taste better", "Retain fiber and nutrients", "Cook faster", "Have more sugar" },
+                    CorrectAnswers = new List<string> { "Retain fiber and nutrients" }
+                }
+            },
+
+            // Body Systems Details
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "endocrine-system",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "The endocrine system produces:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Blood cells", "Hormones that regulate body functions", "Digestive enzymes only", "Antibodies" },
+                    CorrectAnswers = new List<string> { "Hormones that regulate body functions" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "nervous-system-divisions",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "The autonomic nervous system controls:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Voluntary movements only", "Involuntary functions like heartbeat and digestion", "Conscious thoughts", "Memory storage" },
+                    CorrectAnswers = new List<string> { "Involuntary functions like heartbeat and digestion" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "kidney-function",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Your kidneys filter:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Air you breathe", "Blood to remove waste", "Food you eat", "Thoughts you have" },
+                    CorrectAnswers = new List<string> { "Blood to remove waste" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "lymphatic-system",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "The lymphatic system helps:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Digest food", "Fight infection and maintain fluid balance", "Produce hormones only", "Control breathing" },
+                    CorrectAnswers = new List<string> { "Fight infection and maintain fluid balance" }
+                }
+            },
+
+            // Blood Pressure and Heart Health
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "blood-pressure-meaning",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Blood pressure measures:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Amount of blood in body", "Force of blood against artery walls", "Heart size", "Blood cell count" },
+                    CorrectAnswers = new List<string> { "Force of blood against artery walls" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "cholesterol-types",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "HDL cholesterol is called 'good' because it:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Clogs arteries", "Carries cholesterol away from arteries", "Raises blood pressure", "Causes inflammation" },
+                    CorrectAnswers = new List<string> { "Carries cholesterol away from arteries" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "heart-rate",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Your heart rate increases during exercise to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Damage the heart", "Deliver more oxygen to muscles", "Make you tired", "Store energy" },
+                    CorrectAnswers = new List<string> { "Deliver more oxygen to muscles" }
+                }
+            },
+
+            // Metabolism and Energy
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "metabolism-definition",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Metabolism refers to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "How fast you run", "All chemical processes that convert food to energy", "Digestion only", "Weight loss speed" },
+                    CorrectAnswers = new List<string> { "All chemical processes that convert food to energy" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "bmr-basics",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "Basal Metabolic Rate (BMR) is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Calories burned during exercise", "Calories burned at rest for basic functions", "Maximum heart rate", "Body temperature" },
+                    CorrectAnswers = new List<string> { "Calories burned at rest for basic functions" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "glycogen-storage",
+                Difficulty = 9,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "The body stores excess glucose as glycogen primarily in:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Bones", "Liver and muscles", "Skin", "Lungs" },
+                    CorrectAnswers = new List<string> { "Liver and muscles" }
+                }
+            },
+
+            // Allergies and Immune Responses
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "allergic-reaction",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "An allergic reaction occurs when:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "You eat too much", "Immune system overreacts to harmless substances", "You exercise too hard", "You don't sleep enough" },
+                    CorrectAnswers = new List<string> { "Immune system overreacts to harmless substances" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "anaphylaxis-emergency",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "Anaphylaxis is a severe allergic reaction that requires:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Waiting it out", "Immediate emergency treatment with epinephrine", "Drinking water only", "Taking vitamins" },
+                    CorrectAnswers = new List<string> { "Immediate emergency treatment with epinephrine" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "autoimmune-basics",
+                Difficulty = 9,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "Autoimmune diseases occur when:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Immune system is too weak", "Immune system attacks the body's own cells", "You catch a virus", "You eat unhealthy food" },
+                    CorrectAnswers = new List<string> { "Immune system attacks the body's own cells" }
+                }
+            },
+
+            // Medication Safety
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "prescription-safety",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Prescription medications should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Be shared with friends", "Only be taken by the person prescribed", "Be taken whenever you want", "Be mixed freely" },
+                    CorrectAnswers = new List<string> { "Only be taken by the person prescribed" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "otc-medication",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Over-the-counter (OTC) medications:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Are completely safe in any amount", "Should still be used according to directions", "Never have side effects", "Can't interact with other drugs" },
+                    CorrectAnswers = new List<string> { "Should still be used according to directions" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "drug-interactions",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "Drug interactions occur when:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "You take one medication", "Multiple medications affect each other's effectiveness or safety", "You take medication with food", "You follow directions" },
+                    CorrectAnswers = new List<string> { "Multiple medications affect each other's effectiveness or safety" }
+                }
+            },
+
+            // Bone and Joint Health
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "osteoporosis-prevention",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "Osteoporosis causes bones to become:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Stronger and denser", "Weak and brittle", "More flexible", "Longer" },
+                    CorrectAnswers = new List<string> { "Weak and brittle" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "joint-health",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Cartilage in joints acts as:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Bone builder", "Cushion to reduce friction", "Blood producer", "Nerve transmitter" },
+                    CorrectAnswers = new List<string> { "Cushion to reduce friction" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "weight-bearing-exercise",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Weight-bearing exercise like walking helps:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Weaken bones", "Strengthen bones and prevent bone loss", "Only build muscle", "Damage joints" },
+                    CorrectAnswers = new List<string> { "Strengthen bones and prevent bone loss" }
+                }
+            },
+
+            // Environmental Health
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "air-quality",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Poor air quality can affect:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Only your hair", "Respiratory and cardiovascular health", "Only your skin", "Nothing important" },
+                    CorrectAnswers = new List<string> { "Respiratory and cardiovascular health" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "secondhand-smoke",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Secondhand smoke is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Completely harmless", "Harmful to those exposed", "Only bad for smokers", "Good for lungs" },
+                    CorrectAnswers = new List<string> { "Harmful to those exposed" }
+                }
+            },
+
+            // Additional Advanced Topics
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "inflammation-chronic",
+                Difficulty = 9,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "Chronic inflammation is linked to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Better health", "Increased risk of heart disease and cancer", "Faster healing", "Stronger immunity" },
+                    CorrectAnswers = new List<string> { "Increased risk of heart disease and cancer" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "probiotic-benefits",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "Probiotics are beneficial bacteria that support:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Bone growth", "Gut health and digestion", "Hair growth", "Vision" },
+                    CorrectAnswers = new List<string> { "Gut health and digestion" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "antioxidants-function",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "Antioxidants help protect cells from:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Growing too fast", "Damage by free radicals", "Absorbing nutrients", "Normal aging" },
+                    CorrectAnswers = new List<string> { "Damage by free radicals" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "insulin-function",
+                Difficulty = 8,
+                TargetTime = 65,
+                Content = new ProblemContent
+                {
+                    Question = "Insulin is a hormone that helps:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Build muscle directly", "Regulate blood sugar levels", "Digest fat", "Produce adrenaline" },
+                    CorrectAnswers = new List<string> { "Regulate blood sugar levels" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "body-composition",
+                Difficulty = 9,
+                TargetTime = 75,
+                Content = new ProblemContent
+                {
+                    Question = "Body composition refers to:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Total weight only", "Proportion of fat, muscle, bone, and water", "How you look", "Clothing size" },
+                    CorrectAnswers = new List<string> { "Proportion of fat, muscle, bone, and water" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "vaccination-schedule",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Following the recommended vaccination schedule helps:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Cause more illness", "Protect against diseases at optimal times", "Weaken immunity", "Harm development" },
+                    CorrectAnswers = new List<string> { "Protect against diseases at optimal times" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "fever-purpose",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "A fever is often a sign that:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Your body is broken", "Your immune system is fighting infection", "You need antibiotics immediately", "You have cancer" },
+                    CorrectAnswers = new List<string> { "Your immune system is fighting infection" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "ergonomics-workspace",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Good ergonomics at a desk means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Slouching comfortably", "Proper alignment to reduce strain", "Standing all day", "Sitting on the floor" },
+                    CorrectAnswers = new List<string> { "Proper alignment to reduce strain" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "portion-control",
+                Difficulty = 5,
+                TargetTime = 45,
+                Content = new ProblemContent
+                {
+                    Question = "Portion control helps with:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Eating less nutrients", "Managing calorie intake and maintaining healthy weight", "Feeling hungry always", "Wasting food" },
+                    CorrectAnswers = new List<string> { "Managing calorie intake and maintaining healthy weight" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "food-allergies-vs-intolerance",
+                Difficulty = 7,
+                TargetTime = 60,
+                Content = new ProblemContent
+                {
+                    Question = "Food allergies differ from intolerances because allergies:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Are less serious", "Involve the immune system and can be life-threatening", "Only cause mild discomfort", "Are psychological" },
+                    CorrectAnswers = new List<string> { "Involve the immune system and can be life-threatening" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.Health,
+                MicroTopic = "meal-timing",
+                Difficulty = 6,
+                TargetTime = 50,
+                Content = new ProblemContent
+                {
+                    Question = "Eating breakfast is beneficial because it:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Causes weight gain", "Jumpstarts metabolism and provides energy", "Is required by law", "Prevents exercise" },
+                    CorrectAnswers = new List<string> { "Jumpstarts metabolism and provides energy" }
+                }
+            }
+        };
+    }
+
+    #endregion
+
+    #region Win Pants Problems - Dale Carnegie's "How to Win Friends and Influence People"
+
+    private static List<Problem> GetWinPantsProblems()
+    {
+        return new List<Problem>
+        {
+            // ===== Fundamental Principles for Dealing With People =====
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-criticism",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: Why should you avoid criticizing people?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "It's inefficient and wastes valuable time", "It puts people on the defensive and destroys goodwill", "It's considered impolite in most cultures", "People will think you're weak" },
+                    CorrectAnswers = new List<string> { "It puts people on the defensive and destroys goodwill" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-appreciation",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: What is a primary human motivator?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Fear of punishment and negative consequences", "Financial rewards and monetary compensation", "Honest and sincere appreciation", "Competition with peers and colleagues" },
+                    CorrectAnswers = new List<string> { "Honest and sincere appreciation" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-wants",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: How should you present ideas to others?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Focus on what you want to achieve", "Frame it in terms of what they care about", "Use pure logic and factual arguments", "Be persistent until they finally agree" },
+                    CorrectAnswers = new List<string> { "Frame it in terms of what they care about" }
+                }
+            },
+
+            // ===== Ways to Make People Like You =====
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-interest",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: What builds trust faster than self-promotion?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Displaying your credentials and experience", "Genuine interest in other people", "Sharing your achievements and success stories", "Being assertive and confident in interactions" },
+                    CorrectAnswers = new List<string> { "Genuine interest in other people" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-smile",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: What simple action lowers barriers instantly?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "A firm and confident handshake", "A smile", "Direct and sustained eye contact", "Genuine compliments about their work" },
+                    CorrectAnswers = new List<string> { "A smile" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-names",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: A person's name is:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "The sweetest sound to them", "Just a label for identification", "Important mainly for business cards", "Difficult to remember correctly" },
+                    CorrectAnswers = new List<string> { "The sweetest sound to them" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-listening",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: What is a key trait of being likeable?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Being an engaging and entertaining storyteller", "Listening well and encouraging others to talk", "Having interesting and provocative opinions", "Being funny and making people laugh often" },
+                    CorrectAnswers = new List<string> { "Listening well and encouraging others to talk" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-their-interests",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: What should you talk about with others?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Your areas of expertise and knowledge", "Current events and breaking news", "The other person's interests", "Your personal problems and challenges" },
+                    CorrectAnswers = new List<string> { "The other person's interests" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-importance",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: How should you make others feel?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Challenged to improve themselves", "Important - sincerely", "Impressed by your achievements", "Grateful for your time and attention" },
+                    CorrectAnswers = new List<string> { "Important - sincerely" }
+                }
+            },
+
+            // ===== How to Win People to Your Way of Thinking =====
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-arguments",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: Why should you avoid arguments?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Winning an argument often means losing the relationship", "They consume too much valuable time", "You might be proven wrong publicly", "They create uncomfortable situations" },
+                    CorrectAnswers = new List<string> { "Winning an argument often means losing the relationship" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-respect-opinions",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: How should you treat others' opinions?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Correct them immediately when they're wrong", "Never tell someone they're wrong outright", "Politely ignore them if they're incorrect", "Engage them in logical debate to convince them" },
+                    CorrectAnswers = new List<string> { "Never tell someone they're wrong outright" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-admit-wrong",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: If you are wrong, you should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Quietly change your position without fanfare", "Admit it quickly and emphatically", "Defend your reasoning to save face", "Wait patiently for others to point it out" },
+                    CorrectAnswers = new List<string> { "Admit it quickly and emphatically" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-friendly-start",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: What determines outcomes more than logic?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Having comprehensive facts and data", "Tone - begin in a friendly way", "Your position of authority and power", "Persistence and unwavering determination" },
+                    CorrectAnswers = new List<string> { "Tone - begin in a friendly way" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-yes-yes",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: How should you start a conversation?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Get the other person saying 'yes, yes' immediately", "State your position clearly and confidently", "Ask challenging and provocative questions", "Present all your evidence upfront" },
+                    CorrectAnswers = new List<string> { "Get the other person saying 'yes, yes' immediately" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-let-talk",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: Why let the other person do most of the talking?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "You learn more by listening", "It's considered polite behavior", "People value their own conclusions", "You conserve energy for later" },
+                    CorrectAnswers = new List<string> { "People value their own conclusions" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-their-idea",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: Why let the other person feel the idea is theirs?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "You avoid responsibility for the outcome", "Ownership creates commitment", "It's a manipulative but effective tactic", "It saves time in the long run" },
+                    CorrectAnswers = new List<string> { "Ownership creates commitment" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-empathy",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: What dissolves resistance?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Better and more logical arguments", "More compelling evidence and facts", "Seeing things from their viewpoint", "Making strategic compromises" },
+                    CorrectAnswers = new List<string> { "Seeing things from their viewpoint" }
+                }
+            },
+
+            // ===== Be a Leader: How to Change People Without Giving Offense =====
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-praise-first",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: When should you give praise and honest appreciation?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "After you've pointed out their mistakes", "Before pointing out mistakes", "Only when it's truly deserved", "Rarely, to make it more special" },
+                    CorrectAnswers = new List<string> { "Before pointing out mistakes" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-indirect-mistakes",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: How should you point out mistakes?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Directly and clearly for maximum impact", "Indirectly to preserve dignity", "In private only, never publicly", "In writing to maintain a record" },
+                    CorrectAnswers = new List<string> { "Indirectly to preserve dignity" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-reputation",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: What happens when you give someone a fine reputation to live up to?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "They feel unnecessary pressure", "People rise to expectations", "They may become arrogant", "It creates resentment over time" },
+                    CorrectAnswers = new List<string> { "People rise to expectations" }
+                }
+            },
+
+            // ===== Summary and Core Principle =====
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-core-principle",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: Influence comes from:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Force, logic, and authority", "Empathy, respect, and making others feel valued", "Being right and proving it conclusively", "Charisma and natural confidence" },
+                    CorrectAnswers = new List<string> { "Empathy, respect, and making others feel valued" }
+                }
+            },
+
+            // ===== The Art of War - Sun Tzu: Strategy and Self-Mastery =====
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-self-knowledge",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'If you know yourself and know your enemy, you need not fear a hundred battles.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Study all available military tactics", "Self and situational awareness equal success", "Fear is a sign of weakness", "Always attack with confidence first" },
+                    CorrectAnswers = new List<string> { "Self and situational awareness equal success" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-preparation",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'Victorious warriors win first and then go to war.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Always strike first for advantage", "Preparation precedes achievement", "Winners are born, not made ever", "War is inevitable in all situations" },
+                    CorrectAnswers = new List<string> { "Preparation precedes achievement" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-planning",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'Every battle is won before it is fought.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Battles are predetermined by fate", "Outcomes depend on planning and positioning", "Victory is purely a matter of luck", "Confidence alone guarantees success" },
+                    CorrectAnswers = new List<string> { "Outcomes depend on planning and positioning" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-leverage",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'The supreme art of war is to subdue the enemy without fighting.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Never confront any problems directly", "Win through leverage, not conflict", "Fighting is always dishonorable", "Surrender strategically when needed" },
+                    CorrectAnswers = new List<string> { "Win through leverage, not conflict" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-timing",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'He will win who knows when to fight and when not to fight.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Avoid all conflict whenever possible", "Timing and restraint beat aggression", "Always be aggressive to dominate", "Fight only when guaranteed to win" },
+                    CorrectAnswers = new List<string> { "Timing and restraint beat aggression" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-chaos",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'In the midst of chaos, there is also opportunity.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Create chaos deliberately for advantage", "Disorder rewards the calm and prepared", "Chaos is always beneficial overall", "Wait patiently for things to settle" },
+                    CorrectAnswers = new List<string> { "Disorder rewards the calm and prepared" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-secrecy",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'Let your plans be dark and impenetrable as night.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Be mysterious about everything", "Don't broadcast intentions", "Work only at night for secrecy", "Keep everything secret always" },
+                    CorrectAnswers = new List<string> { "Don't broadcast intentions" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-perception",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'Appear weak when you are strong, and strong when you are weak.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Be deceptive in all situations", "Control perception strategically", "Fake confidence when uncertain", "Hide weakness with loud bravado" },
+                    CorrectAnswers = new List<string> { "Control perception strategically" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-momentum",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'Opportunities multiply as they are seized.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Take risks constantly without thinking", "Momentum compounds over time", "Opportunities are infinite and endless", "Seize every single opportunity" },
+                    CorrectAnswers = new List<string> { "Momentum compounds over time" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-efficiency",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'The wise warrior avoids the battle.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Never take any unnecessary risks", "Choose efficiency over ego", "Warriors are inherently foolish", "Battles are always bad outcomes" },
+                    CorrectAnswers = new List<string> { "Choose efficiency over ego" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-speed",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'Speed is the essence of war.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Rush everything without hesitation", "Decisive action beats perfect planning", "Fast wins are always better", "Don't think too much, just act" },
+                    CorrectAnswers = new List<string> { "Decisive action beats perfect planning" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-prolonged-conflict",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'No nation has benefited from prolonged warfare.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "War is always morally wrong", "Long struggles destroy value - exit early", "Quick wars are more honorable", "Peace is always the better option" },
+                    CorrectAnswers = new List<string> { "Long struggles destroy value - exit early" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-adaptability",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'One who acts expediently in every situation is not bound by fixed rules.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Rules don't matter in any situation", "Adaptability beats rigid ideology", "Be unpredictable at all times", "Change your principles very often" },
+                    CorrectAnswers = new List<string> { "Adaptability beats rigid ideology" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-energy",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'Energy is like bending a crossbow; decision is releasing the trigger.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Be energetic in all activities", "Store effort, strike once", "Decisions require lots of energy", "Weapons matter most in conflict" },
+                    CorrectAnswers = new List<string> { "Store effort, strike once" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-asymmetry",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'When the enemy is relaxed, make them toil.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Be cruel to your enemies always", "Create asymmetry strategically", "Attack when they are weakest", "Never rest or take any breaks" },
+                    CorrectAnswers = new List<string> { "Create asymmetry strategically" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-focus",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'Great results can be achieved with small forces.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Size doesn't matter in any contest", "Focus beats scale", "Small teams always work better", "Resources are completely overrated" },
+                    CorrectAnswers = new List<string> { "Focus beats scale" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-control",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'The expert moves the enemy, and is not moved by him.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Be immovable in all situations", "Proactive control beats reactive effort", "Don't let others influence you ever", "Control everything in your environment" },
+                    CorrectAnswers = new List<string> { "Proactive control beats reactive effort" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-patience",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'He who is prudent and lies in wait for an enemy who is not, will be victorious.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Always wait for the right moment", "Patience beats urgency", "Ambush your enemies strategically", "Be extremely cautious always" },
+                    CorrectAnswers = new List<string> { "Patience beats urgency" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-subtle-victory",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'To know victory is not easy.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Victory is extremely rare", "Winning is subtle and often boring", "Success is very hard to achieve", "Victory requires exceptional luck" },
+                    CorrectAnswers = new List<string> { "Winning is subtle and often boring" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-strategy",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'Attack the enemy's strategy.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Study all enemy plans carefully", "Change the game, don't play it", "Be unpredictable in your tactics", "Strike first before they can plan" },
+                    CorrectAnswers = new List<string> { "Change the game, don't play it" }
+                }
+            },
+
+            // ===== Additional Dale Carnegie & Sun Tzu Wisdom =====
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-humility",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: What should you do before criticizing others?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Gather evidence to support your claims", "Talk about your own mistakes first", "Consider if it's worth saying at all", "Wait until you're in private" },
+                    CorrectAnswers = new List<string> { "Talk about your own mistakes first" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-deception",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'All warfare is based on deception.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Lying is essential in all situations", "Managing perception is strategic", "Trust no one in any circumstance", "Honesty has no place in success" },
+                    CorrectAnswers = new List<string> { "Managing perception is strategic" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-encouragement",
+                Difficulty = 6,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: When correcting someone, you should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Focus only on what they did wrong", "Make the fault seem easy to correct", "Be thorough about all their mistakes", "Compare them to better performers" },
+                    CorrectAnswers = new List<string> { "Make the fault seem easy to correct" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-leadership",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'Treat your men as your own beloved sons, and they will follow you.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Be overly lenient with your team", "Loyalty requires genuine care", "Family relationships work in business", "Treat everyone like children" },
+                    CorrectAnswers = new List<string> { "Loyalty requires genuine care" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-questions",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: Instead of giving orders, you should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Ask questions and suggest alternatives", "Be indirect and hope they understand", "Use authority to demand compliance", "Explain everything in great detail" },
+                    CorrectAnswers = new List<string> { "Ask questions and suggest alternatives" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-positioning",
+                Difficulty = 6,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'Ground on which we can only be saved from destruction by fighting is desperate ground.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Avoid desperate situations entirely", "Desperation creates fierce commitment", "Fighting is always the last resort", "Save yourself first in any crisis" },
+                    CorrectAnswers = new List<string> { "Desperation creates fierce commitment" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-dignity",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: When someone makes a mistake, you should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Document it thoroughly for records", "Let them save face", "Make an example of them for others", "Publicly correct them immediately" },
+                    CorrectAnswers = new List<string> { "Let them save face" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-weakness",
+                Difficulty = 6,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'Attack where they are unprepared, emerge where they don't expect.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Surprise attacks are always effective", "Find gaps, not strength", "Be unpredictable in all things", "Preparation cannot stop you" },
+                    CorrectAnswers = new List<string> { "Find gaps, not strength" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-cooperation",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: To get cooperation, you should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Throw down a challenge", "Offer financial incentives", "Use authority and hierarchy", "Threaten consequences for failure" },
+                    CorrectAnswers = new List<string> { "Throw down a challenge" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-intelligence",
+                Difficulty = 6,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'What enables the wise commander to strike and conquer is foreknowledge.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Predict the future accurately", "Information is competitive advantage", "Wisdom comes from experience only", "Commanders must be clairvoyant" },
+                    CorrectAnswers = new List<string> { "Information is competitive advantage" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-change-minds",
+                Difficulty = 6,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: To change someone's mind, you should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Present overwhelming evidence and facts", "Appeal to their noble motives", "Explain why they're being irrational", "Use peer pressure and social proof" },
+                    CorrectAnswers = new List<string> { "Appeal to their noble motives" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-unity",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'When the common soldiers are too strong and their officers too weak, the result is insubordination.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Strength must be balanced with authority", "Officers should always be stronger", "Common soldiers should be weakened", "Hierarchy prevents all problems" },
+                    CorrectAnswers = new List<string> { "Strength must be balanced with authority" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-dramatize",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: To get attention for your ideas, you should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Present them in dry, factual formats", "Dramatize your ideas", "Be repetitive until people listen", "Use professional jargon extensively" },
+                    CorrectAnswers = new List<string> { "Dramatize your ideas" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-terrain",
+                Difficulty = 6,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'The clever combatant looks to the effect of combined energy.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Focus on teamwork and synergy", "Physical energy determines outcomes", "Combine multiple tactics always", "Energy should never be wasted" },
+                    CorrectAnswers = new List<string> { "Focus on teamwork and synergy" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-sympathy",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: To handle complaints, you should:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Defend your position immediately", "Be sympathetic to their ideas and desires", "Explain why they're wrong politely", "Redirect to someone else quickly" },
+                    CorrectAnswers = new List<string> { "Be sympathetic to their ideas and desires" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-resources",
+                Difficulty = 6,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'In war, then, let your object be victory, not lengthy campaigns.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Speed always beats careful planning", "Resource efficiency trumps persistence", "Quick wins matter most always", "Long campaigns show dedication" },
+                    CorrectAnswers = new List<string> { "Resource efficiency trumps persistence" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-self-interest",
+                Difficulty = 6,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: Why is understanding self-interest important?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Everyone is naturally selfish and greedy", "You can manipulate people more easily", "It helps you align goals with theirs", "Self-interest is the root of problems" },
+                    CorrectAnswers = new List<string> { "It helps you align goals with theirs" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-discipline",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'Regard your soldiers as your children, and they will follow you anywhere.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Treat everyone like family always", "Care creates unbreakable loyalty", "Be parental and controlling", "Give unlimited second chances" },
+                    CorrectAnswers = new List<string> { "Care creates unbreakable loyalty" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "dale-carnegie-enthusiasm",
+                Difficulty = 5,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Dale Carnegie taught: What trait is contagious and persuasive?",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Enthusiasm", "Skepticism and critical thinking", "Calm professionalism always", "Careful, measured responses" },
+                    CorrectAnswers = new List<string> { "Enthusiasm" }
+                }
+            },
+            new Problem
+            {
+                Domain = Domain.WinPants,
+                MicroTopic = "sun-tzu-victory-conditions",
+                Difficulty = 6,
+                TargetTime = 5,
+                Content = new ProblemContent
+                {
+                    Question = "Sun Tzu taught: 'There are roads which must not be followed, armies which must not be attacked.' This means:",
+                    Format = ProblemFormat.MultipleChoice,
+                    Options = new List<string> { "Some battles aren't worth winning", "Fear prevents wise action always", "Never attack a strong enemy", "Follow unconventional paths only" },
+                    CorrectAnswers = new List<string> { "Some battles aren't worth winning" }
                 }
             }
         };

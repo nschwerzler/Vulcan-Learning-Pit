@@ -347,7 +347,7 @@ public class TopicSchedulerTests
             {
                 UnlockedDomains = new List<Domain> 
                 { 
-                    Domain.Math, Domain.Science, Domain.Reading, Domain.Executive 
+                    Domain.Math, Domain.Science, Domain.Reading, Domain.WinPants 
                 }
             }
         };
@@ -360,10 +360,10 @@ public class TopicSchedulerTests
         await Task.Delay(50);
         await scheduler.RecordDomainUsedAsync(Domain.Reading, cts.Token);
 
-        // Act - switch from Executive (never used), with no weaknesses
-        // Should pick Math (oldest) since Executive is never-used (DateTime.MinValue)
+        // Act - switch from WinPants (never used), with no weaknesses
+        // Should pick Math (oldest) since WinPants is never-used (DateTime.MinValue)
         var result = await scheduler.SelectNextDomainAsync(
-            Domain.Executive,
+            Domain.WinPants,
             profile,
             new List<Domain>(),
             cts.Token);

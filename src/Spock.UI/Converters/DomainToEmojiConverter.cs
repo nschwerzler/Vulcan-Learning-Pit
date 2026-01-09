@@ -20,7 +20,7 @@ public class DomainToEmojiConverter : IValueConverter
                 Domain.Logic => "🧩",
                 Domain.Reading => "📖",
                 Domain.Science => "🔬",
-                Domain.Executive => "🎯",
+                Domain.WinPants => "🤝",
                 Domain.WashingtonHistory => "🏔️",
                 Domain.Bitcoin => "₿",
                 _ => "❓"

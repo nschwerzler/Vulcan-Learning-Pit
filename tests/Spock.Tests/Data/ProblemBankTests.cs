@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Spock.Core.Models;
 using Spock.Data;
@@ -10,11 +11,36 @@ namespace Spock.Tests.Data;
 [TestClass]
 public class ProblemBankTests
 {
+    private static SpockDbContext? _testContext;
+
+    [ClassInitialize]
+    public static async Task ClassInitialize(TestContext context)
+    {
+        // Create in-memory database for testing
+        var options = new DbContextOptionsBuilder<SpockDbContext>()
+            .UseInMemoryDatabase("TestProblemBank")
+            .Options;
+        
+        _testContext = new SpockDbContext(options);
+        
+        // Seed with test data
+        await DatabaseSeeder.SeedDatabaseAsync(_testContext);
+        
+        // Initialize ProblemBank
+        ProblemBank.Initialize(_testContext);
+    }
+
+    [ClassCleanup]
+    public static void ClassCleanup()
+    {
+        _testContext?.Dispose();
+    }
+
     [TestMethod]
     [Timeout(5000)]
-    public void GetAllProblems_ShouldReturnProblems()
+    public async Task GetAllProblems_ShouldReturnProblems()
     {
-        var problems = ProblemBank.GetAllProblems();
+        var problems = await ProblemBank.GetAllProblemsAsync();
         
         Assert.IsNotNull(problems);
         Assert.IsTrue(problems.Count > 0, "Problem bank should contain problems");
@@ -22,9 +48,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void GetAllProblems_ShouldIncludeMinecraftDomain()
+    public async Task GetAllProblems_ShouldIncludeMinecraftDomain()
     {
-        var problems = ProblemBank.GetAllProblems();
+        var problems = await ProblemBank.GetAllProblemsAsync();
         var minecraftProblems = problems.Where(p => p.Domain == Domain.Minecraft).ToList();
         
         Assert.IsTrue(minecraftProblems.Count > 0, "Should have Minecraft problems");
@@ -33,9 +59,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void GetAllProblems_ShouldIncludeHealthDomain()
+    public async Task GetAllProblems_ShouldIncludeHealthDomain()
     {
-        var problems = ProblemBank.GetAllProblems();
+        var problems = await ProblemBank.GetAllProblemsAsync();
         var healthProblems = problems.Where(p => p.Domain == Domain.Health).ToList();
         
         Assert.IsTrue(healthProblems.Count > 0, "Should have Health problems");
@@ -44,9 +70,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void GetProblemsByDomain_Minecraft_ShouldReturnOnlyMinecraftProblems()
+    public async Task GetProblemsByDomain_Minecraft_ShouldReturnOnlyMinecraftProblems()
     {
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Minecraft);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Minecraft);
         
         Assert.IsTrue(problems.Count > 0);
         Assert.IsTrue(problems.All(p => p.Domain == Domain.Minecraft));
@@ -54,9 +80,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void GetProblemsByDomain_Health_ShouldReturnOnlyHealthProblems()
+    public async Task GetProblemsByDomain_Health_ShouldReturnOnlyHealthProblems()
     {
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Health);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Health);
         
         Assert.IsTrue(problems.Count > 0);
         Assert.IsTrue(problems.All(p => p.Domain == Domain.Health));
@@ -64,9 +90,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void MinecraftProblems_ShouldCoverElementaryLevel()
+    public async Task MinecraftProblems_ShouldCoverElementaryLevel()
     {
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Minecraft);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Minecraft);
         var elementaryProblems = problems.Where(p => p.Difficulty >= 1 && p.Difficulty <= 3).ToList();
         
         Assert.IsTrue(elementaryProblems.Count > 0, "Should have elementary-level Minecraft problems");
@@ -74,9 +100,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void MinecraftProblems_ShouldCoverMiddleSchoolLevel()
+    public async Task MinecraftProblems_ShouldCoverMiddleSchoolLevel()
     {
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Minecraft);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Minecraft);
         var middleSchoolProblems = problems.Where(p => p.Difficulty >= 4 && p.Difficulty <= 7).ToList();
         
         Assert.IsTrue(middleSchoolProblems.Count > 0, "Should have middle school-level Minecraft problems");
@@ -84,9 +110,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void MinecraftProblems_ShouldCoverHighSchoolLevel()
+    public async Task MinecraftProblems_ShouldCoverHighSchoolLevel()
     {
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Minecraft);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Minecraft);
         var highSchoolProblems = problems.Where(p => p.Difficulty >= 8 && p.Difficulty <= 10).ToList();
         
         Assert.IsTrue(highSchoolProblems.Count > 0, "Should have high school-level Minecraft problems");
@@ -94,9 +120,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void HealthProblems_ShouldCoverElementaryLevel()
+    public async Task HealthProblems_ShouldCoverElementaryLevel()
     {
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Health);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Health);
         var elementaryProblems = problems.Where(p => p.Difficulty >= 1 && p.Difficulty <= 3).ToList();
         
         Assert.IsTrue(elementaryProblems.Count > 0, "Should have elementary-level Health problems");
@@ -104,9 +130,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void HealthProblems_ShouldCoverMiddleSchoolLevel()
+    public async Task HealthProblems_ShouldCoverMiddleSchoolLevel()
     {
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Health);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Health);
         var middleSchoolProblems = problems.Where(p => p.Difficulty >= 4 && p.Difficulty <= 7).ToList();
         
         Assert.IsTrue(middleSchoolProblems.Count > 0, "Should have middle school-level Health problems");
@@ -114,9 +140,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void HealthProblems_ShouldCoverHighSchoolLevel()
+    public async Task HealthProblems_ShouldCoverHighSchoolLevel()
     {
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Health);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Health);
         var highSchoolProblems = problems.Where(p => p.Difficulty >= 8 && p.Difficulty <= 10).ToList();
         
         Assert.IsTrue(highSchoolProblems.Count > 0, "Should have high school-level Health problems");
@@ -124,9 +150,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void MinecraftProblems_ShouldHaveValidContent()
+    public async Task MinecraftProblems_ShouldHaveValidContent()
     {
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Minecraft);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Minecraft);
         
         foreach (var problem in problems)
         {
@@ -140,9 +166,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void HealthProblems_ShouldHaveValidContent()
+    public async Task HealthProblems_ShouldHaveValidContent()
     {
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Health);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Health);
         
         foreach (var problem in problems)
         {
@@ -156,9 +182,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void MinecraftProblems_ShouldCoverBasicMechanics()
+    public async Task MinecraftProblems_ShouldCoverBasicMechanics()
     {
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Minecraft);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Minecraft);
         var basicMechanics = problems.Where(p => 
             p.MicroTopic.Contains("block") || 
             p.MicroTopic.Contains("crafting") || 
@@ -169,9 +195,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void MinecraftProblems_ShouldCoverRedstoneLogic()
+    public async Task MinecraftProblems_ShouldCoverRedstoneLogic()
     {
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Minecraft);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Minecraft);
         var redstoneProblems = problems.Where(p => p.MicroTopic.Contains("redstone")).ToList();
         
         Assert.IsTrue(redstoneProblems.Count > 0, "Should have redstone logic problems for cross-domain integration");
@@ -179,9 +205,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void HealthProblems_ShouldCoverNutrition()
+    public async Task HealthProblems_ShouldCoverNutrition()
     {
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Health);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Health);
         var nutritionProblems = problems.Where(p => p.MicroTopic.Contains("nutrition")).ToList();
         
         Assert.IsTrue(nutritionProblems.Count > 0, "Should have nutrition problems");
@@ -189,9 +215,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void HealthProblems_ShouldCoverMentalHealth()
+    public async Task HealthProblems_ShouldCoverMentalHealth()
     {
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Health);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Health);
         var mentalHealthProblems = problems.Where(p => p.MicroTopic.Contains("mental")).ToList();
         
         Assert.IsTrue(mentalHealthProblems.Count > 0, "Should have mental health awareness problems");
@@ -199,9 +225,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void AllDomains_ShouldBeRepresented()
+    public async Task AllDomains_ShouldBeRepresented()
     {
-        var problems = ProblemBank.GetAllProblems();
+        var problems = await ProblemBank.GetAllProblemsAsync();
         var domains = problems.Select(p => p.Domain).Distinct().ToList();
         
         Assert.IsTrue(domains.Contains(Domain.Math), "Should have Math problems");
@@ -216,10 +242,10 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void GetProblemsByDifficulty_ShouldFilterCorrectly()
+    public async Task GetProblemsByDifficulty_ShouldFilterCorrectly()
     {
-        var easyProblems = ProblemBank.GetProblemsByDifficulty(1, 3);
-        var hardProblems = ProblemBank.GetProblemsByDifficulty(8, 10);
+        var easyProblems = await ProblemBank.GetProblemsByDifficultyAsync(1, 3);
+        var hardProblems = await ProblemBank.GetProblemsByDifficultyAsync(8, 10);
         
         Assert.IsTrue(easyProblems.All(p => p.Difficulty >= 1 && p.Difficulty <= 3));
         Assert.IsTrue(hardProblems.All(p => p.Difficulty >= 8 && p.Difficulty <= 10));
@@ -229,10 +255,10 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void MinecraftProblems_ShouldSupportCrossDomainIntegration()
+    public async Task MinecraftProblems_ShouldSupportCrossDomainIntegration()
     {
         // Per plan: Minecraft can disguise math, logic, reading, and science
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Minecraft);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Minecraft);
         
         // Check for problems that could integrate with other domains
         var mathIntegration = problems.Any(p => 
@@ -250,10 +276,10 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void HealthProblems_ShouldBeEvidenceBased()
+    public async Task HealthProblems_ShouldBeEvidenceBased()
     {
         // Per plan: All health content backed by CDC, WHO, and pediatric guidelines
-        var problems = ProblemBank.GetProblemsByDomain(Domain.Health);
+        var problems = await ProblemBank.GetProblemsByDomainAsync(Domain.Health);
         
         // Verify content includes evidence-based topics
         var evidenceBasedTopics = problems.Where(p => 
@@ -268,9 +294,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void AllMathProblems_ShouldHaveComprehensiveGuidance()
+    public async Task AllMathProblems_ShouldHaveComprehensiveGuidance()
     {
-        var mathProblems = ProblemBank.GetProblemsByDomain(Domain.Math);
+        var mathProblems = await ProblemBank.GetProblemsByDomainAsync(Domain.Math);
 
         Assert.IsTrue(mathProblems.Count > 0, "Should have math problems");
 
@@ -297,9 +323,9 @@ public class ProblemBankTests
 
     [TestMethod]
     [Timeout(5000)]
-    public void MathProblems_MultiplicationTwoDigit_ShouldHaveStepByStepWork()
+    public async Task MathProblems_MultiplicationTwoDigit_ShouldHaveStepByStepWork()
     {
-        var mathProblems = ProblemBank.GetProblemsByDomain(Domain.Math);
+        var mathProblems = await ProblemBank.GetProblemsByDomainAsync(Domain.Math);
         var multiplicationProblems = mathProblems
             .Where(p => p.MicroTopic == "multiplication-two-digit" || p.MicroTopic == "multiplication-three-digit")
             .ToList();

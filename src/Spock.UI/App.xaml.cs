@@ -3,6 +3,8 @@ using System.Data;
 using System.IO;
 using System.Windows;
 using System.Windows.Threading;
+using Microsoft.EntityFrameworkCore;
+using Spock.Data;
 using Spock.Engine;
 
 namespace Spock.UI;
@@ -14,9 +16,11 @@ public partial class App : Application
 {
     private DebugServer? _debugServer;
     private static string _logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "spock-debug.log");
+    private static SpockDbContext? _dbContext;
 
     // Public property so MainWindow can access it
     public static DebugServer? DebugServerInstance { get; private set; }
+    public static SpockDbContext? DbContext => _dbContext;
 
     public static void Log(string message)
     {
@@ -40,6 +44,37 @@ public partial class App : Application
         Log($"Log file: {_logFilePath}");
         
         base.OnStartup(e);
+
+        // Initialize database
+        try
+        {
+            Log("Initializing SQLite database...");
+            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "spock.db");
+            var optionsBuilder = new DbContextOptionsBuilder<SpockDbContext>();
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
+            
+            _dbContext = new SpockDbContext(optionsBuilder.Options);
+            
+            // Seed database if needed
+            await DatabaseSeeder.SeedDatabaseAsync(_dbContext);
+            
+            // Initialize ProblemBank with the context
+            ProblemBank.Initialize(_dbContext);
+            
+            Log($"Database initialized at {dbPath}");
+        }
+        catch (Exception ex)
+        {
+            Log($"FATAL: Failed to initialize database: {ex.Message}");
+            Log($"StackTrace: {ex.StackTrace}");
+            MessageBox.Show(
+                $"Failed to initialize database:\n\n{ex.Message}\n\nApplication will now exit.",
+                "Database Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+            Shutdown(1);
+            return;
+        }
 
 #if DEBUG
         // Start debug server in debug builds only
@@ -66,6 +101,10 @@ public partial class App : Application
     protected override async void OnExit(ExitEventArgs e)
     {
         Log("========== APPLICATION EXITING ==========");
+        
+        // Dispose database context
+        _dbContext?.Dispose();
+        
 #if DEBUG
         if (_debugServer != null)
         {

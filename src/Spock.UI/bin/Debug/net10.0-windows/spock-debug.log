@@ -188,3 +188,28 @@
    at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
    at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
 [2026-01-07 19:12:51.531] ========== APPLICATION EXITING ==========
+[2026-01-08 00:15:35.965] ========== APPLICATION STARTING ==========
+[2026-01-08 00:15:35.970] Log file: C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net10.0-windows\spock-debug.log
+[2026-01-08 00:16:21.084] ========== APPLICATION EXITING ==========
+[2026-01-08 00:18:50.858] ========== APPLICATION STARTING ==========
+[2026-01-08 00:18:50.863] Log file: C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net10.0-windows\spock-debug.log
+[2026-01-08 00:19:10.507] ========== APPLICATION EXITING ==========
+[2026-01-08 00:25:29.038] ========== APPLICATION STARTING ==========
+[2026-01-08 00:25:29.044] Log file: C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net10.0-windows\spock-debug.log
+[2026-01-08 00:25:55.980] ========== APPLICATION EXITING ==========
+[2026-01-08 00:28:33.712] ========== APPLICATION STARTING ==========
+[2026-01-08 00:28:33.718] Log file: C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net10.0-windows\spock-debug.log
+[2026-01-08 00:33:29.757] ========== APPLICATION STARTING ==========
+[2026-01-08 00:33:29.762] Log file: C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net10.0-windows\spock-debug.log
+[2026-01-08 00:42:24.215] ========== APPLICATION STARTING ==========
+[2026-01-08 00:42:24.221] Log file: C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net10.0-windows\spock-debug.log
+[2026-01-08 00:52:02.966] ========== APPLICATION STARTING ==========
+[2026-01-08 00:52:02.971] Log file: C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net10.0-windows\spock-debug.log
+[2026-01-08 00:54:17.519] ========== APPLICATION EXITING ==========
+[2026-01-08 08:19:06.247] ========== APPLICATION STARTING ==========
+[2026-01-08 08:19:06.253] Log file: C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net10.0-windows\spock-debug.log
+[2026-01-08 08:52:42.575] ========== APPLICATION STARTING ==========
+[2026-01-08 08:52:42.581] Log file: C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net10.0-windows\spock-debug.log
+[2026-01-08 08:52:53.566] ========== APPLICATION EXITING ==========
+[2026-01-08 17:19:05.258] ========== APPLICATION STARTING ==========
+[2026-01-08 17:19:05.264] Log file: C:\Users\nschw\OneDrive\Documents\GitHub\Spock\src\Spock.UI\bin\Debug\net10.0-windows\spock-debug.log

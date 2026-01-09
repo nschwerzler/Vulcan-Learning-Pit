@@ -19,8 +19,8 @@ public class MainViewModel : INotifyPropertyChanged
     private readonly DebugServer? _debugServer;
     private int _randomSeedCounter = 0; // Counter for additional entropy
     
-    // Comprehensive problem bank - 150+ problems across all domains
-    private readonly List<Problem> _problemBank;
+    // Comprehensive problem bank - loaded from database
+    private List<Problem> _problemBank;
     private int _currentProblemIndex = -1; // Start at -1 so first LoadNextProblem goes to 0
     private Problem? _currentProblem;
     private string? _lastProblemId = null; // Track last problem to prevent immediate repeats
@@ -57,8 +57,8 @@ public class MainViewModel : INotifyPropertyChanged
         int seed = unchecked((int)((DateTime.Now.Ticks & 0xFFFFFFFF) ^ (Environment.ProcessId << 16)));
         _random = new Random(seed);
         
-        // Load comprehensive problem bank from ProblemBank class
-        _problemBank = ProblemBank.GetAllProblems();
+        // Problem bank will be loaded asynchronously
+        _problemBank = new List<Problem>();
         
         // Commands
         SubmitCommand = new RelayCommand(
@@ -67,12 +67,29 @@ public class MainViewModel : INotifyPropertyChanged
         NextProblemCommand = new RelayCommand(LoadNextProblem, () => _isAnswerSubmitted);
         SelectOptionCommand = new RelayCommand<string>(SelectOption, option => !IsAnswerSubmitted);
         
-        // Initial filter and load first problem
-        FilterAndShuffleProblems();
-        LoadNextProblem();
-        
-        // Update debug state
-        UpdateDebugState();
+        // Load problems asynchronously and then start
+        _ = InitializeAsync();
+    }
+
+    private async Task InitializeAsync()
+    {
+        try
+        {
+            // Load comprehensive problem bank from database
+            _problemBank = await ProblemBank.GetAllProblemsAsync();
+            
+            // Initial filter and load first problem
+            FilterAndShuffleProblems();
+            LoadNextProblem();
+            
+            // Update debug state
+            UpdateDebugState();
+        }
+        catch (Exception ex)
+        {
+            SpockMessage = $"Error loading problems: {ex.Message}";
+            System.Diagnostics.Debug.WriteLine($"Failed to initialize: {ex}");
+        }
     }
 
     public string CurrentQuestion
@@ -228,7 +245,7 @@ public class MainViewModel : INotifyPropertyChanged
         "Logic",
         "Reading",
         "Science",
-        "Executive Skills",
+        "Win Pants",
         "Washington History",
         "Bitcoin",
         "Minecraft",
@@ -501,7 +518,7 @@ public class MainViewModel : INotifyPropertyChanged
                 "Logic" => Domain.Logic,
                 "Reading" => Domain.Reading,
                 "Science" => Domain.Science,
-                "Executive Skills" => Domain.Executive,
+                "Win Pants" => Domain.WinPants,
                 "Washington History" => Domain.WashingtonHistory,
                 "Bitcoin" => Domain.Bitcoin,
                 "Minecraft" => Domain.Minecraft,
