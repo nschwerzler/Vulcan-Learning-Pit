@@ -692,7 +692,8 @@ new Problem {
 - ✅ Logic: 50+ problems (propositional, syllogisms)
 - ✅ Reading: 20+ comprehension passages
 - ✅ Science: 30+ questions (physics, biology, chemistry)
-- 🚧 WinPants, Washington History, Bitcoin, Minecraft, Health (planned)
+- ✅ WinPants: 45 questions (Carnegie, Sun Tzu, Klemmer, Phelps - influence, strategy, excellence)
+- ✅ Washington History, Bitcoin, Minecraft, Health
 - 📋 College-level advanced content (calculus, discrete math, etc.)
 
 ### Custom Approval Strategies

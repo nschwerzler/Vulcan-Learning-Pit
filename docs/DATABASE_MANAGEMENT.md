@@ -52,16 +52,16 @@ Console.WriteLine(stats);
 
 Example output:
 ```
-Total Problems: 652
+Total Problems: 677
 Problems by Domain:
   Math: 120
   Logic: 80
   Reading: 70
   Science: 90
-  WinPants: 60
-  WashingtonHistory: 50
+  WinPants: 45 (Carnegie, Sun Tzu, Klemmer, Phelps: influence, strategy, achievement, excellence)
+  WashingtonHistory: 70
   Bitcoin: 82
-  Minecraft: 50
+  Minecraft: 70
   Health: 50
 ```
 

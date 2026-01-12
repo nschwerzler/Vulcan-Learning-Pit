@@ -6,8 +6,8 @@ namespace Spock.Data;
 /// <summary>
 /// Comprehensive problem bank for adaptive learning across domains.
 /// Problems are stored in SQLite database - database is the source of truth.
-/// Total: 652+ problems covering Grade 1 through College level.
-/// Includes: Math, Logic, Reading, Science, Win Pants (Dale Carnegie + Sun Tzu), 
+/// Total: 677+ problems covering Grade 1 through College level.
+/// Includes: Math, Logic, Reading, Science, Win Pants (Carnegie, Sun Tzu, Klemmer, Phelps - influence, strategy, excellence), 
 /// Washington History, Bitcoin (including Mises principles), Minecraft, and Health.
 /// </summary>
 public static class ProblemBank
